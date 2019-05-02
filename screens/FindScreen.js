@@ -2,8 +2,7 @@
 
 import React, { Component } from 'react';
 import FindCard from '../components/FindCard.js';
-
-import { Container, Header, Content, Form, Item, Input, Text, Button } from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Text, Button, View } from 'native-base';
 
 export default class FindScreen extends Component {
     render() {
@@ -26,8 +25,6 @@ export default class FindScreen extends Component {
                 image: "https://bell-environmental.com/wp-content/uploads/2012/05/freesofa-forpickup1.jpg"
             }
         ];
-
-
 
         return (
             <Container>

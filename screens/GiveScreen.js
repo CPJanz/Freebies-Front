@@ -4,10 +4,14 @@ import React from 'react';
 
 import GiveCard from '../components/GiveCard';
 
-import { Container, Header, Content, Form, Item, Input, Text, Button } from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Text, Button, Card, CardItem, Body, Textarea} from 'native-base';
+
 
 export default class GiveScreen extends React.Component {
     render() {
+
+        
+
 
         // sampleData for give item card content
         // TODO: plug into backend 
@@ -22,12 +26,39 @@ export default class GiveScreen extends React.Component {
 
         return (
             <Container>
+    {/* button to open form to post an item */}
                 <Content>
                     <Button style={{ margin: 50 }}>
                         <Text>
                             New Post
                         </Text>
                     </Button>
+
+
+{/*  placeholder for add new item/POST code */}
+        {/* TODO: move to the right place */}
+        <Container>
+            <Content>
+        <Card>
+        <CardItem header>
+          <Text>Post an Item</Text>
+        </CardItem>
+        <CardItem>
+          <Body>
+          <Form>
+            <Textarea rowSpan={5} bordered placeholder="Optional item description" />
+          </Form>
+          </Body>
+        </CardItem>
+        <CardItem footer>
+          <Text>ADD Cloudinary Widget</Text>
+        </CardItem>
+        {/* button to submit posting */}
+        <Button primary><Text> Post </Text></Button>
+     </Card>
+     </Content>
+     </Container>
+
 
                     {sampleData.map((data, i) => {
                         return (<GiveCard key={i} textBody={data.textBody} numberOfStars={data.numberOfStars} image={data.image} />)
@@ -38,3 +69,5 @@ export default class GiveScreen extends React.Component {
         );
     }
 }
+
+

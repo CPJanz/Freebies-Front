@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import { Image } from "react-native";
+import  Map  from "./Map";
 
 import {
   Container,
@@ -28,9 +29,7 @@ export default class FindCard extends Component {
             <Icon name="logo-github" />
             <Text>{this.props.distance}</Text>
           </Button>
-          <Button >
-            <Icon name="map"/>
-          </Button>
+          <Map></Map>
         </CardItem>
         <CardItem>
           <Body>

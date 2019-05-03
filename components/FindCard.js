@@ -13,17 +13,23 @@ import {
   Text,
   Button,
   Icon,
-  Body
+  Body,
+  Right,
+  View
 } from "native-base";
 
 export default class FindCard extends Component {
   render() {
     return (
+      <View style={{ flex: 1 }}>
       <Card style={{ marginTop: 5 }}>
         <CardItem>
           <Button transparent textStyle={{ color: "#87838B" }}>
             <Icon name="logo-github" />
             <Text>{this.props.distance}</Text>
+          </Button>
+          <Button >
+            <Icon name="map"/>
           </Button>
         </CardItem>
         <CardItem>
@@ -36,6 +42,7 @@ export default class FindCard extends Component {
           </Body>
         </CardItem>
       </Card>
+      </View>
     );
   }
 }

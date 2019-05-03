@@ -29,7 +29,6 @@ export default class FindScreen extends Component {
         return (
             <Container>
                 <Content>
-
                     {sampleData.map((data, i) => {
                         return (<FindCard key={i} textBody={data.textBody} numberOfStars={data.numberOfStars} image={data.image} />)
                     })}

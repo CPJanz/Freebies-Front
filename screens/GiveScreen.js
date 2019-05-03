@@ -6,8 +6,21 @@ import GiveCard from '../components/GiveCard';
 
 import { Container, Header, Content, Form, Item, Input, Text, Button, Card, CardItem, Body, Textarea} from 'native-base';
 
+import * as firebase from 'firebase';
 
 export default class GiveScreen extends React.Component {
+
+    chooseImage = () => {
+        this.uploadImage("https://picsum.photos/id/237/200/300");
+    }
+
+    uploadImage = async(uri) => {
+        const response = await fetch(uri);
+        const blob = await response.blob();
+        var ref = firebase.storage().ref().child("my-image");
+        return ref.put(blob);
+      }
+
     render() {
 
         
@@ -51,9 +64,10 @@ export default class GiveScreen extends React.Component {
           </Body>
         </CardItem>
         <CardItem footer>
-          <Text>ADD Cloudinary Widget</Text>
+          
         </CardItem>
         {/* button to submit posting */}
+        <Button onPress={this.chooseImage}><Text>Upload Image</Text></Button>
         <Button primary><Text> Post </Text></Button>
      </Card>
      </Content>

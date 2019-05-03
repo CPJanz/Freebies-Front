@@ -29,7 +29,10 @@ export default class FindCard extends Component {
             <Icon name="logo-github" />
             <Text>{this.props.distance}</Text>
           </Button>
-          <Map></Map>
+          <Map 
+          location = 
+          {this.props.location}>
+          </Map>
         </CardItem>
         <CardItem>
           <Body>

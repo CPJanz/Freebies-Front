@@ -29,7 +29,7 @@ export default class FindCard extends Component {
         <CardItem>
           <Body>
             <Image
-              source={{ uri: this.props.image }}
+              source={{ uri: this.props.images[0] }}
               style={{ height: 200, width: 300, flex: 1 }}
             />
             <Text>{this.props.textBody}</Text>

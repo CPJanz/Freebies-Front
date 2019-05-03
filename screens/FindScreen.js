@@ -18,12 +18,19 @@ const haversine = require("haversine-js");
 
 export default class FindScreen extends Component {
   state = {
-    nearbyItems: [],
+    nearbyItems: null,
     location: null
   };
   //Takes in an itemLocation (format: {latitude: 42, longitude: -112}) and compares it to the passed prop location (of the same format).
-  calculateDistance = itemLocation =>
-    haversine(itemLocation, this.state.location);
+  calculateDistance = itemLocation => {
+    const unformatted = haversine(itemLocation, this.state.location);
+    if (unformatted > 0.1) {
+      return unformatted.toPrecision(2) + "Mi.";
+    } else {
+      return "Close!";
+      // return unformatted.toPrecision(2);
+    }
+  };
 
   componentDidMount() {
     //Grab current client position then use that to query the database for nearby items, finally set the state with the nearbyItems and location.
@@ -37,44 +44,38 @@ export default class FindScreen extends Component {
   }
 
   render() {
-    // sampleData for find item card content
-    // TODO: plug into backend
-    var sampleData = [
-      {
-        textBody: "This is the optional item description",
-        numberOfStars: 1000,
-        image:
-          "https://bell-environmental.com/wp-content/uploads/2012/05/freesofa-forpickup1.jpg"
-      },
-      {
-        textBody: "This is the optional item description",
-        numberOfStars: 1000,
-        image:
-          "https://bell-environmental.com/wp-content/uploads/2012/05/freesofa-forpickup1.jpg"
-      },
-      {
-        textBody: "This is the optional item description",
-        numberOfStars: 1000,
-        image:
-          "https://bell-environmental.com/wp-content/uploads/2012/05/freesofa-forpickup1.jpg"
-      }
-    ];
-
     return (
-      <Container>
-        <Content>
-          {this.state.nearbyItems.map((data, i) => {
-            return (
-              <FindCard
-                key={i}
-                textBody={data.description}
-                distance={this.calculateDistance(data.location)}
-                image={data.image}
-              />
-            );
-          })}
-        </Content>
-      </Container>
+      //This is a check to ensure that we have gotten a call back from the db
+      !this.state.nearbyItems ? (
+        // Haven't gotten a response yet.
+        <Text>{"loading"}</Text>
+      ) : this.state.nearbyItems.length === 0 ? (
+        // Got a response back but don't have any nearby items.
+        <Text>{"No Results"}</Text>
+      ) : (
+        // Got a response back and have nearby items.
+        <Container>
+          {/* DEBUG ELEMENT REMOVE BEFORE MDP */}
+          <Text>
+            {"Lat: " +
+              this.state.location.latitude.toPrecision(8) +
+              " Long: " +
+              this.state.location.longitude.toPrecision(8)}
+          </Text>
+          <Content>
+            {this.state.nearbyItems.map((data, i) => {
+              return (
+                <FindCard
+                  key={i}
+                  textBody={data.description}
+                  distance={this.calculateDistance(data.location)}
+                  images={data.images}
+                />
+              );
+            })}
+          </Content>
+        </Container>
+      )
     );
   }
 }

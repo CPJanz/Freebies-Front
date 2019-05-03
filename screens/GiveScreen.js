@@ -7,6 +7,9 @@ import GiveCard from '../components/GiveCard';
 import { Container, Header, Content, Form, Item, Input, Text, Button, Card, CardItem, Body, Textarea} from 'native-base';
 
 import * as firebase from 'firebase';
+// imports expo camera
+import { Camera } from 'expo';
+
 
 export default class GiveScreen extends React.Component {
 

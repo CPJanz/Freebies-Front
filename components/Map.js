@@ -4,7 +4,7 @@ import openMap from 'react-native-open-maps';
 
 export default class Map extends Component {
   _goToMaps = () => {
-    openMap(this.props.location);
+    openMap({...this.props.location, query: "Find Me Here!"});
   }
   
   render() {

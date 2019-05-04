@@ -1,16 +1,28 @@
 //this code creates the GIVE page
 
-import React from 'react';
-
+import React, { Component } from 'react';
 import GiveCard from '../components/GiveCard';
-
 import { Container, Header, Content, Form, Item, Input, Text, Button, Card, CardItem, Body, Textarea} from 'native-base';
-
 import * as firebase from 'firebase';
+import API from '../utils/API';
 
-export default class GiveScreen extends React.Component {
+export default class GiveScreen extends Component {
+    state = {
+        images = [],
+        userId = null,
+        location = null,
+        description = ""
+    }
 
-    chooseImage = () => {
+    getLocation() {
+        navigator.geolocation.getCurrentPosition(position => {
+            this.setState({
+                location: position.coords
+            });
+        });
+    }
+
+    chooseImage() {
         this.uploadImage("https://picsum.photos/id/237/200/300");
     }
 
@@ -21,11 +33,20 @@ export default class GiveScreen extends React.Component {
         return ref.put(blob);
       }
 
+    newItem() {
+        API.postNewItem({
+            images: this.state.images,
+            giverId: this.state.userId,
+            location: {
+                latitude: this.state.location.latitude,
+                longitude: this.state.location.longitude
+                },
+            description: this.state.description
+        })
+        // can add promise function here, depending on if we want some action taken after an item is added
+    }
+
     render() {
-
-        
-
-
         // sampleData for give item card content
         // TODO: plug into backend 
         var sampleData = [

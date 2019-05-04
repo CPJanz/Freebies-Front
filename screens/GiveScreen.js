@@ -89,7 +89,7 @@ export default class GiveScreen extends Component {
         </CardItem>
         {/* button to submit posting */}
         <Button onPress={this.chooseImage}><Text>Upload Image</Text></Button>
-        <Button primary><Text> Post </Text></Button>
+        <Button primary onPress={this.newItem}><Text> Post </Text></Button>
      </Card>
      </Content>
      </Container>

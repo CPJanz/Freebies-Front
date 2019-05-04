@@ -3,31 +3,86 @@
 import React from 'react';
 
 import GiveCard from '../components/GiveCard';
+import ImagePickerComponent from '../components/Camera';
 
-import { Container, Header, Content, Form, Item, Input, Text, Button, Card, CardItem, Body, Textarea} from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Text, Button, Card, CardItem, Body, Textarea } from 'native-base';
 
+//brings in firebaseDB
 import * as firebase from 'firebase';
+//uuid is used to generate a unique identifier for each image
+import uuid from 'uuid';
 
+//this code renders the Give screen
 export default class GiveScreen extends React.Component {
+    //stores the image URLs from the users camera/image library in an array
+    images = [];
+    state = {
+        description: "",
+      };
 
-    chooseImage = () => {
-        this.uploadImage("https://picsum.photos/id/237/200/300");
+    //uploads the image to firebase
+    uploadImage = async (uri) => {       
+
+        // generates a random image ID for firebase
+        var imageID = uuid.v4() + ".jpg";
+        // fetches the image from local storage  
+        var response = await fetch(uri);
+        // creates a blob (binary image format)
+        var blob = await response.blob();
+        // creates a reference based off of the generated image ID 
+        var ref = firebase.storage().ref().child(imageID);
+        // sends the blob to firebase
+        var snapshot = await ref.put(blob, {contentType : "image/jpeg"});
+        // finalizes the uploaded blob
+        blob.close();
+        // returns the URL of the uploaded image
+        return await snapshot.ref.getDownloadURL();
     }
 
-    uploadImage = async(uri) => {
-        const response = await fetch(uri);
-        const blob = await response.blob();
-        var ref = firebase.storage().ref().child("my-image");
-        return ref.put(blob);
-      }
+    //sets the post item state enabling the display on the post item UI to update
+    state = {
+        post : false,
+        postText : "New Post"
+    };
 
+    // changes the text according to the state (see above)
+    togglePost = () => {
+        this.setState(
+            {
+                post : !this.state.post, 
+                postText : !this.state.post ? "Close Post" : "New Post" 
+            });
+    }
+
+    // TODO: This code can be updated to call to backend for posting to MongoDB
+    postItem = async () => {
+
+        for (var i =0; i < this.images.length; i++)
+        {
+            console.log(this.images[i]);
+            var uploadImageResult =  await this.uploadImage(this.images[i]);
+            // TODO: store the resulting image URL in MongoDB
+            console.log(uploadImageResult);
+        }
+
+        // TODO: store the description in Mongo DB
+        console.log(this.state.description);
+
+        this.togglePost();
+    }
+
+    // updates the description each time the user modifies the description text box
+    handleDiscriptionChange = (event) => {
+        this.state.description = event.nativeEvent.text;
+    }
+
+    // renders the UI to the screen
     render() {
 
-        
-
+        let {post, postText} = this.state;
 
         // sampleData for give item card content
-        // TODO: plug into backend 
+        // TODO: plug into Mongo DB
         var sampleData = [
             {
                 textBody: "This is the optional item description",
@@ -39,41 +94,38 @@ export default class GiveScreen extends React.Component {
 
         return (
             <Container>
-    {/* button to open form to post an item */}
+                {/* button to open form to post an item */}
                 <Content>
-                    <Button style={{ margin: 50 }}>
+                    <Button style={{ margin: 50 }} onPress={this.togglePost}>
                         <Text>
-                            New Post
+                            {postText}
                         </Text>
                     </Button>
 
+                    {/* inserts image picker UI */}
+                    {post &&                                        
+                    <Container>
+                        <Content>
+                            <Card>
+                                <CardItem header>
+                                    <Text>Post an Item</Text>
+                                </CardItem>
+                                <CardItem>
+                                    <Body>
+                                        <ImagePickerComponent images = {this.images} />
+                                        <Textarea rowSpan={5} bordered placeholder="Optional item description" value={this.state.description}  onChange={this.handleDiscriptionChange}  />
+                                    </Body>
+                                </CardItem>
+                                <CardItem footer>
 
-{/*  placeholder for add new item/POST code */}
-        {/* TODO: move to the right place */}
-        <Container>
-            <Content>
-        <Card>
-        <CardItem header>
-          <Text>Post an Item</Text>
-        </CardItem>
-        <CardItem>
-          <Body>
-          <Form>
-            <Textarea rowSpan={5} bordered placeholder="Optional item description" />
-          </Form>
-          </Body>
-        </CardItem>
-        <CardItem footer>
-          
-        </CardItem>
-        {/* button to submit posting */}
-        <Button onPress={this.chooseImage}><Text>Upload Image</Text></Button>
-        <Button primary><Text> Post </Text></Button>
-     </Card>
-     </Content>
-     </Container>
-
-
+                                </CardItem>
+                                <Button onPress={this.postItem} primary><Text> Post </Text></Button>
+                            </Card>
+                        </Content>
+                    </Container>
+                    }
+        
+                    {/* displays sample data on UI */}
                     {sampleData.map((data, i) => {
                         return (<GiveCard key={i} textBody={data.textBody} numberOfStars={data.numberOfStars} image={data.image} />)
                     })}

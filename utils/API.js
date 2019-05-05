@@ -20,6 +20,10 @@ export default {
   createUser: email => {
     const queryString = "https://freebies-api.herokuapp.com/api/user/";
     return axios.post(queryString, { email: email });
+  },
+
+  postNewItem: itemObject => {
+    console.log(itemObject);
   }
   // route for updating item as taken
   // route for reposting an item

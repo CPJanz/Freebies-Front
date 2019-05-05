@@ -17,12 +17,17 @@ export default class GiveScreen extends Component {
     state = {
         
         userId: 123,
-        location: null,
+        latitude: null,
+        longitude: null,
         description: "",
         //sets the post item state enabling the display on the post item UI to update
         post : false,
         postText : "New Post"
       };
+
+    componentDidMount = () => {
+        this.getLocation();
+    }
     
     //uploads the image to firebase
     uploadImage = async (uri) => {
@@ -66,7 +71,8 @@ export default class GiveScreen extends Component {
     getLocation() {
         navigator.geolocation.getCurrentPosition(position => {
             this.setState({
-                location: position.coords
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
             });
         });
     }
@@ -86,14 +92,13 @@ export default class GiveScreen extends Component {
         console.log(this.state.description);
 
         this.togglePost();
-        this.getLocation();
 
         API.postNewItem({
             images: this.images,
             giverId: this.state.userId,
             location: {
-                latitude: this.state.location.latitude,
-                longitude: this.state.location.longitude
+                latitude: this.state.latitude,
+                longitude: this.state.longitude
                 },
             description: this.state.description
         })

@@ -22,9 +22,11 @@ export default {
   },
 
   postNewItem: itemObject => {
+    console.log("new item: ", itemObject);
     const queryString = `https://freebies-api.herokuapp.com/api/item/${itemObject.giverId}`;
     return axios.post(queryString, itemObject);
   },
+  
   // route for updating item as taken
   itemTaken: itemId => {
     const queryString = `https://freebies-api.herokuapp.com/api/item/${itemId}`;

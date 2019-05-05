@@ -9,5 +9,16 @@ export default {
       "&longitude=" +
       location.longitude;
     return axios.get(queryString);
+  },
+
+  //
+  signIn: email => {
+    const queryString = "https://freebies-api.herokuapp.com/api/user/" + email;
+    return axios.get(queryString);
+  },
+
+  createUser: email => {
+    const queryString = "https://freebies-api.herokuapp.com/api/user/";
+    return axios.post(queryString, { email: email });
   }
 };

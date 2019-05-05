@@ -12,7 +12,7 @@ export default class Map extends Component {
       <Button
         color={'#bdc3c7'}
         onPress={this._goToMaps}
-        title="Click To Open Maps 🗺" />
+        title="🗺" />
     );
   }
 }

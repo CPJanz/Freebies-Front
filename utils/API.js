@@ -26,11 +26,10 @@ export default {
     const queryString = `https://freebies-api.herokuapp.com/api/item/${itemObject.giverId}`;
     return axios.post(queryString, itemObject);
   },
-  
   // route for updating item as taken
-  itemTaken: itemId => {
-    const queryString = `https://freebies-api.herokuapp.com/api/item/${itemId}`;
-    return axios.put(queryString);
+  takeItem: (id, available) => {
+    const queryString = "https://freebies-api.herokuapp.com/api/item/" + id;
+    return axios.put(queryString, { available: available });
   },
 
   // route for reposting an item

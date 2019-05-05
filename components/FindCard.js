@@ -18,8 +18,24 @@ import {
   Right,
   View
 } from "native-base";
+import API from "../utils/API";
 
 export default class FindCard extends Component {
+  state = {
+    taken : !this.props.availible
+  }
+
+  handlePress = async () => {
+    var response = await API.takeItem(this.props.id, !this.state.taken);
+
+    if (response.status == 200) {
+      this.setState({taken: response.data.available});
+    }
+    else {
+      console.log(response.data);
+    }
+  } 
+  
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -27,14 +43,20 @@ export default class FindCard extends Component {
         <CardItem>
           <Button transparent textStyle={{ color: "#87838B" }}>
             <Icon name="logo-github" />
-            <Text>{this.props.distance}</Text>
+            <Text>{this.props.distanceInfo.distance}</Text>
           </Button>
+          {this.props.distanceInfo.showTaken === true &&
+          <Button onPress={this.handlePress}>
+          <Text> {this.state.taken ? 'Take It!' : 'Un Take It!'}</Text>
+          </Button>
+          }
           <Map 
           location = 
           {this.props.location}>
           </Map>
         </CardItem>
         <CardItem>
+
           <Body>
             <Image
               source={{ uri: this.props.images[0] }}

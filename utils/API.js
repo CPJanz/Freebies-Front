@@ -24,7 +24,12 @@ export default {
 
   postNewItem: itemObject => {
     console.log(itemObject);
-  }
+  },
+
+  takeItem: (id, available) => {
+    const queryString = "https://freebies-api.herokuapp.com/api/item/" + id;
+    return axios.put(queryString, { available: available });
+  },
   
   //using 'fetch' in FindCard.js for taken items 
  

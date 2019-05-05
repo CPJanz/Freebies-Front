@@ -18,15 +18,22 @@ import {
   Right,
   View
 } from "native-base";
+import API from "../utils/API";
 
 export default class FindCard extends Component {
+  state = {
+    taken : !this.props.availible
+  }
+
   handlePress = async () => {
-    fetch ('https://freebies-api.herokuapp.com/api/item/_id', {
-      method: "PUT",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    var response = await API.takeItem(this.props.id, !this.state.taken);
+
+    if (response.status == 200) {
+      this.setState({taken: response.data.available});
+    }
+    else {
+      console.log(response.data);
+    }
   } 
   
   render() {
@@ -36,11 +43,13 @@ export default class FindCard extends Component {
         <CardItem>
           <Button transparent textStyle={{ color: "#87838B" }}>
             <Icon name="logo-github" />
-            <Text>{this.props.distance}</Text>
+            <Text>{this.props.distanceInfo.distance}</Text>
           </Button>
-          <Button onPress={this.handlePress.bind(this)}>
-            <Text>"take it!"</Text>
+          {this.props.distanceInfo.showTaken === true &&
+          <Button onPress={this.handlePress}>
+          <Text> {this.state.taken ? 'Take It!' : 'Un Take It!'}</Text>
           </Button>
+          }
           <Map 
           location = 
           {this.props.location}>

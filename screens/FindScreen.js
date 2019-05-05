@@ -24,13 +24,21 @@ export default class FindScreen extends Component {
   };
   //Takes in an itemLocation (format: {latitude: 42, longitude: -112}) and compares it to the passed prop location (of the same format).
   calculateDistance = itemLocation => {
-    const unformatted = haversine(itemLocation, this.state.location);
-    if (unformatted > 0.1) {
-      return unformatted.toPrecision(2) + "Mi.";
-    } else {
-      return "Close!";
-      // return unformatted.toPrecision(2);
+    var itemLocationInfo = {
+      distance: "",
+      showTaken: false
     }
+    
+    const distanceToItem = haversine(itemLocation, this.state.location);
+    if (distanceToItem > 0.1) {
+      itemLocationInfo.distance = distanceToItem.toPrecision(2) + "Mi.";
+      itemLocationInfo.showTaken = false;
+    } else {
+      itemLocationInfo.distance =  "Close!";
+      itemLocationInfo.showTaken = true;
+    }
+
+    return itemLocationInfo;
   };
 
   componentDidMount() {
@@ -77,9 +85,11 @@ export default class FindScreen extends Component {
                 <FindCard
                   key={i}
                   textBody={data.description}
-                  distance={this.calculateDistance(data.location)}
+                  distanceInfo={this.calculateDistance(data.location)}
+                  availible={data.availible}
                   images={data.images}
                   location={data.location}
+                  id={data._id}
                 />
               );
               

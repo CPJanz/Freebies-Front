@@ -11,7 +11,6 @@ export default {
     return axios.get(queryString);
   }
   
-
-  //using 'fetch' in FindCard.js 
-  //return axios.put
+  //using 'fetch' in FindCard.js for taken items 
+ 
 };

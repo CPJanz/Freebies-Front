@@ -16,8 +16,11 @@ export default class GiveScreen extends Component {
     //stores the image URLs from the users camera/image library in an array
     images = [];
     state = {
+<<<<<<< HEAD
         
         userId: null,
+=======
+>>>>>>> early work
         latitude: null,
         longitude: null,
         description: "",
@@ -26,9 +29,13 @@ export default class GiveScreen extends Component {
         postText : "New Post"
       };
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
         this.getLocation();
+<<<<<<< HEAD
         this.setUserId();
+=======
+        this.state.userId = await AsyncStorage.getItem('userToken');
+>>>>>>> early work
     }
     
     setUserId = async() => {

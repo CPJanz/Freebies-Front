@@ -1,6 +1,7 @@
 //this code creates the GIVE page
 
 import React, { Component } from 'react';
+import { AsyncStorage } from "react-native";
 import GiveCard from '../components/GiveCard';
 import ImagePickerComponent from '../components/Camera';
 import { Container, Header, Content, Form, Item, Input, Text, Button, Card, CardItem, Body, Textarea } from 'native-base';
@@ -16,7 +17,7 @@ export default class GiveScreen extends Component {
     images = [];
     state = {
         
-        userId: 123,
+        userId: await AsyncStorage.getItem('userToken'),
         latitude: null,
         longitude: null,
         description: "",
@@ -170,5 +171,3 @@ export default class GiveScreen extends Component {
         );
     }
 }
-
-

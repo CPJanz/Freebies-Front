@@ -71,9 +71,12 @@ export default class FindScreen extends Component {
                   distance={this.calculateDistance(data.location)}
                   images={data.images}
                   location = {data.location}
+                  // 
                 />
               );
+              
             })}
+            
           </Content>
         </Container>
       )

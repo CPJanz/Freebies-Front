@@ -20,6 +20,15 @@ import {
 } from "native-base";
 
 export default class FindCard extends Component {
+  handlePress = async () => {
+    fetch ('https://freebies-api.herokuapp.com/api/item/_id', {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  } 
+  
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -29,12 +38,16 @@ export default class FindCard extends Component {
             <Icon name="logo-github" />
             <Text>{this.props.distance}</Text>
           </Button>
+          <Button onPress={this.handlePress.bind(this)}>
+            <Text>"take it!"</Text>
+          </Button>
           <Map 
           location = 
           {this.props.location}>
           </Map>
         </CardItem>
         <CardItem>
+
           <Body>
             <Image
               source={{ uri: this.props.images[0] }}

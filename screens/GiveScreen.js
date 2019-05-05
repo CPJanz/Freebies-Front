@@ -1,24 +1,33 @@
 //this code creates the GIVE page
 
-import React from 'react';
-
+import React, { Component } from 'react';
 import GiveCard from '../components/GiveCard';
 import ImagePickerComponent from '../components/Camera';
-
 import { Container, Header, Content, Form, Item, Input, Text, Button, Card, CardItem, Body, Textarea } from 'native-base';
-
 //brings in firebaseDB
 import * as firebase from 'firebase';
 //uuid is used to generate a unique identifier for each image
 import uuid from 'uuid';
+import API from '../utils/API';
 
 //this code renders the Give screen
-export default class GiveScreen extends React.Component {
+export default class GiveScreen extends Component {
     //stores the image URLs from the users camera/image library in an array
     images = [];
     state = {
+        
+        userId: 123,
+        latitude: null,
+        longitude: null,
         description: "",
+        //sets the post item state enabling the display on the post item UI to update
+        post : false,
+        postText : "New Post"
       };
+
+    componentDidMount = () => {
+        this.getLocation();
+    }
     
     //uploads the image to firebase
     uploadImage = async (uri) => {
@@ -50,12 +59,6 @@ export default class GiveScreen extends React.Component {
         return await snapshot.ref.getDownloadURL();
     }
 
-    //sets the post item state enabling the display on the post item UI to update
-    state = {
-        post : false,
-        postText : "New Post"
-    };
-
     // changes the text according to the state (see above)
     togglePost = () => {
         this.setState(
@@ -63,6 +66,15 @@ export default class GiveScreen extends React.Component {
                 post : !this.state.post, 
                 postText : !this.state.post ? "Close Post" : "New Post" 
             });
+    }
+
+    getLocation() {
+        navigator.geolocation.getCurrentPosition(position => {
+            this.setState({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            });
+        });
     }
 
     // TODO: This code can be updated to call to backend for posting to MongoDB
@@ -80,6 +92,18 @@ export default class GiveScreen extends React.Component {
         console.log(this.state.description);
 
         this.togglePost();
+
+        API.postNewItem({
+            images: this.images,
+            giverId: this.state.userId,
+            location: {
+                latitude: this.state.latitude,
+                longitude: this.state.longitude
+                },
+            description: this.state.description
+        })
+        // can add promise function here, depending on if we want some action taken after an item is added
+    
     }
 
     // updates the description each time the user modifies the description text box

@@ -15,6 +15,7 @@ import {
 } from "native-base";
 import API from "../utils/API";
 const haversine = require("haversine-js");
+import { AsyncStorage } from "react-native";
 
 export default class FindScreen extends Component {
   state = {
@@ -43,6 +44,11 @@ export default class FindScreen extends Component {
     });
   }
 
+  logOut = function() {
+    console.log("clicked");
+    AsyncStorage.setItem("userToken", "");
+  };
+
   render() {
     return (
       //This is a check to ensure that we have gotten a call back from the db
@@ -62,6 +68,9 @@ export default class FindScreen extends Component {
               " Long: " +
               this.state.location.longitude.toPrecision(8)}
           </Text>
+          <Button onPress={this.logOut}>
+            <Text>Log Out</Text>
+          </Button>
           <Content>
             {this.state.nearbyItems.map((data, i) => {
               return (
@@ -70,7 +79,7 @@ export default class FindScreen extends Component {
                   textBody={data.description}
                   distance={this.calculateDistance(data.location)}
                   images={data.images}
-                  location = {data.location}
+                  location={data.location}
                 />
               );
             })}

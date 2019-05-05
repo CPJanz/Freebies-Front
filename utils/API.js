@@ -10,6 +10,18 @@ export default {
       location.longitude;
     return axios.get(queryString);
   },
+
+  //
+  signIn: email => {
+    const queryString = "https://freebies-api.herokuapp.com/api/user/" + email;
+    return axios.get(queryString);
+  },
+
+  createUser: email => {
+    const queryString = "https://freebies-api.herokuapp.com/api/user/";
+    return axios.post(queryString, { email: email });
+  },
+
   postNewItem: itemObject => {
     const queryString = "https://freebies-api.herokuapp.com/api/item";
     return axios.post(queryString, itemObject);

@@ -15,9 +15,13 @@ export default class GiveScreen extends Component {
     //stores the image URLs from the users camera/image library in an array
     images = [];
     state = {
-        userId: null,
+        
+        userId: 123,
         location: null,
-        description: ""
+        description: "",
+        //sets the post item state enabling the display on the post item UI to update
+        post : false,
+        postText : "New Post"
       };
 
     //uploads the image to firebase
@@ -38,12 +42,6 @@ export default class GiveScreen extends Component {
         // returns the URL of the uploaded image
         return await snapshot.ref.getDownloadURL();
     }
-
-    //sets the post item state enabling the display on the post item UI to update
-    state = {
-        post : false,
-        postText : "New Post"
-    };
 
     // changes the text according to the state (see above)
     togglePost = () => {
@@ -77,9 +75,10 @@ export default class GiveScreen extends Component {
         console.log(this.state.description);
 
         this.togglePost();
+        this.getLocation();
 
         API.postNewItem({
-            images: images,
+            images: this.images,
             giverId: this.state.userId,
             location: {
                 latitude: this.state.location.latitude,

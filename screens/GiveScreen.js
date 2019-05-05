@@ -23,20 +23,31 @@ export default class GiveScreen extends Component {
         post : false,
         postText : "New Post"
       };
-
+    
     //uploads the image to firebase
-    uploadImage = async (uri) => {       
+    uploadImage = async (uri) => {
 
         // generates a random image ID for firebase
         var imageID = uuid.v4() + ".jpg";
-        // fetches the image from local storage  
-        var response = await fetch(uri);
         // creates a blob (binary image format)
-        var blob = await response.blob();
+        const blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+            resolve(xhr.response);
+            };
+            xhr.onerror = function(e) {
+            console.log(e);
+            reject(new TypeError('Network request failed'));
+            };
+            xhr.responseType = 'blob';
+            xhr.open('GET', uri, true);
+            xhr.send(null);
+        });
+
         // creates a reference based off of the generated image ID 
         var ref = firebase.storage().ref().child(imageID);
         // sends the blob to firebase
-        var snapshot = await ref.put(blob, {contentType : "image/jpeg"});
+        var snapshot = await ref.put(blob, {contentType : "image/jpg"});
         // finalizes the uploaded blob
         blob.close();
         // returns the URL of the uploaded image

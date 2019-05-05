@@ -10,9 +10,16 @@ export default {
       location.longitude;
     return axios.get(queryString);
   },
-  postNewItem: itemObject => {
-    const queryString = "https://freebies-api.herokuapp.com/api/item";
-    return axios.post(queryString, itemObject);
+
+  //
+  signIn: email => {
+    const queryString = "https://freebies-api.herokuapp.com/api/user/" + email;
+    return axios.get(queryString);
+  },
+
+  createUser: email => {
+    const queryString = "https://freebies-api.herokuapp.com/api/user/";
+    return axios.post(queryString, { email: email });
   }
   // route for updating item as taken
   // route for reposting an item

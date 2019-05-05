@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Image, View } from 'react-native';
 //loads the ImagePicker and FileSystem to be used for selecting and capturing user images
-import { ImagePicker, FileSystem } from 'expo';
+import { ImagePicker } from 'expo';
 //uuid is used to generate a unique identifier for each image
 import uuid from 'uuid';
 
@@ -87,27 +87,20 @@ export default class ImagePickerComponent extends React.Component {
       result = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
         aspect: [4, 3],
-        base64: true,
       });
     }
     else {
       result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,        
         aspect: [4, 3],
-        base64: true,
       });
     }
     
     console.log(result);
 
     //if the user does not cancel, save a local copy of the image and add to image list
-    if (!result.cancelled) {
-
-      // launchCameraAsync sometimes does not store the image locally, using the base64 will guarantee local storage
-      var imagePath = FileSystem.cacheDirectory + uuid.v4() + ".jpg";
-      await FileSystem.writeAsStringAsync(imagePath, result.base64, {encoding: "base64"});
-
-      this.images.push(imagePath);
+    if (!result.cancelled) {     
+      this.images.push(result.uri);
     }
 
     //refreshes the state if images were selected/taken

@@ -10,11 +10,10 @@ export default {
       location.longitude;
     return axios.get(queryString);
   },
-
-  //
+  
   signIn: email => {
-    const queryString = "https://freebies-api.herokuapp.com/api/user/" + email;
-    return axios.get(queryString);
+  const queryString = "https://freebies-api.herokuapp.com/api/user/" + email;
+  return axios.get(queryString);
   },
 
   createUser: email => {
@@ -23,19 +22,25 @@ export default {
   },
 
   postNewItem: itemObject => {
-    console.log(itemObject);
+    console.log("new item: ", itemObject);
+    const queryString = `https://freebies-api.herokuapp.com/api/item/${itemObject.giverId}`;
+    return axios.post(queryString, itemObject);
   },
-
+  // route for updating item as taken
   takeItem: (id, available) => {
     const queryString = "https://freebies-api.herokuapp.com/api/item/" + id;
     return axios.put(queryString, { available: available });
   },
-  
-  //using 'fetch' in FindCard.js for taken items 
- 
-  // route for updating item as taken
+
   // route for reposting an item
-  // route to post a new user
-  // route to get user information
+  itemRepost: itemId => {
+    const queryString = `https://freebies-api.herokuapp.com/api/item/repost/${itemId}`;
+    return axios.put(queryString);
+  },
+
   // route to get a user's posted items
+  findGiven: userId => {
+    const queryString = `https://freebies-api.herokuapp.com/api/item/${userId}`;
+    return axios.get(queryString);
+  }
 };

@@ -20,7 +20,8 @@ import { AsyncStorage } from "react-native";
 export default class FindScreen extends Component {
   state = {
     nearbyItems: null,
-    location: null
+    location: null,
+    userId: null
   };
   //Takes in an itemLocation (format: {latitude: 42, longitude: -112}) and compares it to the passed prop location (of the same format).
   calculateDistance = itemLocation => {
@@ -49,11 +50,16 @@ export default class FindScreen extends Component {
           this.setState({ nearbyItems: items.data, location: position.coords });
         })
         .catch(err => console.log(err));
+      this.asyncGetUser();
     });
   }
 
+  async asyncGetUser() {
+    const result = await AsyncStorage.getItem("userToken");
+    this.setState({ userId: result });
+  }
+
   logOut = function() {
-    console.log("clicked");
     AsyncStorage.setItem("userToken", "");
   };
 
@@ -76,6 +82,7 @@ export default class FindScreen extends Component {
               " Long: " +
               this.state.location.longitude.toPrecision(8)}
           </Text>
+          <Text>Account: {this.state.userId}</Text>
           <Button onPress={this.logOut}>
             <Text>Log Out</Text>
           </Button>

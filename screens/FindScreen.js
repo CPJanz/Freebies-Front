@@ -1,7 +1,7 @@
 //this code creates the FIND page
 
 import React, { Component } from "react";
-import FindCard from "../components/FindCard.js";
+import FindCard from "../components/FindCard";
 import {
   Container,
   Header,

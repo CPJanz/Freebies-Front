@@ -2,7 +2,7 @@
 
 import React, { Component } from "react";
 import { Image } from "react-native";
-import Map from "./Map";
+import Map from "../Map";
 
 import {
   Container,
@@ -18,8 +18,8 @@ import {
   Right,
   View
 } from "native-base";
-import SnapCarousel from "./SnapCarousel/SnapCarousel";
-import API from "../utils/API";
+import SnapCarousel from "../SnapCarousel/SnapCarousel";
+import API from "../../utils/API";
 
 export default class FindCard extends Component {
   state = {

@@ -35,7 +35,7 @@ export default class FindScreen extends Component {
       itemLocationInfo.distance = distanceToItem.toPrecision(2) + "Mi.";
       itemLocationInfo.showTaken = false;
     } else {
-      itemLocationInfo.distance =  "Close!";
+      // itemLocationInfo.distance =  "Close!";
       itemLocationInfo.showTaken = true;
     }
 

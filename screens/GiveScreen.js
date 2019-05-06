@@ -16,7 +16,8 @@ export default class GiveScreen extends Component {
     //stores the image URLs from the users camera/image library in an array
     images = [];
     state = {
-        postedItems: [],
+        active: [],
+        inactive: [],
         userId: null,
         latitude: null,
         longitude: null,
@@ -31,7 +32,6 @@ export default class GiveScreen extends Component {
     componentDidMount = () => {
         this.getLocation();
         this.setUserId();
-        this.getPostedItems();
     }
     
     getLocation() {
@@ -47,14 +47,22 @@ export default class GiveScreen extends Component {
         let id = await AsyncStorage.getItem('userToken');
         this.setState({
             userId: id
-        })
+        });
+        this.getPostedItems(this.state.userId);
     }
 
-    getPostedItems = () => {
-        API.findGiven("5ccf4fd082e8c20017ecf205")
-            .then(res => this.setState({ postedItems: res.data }))
+    getPostedItems = (userId) => {
+        API.findGiven(this.state.userId)
+            .then(res => {
+                let avail = res.data.active;
+                let unAvail = res.data.inactive;
+                this.setState({ 
+                    active: avail,
+                    inactive: unAvail
+                });
+                console.log("IN STATE: ", this.state.active, this.state.inactive);
+            })
             .catch(err => console.log(err));
-        console.log(this.state.postedItems);
     }
 
     //uploads the image to firebase
@@ -136,17 +144,6 @@ export default class GiveScreen extends Component {
 
         let {post, postText} = this.state;
 
-        // sampleData for give item card content
-        // TODO: plug into Mongo DB
-        var sampleData = [
-            {
-                textBody: "This is the optional item description",
-                numberOfStars: 1000,
-                image: "https://blogs.massaudubon.org/yourgreatoutdoors/wp-content/uploads/sites/20/2012/08/FreeLawnmower-small-2.jpg"
-            },
-        ];
-
-
         return (
             <Container>
                 {/* button to open form to post an item */}
@@ -179,11 +176,24 @@ export default class GiveScreen extends Component {
                         </Content>
                     </Container>
                     }
-        
-                    {/* displays sample data on UI */}
-                    {sampleData.map((data, i) => {
-                        return (<GiveCard key={i} textBody={data.textBody} numberOfStars={data.numberOfStars} image={data.image} />)
-                    })}
+
+                    {/* map active array at top */}
+                    {this.state.active.map(data => (
+                            <GiveCard
+                            key={data._id}
+                            image={data.images[0]}
+                            textBody={data.description}
+                            />
+                        ))}
+
+                    {/* map inactive array below */}
+                    {this.state.inactive.map(data => (
+                            <GiveCard
+                            key={data._id}
+                            image={data.images[0]}
+                            textBody={data.description}
+                            />
+                        ))}
 
                 </Content>
             </Container>

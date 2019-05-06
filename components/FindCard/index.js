@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 import { Image } from "react-native";
 import Map from "../Map";
+import ItemImage from "../ItemImage";
 
 import {
   Container,
@@ -20,6 +21,7 @@ import {
 } from "native-base";
 import SnapCarousel from "../SnapCarousel/SnapCarousel";
 import API from "../../utils/API";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default class FindCard extends Component {
   state = {
@@ -54,11 +56,7 @@ export default class FindCard extends Component {
           </CardItem>
           <CardItem>
             <Body>
-              <SnapCarousel images={this.props.images} />
-              {/* <Image
-                source={{ uri: this.props.images[0] }}
-                style={{ height: 200, width: 300, flex: 1 }}
-              /> */}
+              <ItemImage images={this.props.images} />
               <Text>{this.props.textBody}</Text>
             </Body>
           </CardItem>

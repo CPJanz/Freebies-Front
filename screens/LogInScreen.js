@@ -43,20 +43,32 @@ export default class LogInScreen extends React.Component {
 
   signUpAsync = async () => {
     console.log("Clicked!");
-    API.createUser(this.state.email).then(dbResult => {
-      console.log("result", JSON.stringify(dbResult.data));
-      if (dbResult.data !== false) {
-        console.log(dbResult.data._id);
-        AsyncStorage.setItem("userToken", dbResult.data._id);
-        this.props.navigation.navigate("App");
-      } else {
-        console.log("There is an account with that email already");
-        this.setState({
-          errorMessage: "There is an account with that email already"
-        });
-      }
-    });
+    if (this.validateEmail(this.state.email)) {
+      API.createUser(this.state.email).then(dbResult => {
+        console.log("result", JSON.stringify(dbResult.data));
+        if (dbResult.data !== false) {
+          console.log(dbResult.data._id);
+          AsyncStorage.setItem("userToken", dbResult.data._id);
+          this.props.navigation.navigate("App");
+        } else {
+          console.log("There is an account with that email already");
+          this.setState({
+            errorMessage: "There is an account with that email already"
+          });
+        }
+      });
+    } else {
+      console.log("Not a valid email address");
+      this.setState({
+        errorMessage: "Please enter a valid email address"
+      });
+    }
   };
+
+  validateEmail = email => {
+    const pattern = /\S+@\S+\.\S+/;
+    return pattern.test(email);
+  }
 
   render() {
     return (

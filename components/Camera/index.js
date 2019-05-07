@@ -2,8 +2,6 @@ import React from 'react';
 import { Button, Image, View } from 'react-native';
 //loads the ImagePicker and FileSystem to be used for selecting and capturing user images
 import { ImagePicker } from 'expo';
-//uuid is used to generate a unique identifier for each image
-import uuid from 'uuid';
 
 //checks if user has ever given permission on this app to access their camera roll
 async function checkCameraPermission() {

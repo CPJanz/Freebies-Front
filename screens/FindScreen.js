@@ -59,10 +59,6 @@ export default class FindScreen extends Component {
     this.setState({ userId: result });
   }
 
-  logOut = function() {
-    AsyncStorage.setItem("userToken", "");
-  };
-
   render() {
     return (
       //This is a check to ensure that we have gotten a call back from the db
@@ -83,9 +79,6 @@ export default class FindScreen extends Component {
               this.state.location.longitude.toPrecision(8)}
           </Text>
           <Text>Account: {this.state.userId}</Text>
-          <Button onPress={this.logOut}>
-            <Text>Log Out</Text>
-          </Button>
           <Content>
             {this.state.nearbyItems.map((data, i) => {
               return (

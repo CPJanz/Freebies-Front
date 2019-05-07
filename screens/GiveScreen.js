@@ -36,7 +36,7 @@ export default class GiveScreen extends Component {
     longitude: null,
     description: "",
     uploaded: [],
-    message:"",
+    message: "",
     //sets the post item state enabling the display on the post item UI to update
     post: false,
     postText: "New Post"
@@ -148,6 +148,9 @@ export default class GiveScreen extends Component {
         description: this.state.description
       });
       this.togglePost();
+      this.setState({
+        message: ""
+      });
     } else {
       this.setState({
         message: "Your post must include an image"

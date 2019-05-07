@@ -1,27 +1,12 @@
 //this is the find item card component
 
 import React, { Component } from "react";
-import { Image } from "react-native";
 import Map from "../Map";
 import ItemImage from "../ItemImage";
+import DistanceHud from "../DistanceHud";
 
-import {
-  Container,
-  Header,
-  Content,
-  Card,
-  CardItem,
-  Thumbnail,
-  Text,
-  Button,
-  Icon,
-  Body,
-  Right,
-  View
-} from "native-base";
-import SnapCarousel from "../SnapCarousel/SnapCarousel";
+import { Card, CardItem, Text, Body, View } from "native-base";
 import API from "../../utils/API";
-import { ScrollView } from "react-native-gesture-handler";
 
 export default class FindCard extends Component {
   state = {
@@ -43,21 +28,49 @@ export default class FindCard extends Component {
       <View style={{ flex: 1 }}>
         <Card style={{ marginTop: 5 }}>
           <CardItem>
-            <Button transparent textStyle={{ color: "#87838B" }}>
-              <Icon name="logo-github" />
-              <Text>{this.props.distanceInfo.distance}</Text>
-            </Button>
-            {this.props.distanceInfo.showTaken === true && (
-              <Button onPress={this.handlePress}>
-                <Text> {this.state.taken ? "Take It!" : "Un Take It!"}</Text>
-              </Button>
-            )}
-            <Map location={this.props.location} />
-          </CardItem>
-          <CardItem>
             <Body>
               <ItemImage images={this.props.images} />
-              <Text>{this.props.textBody}</Text>
+              <CardItem
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  backgroundColor: "rgba(255,255,255,.5)",
+                  borderRadius: 0,
+                  borderBottomRightRadius: "50%"
+                }}
+              >
+                <DistanceHud
+                  distanceInfo={this.props.distanceInfo}
+                  taken={this.state.taken}
+                  onPress={this.handlePress}
+                />
+              </CardItem>
+              <CardItem
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  backgroundColor: "rgba(255,255,255,.5)",
+                  borderRadius: 0,
+                  borderBottomLeftRadius: "50%"
+                }}
+              >
+                <Map location={this.props.location} />
+              </CardItem>
+              {this.props.textBody ? (
+                <CardItem
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    backgroundColor: "rgba(255,255,255,.5)",
+                    width: "100%"
+                  }}
+                >
+                  <Text>{this.props.textBody}</Text>
+                </CardItem>
+              ) : null}
             </Body>
           </CardItem>
         </Card>

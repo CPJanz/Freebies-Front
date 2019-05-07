@@ -208,7 +208,7 @@ export default class GiveScreen extends Component {
           {this.state.active.map(data => (
             <GiveCard
               key={data._id}
-              images={data.images[0]}
+              images={data.images}
               textBody={data.description}
               topRight={
                 <Text>{data.timeStamp[data.timeStamp.length - 1]}</Text>

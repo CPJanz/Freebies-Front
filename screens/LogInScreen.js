@@ -29,8 +29,8 @@ export default class LogInScreen extends React.Component {
     const thisthing = await AsyncStorage.getItem("userToken");
     console.log("userId:", thisthing);
     API.signIn(this.state.email).then(dbResult => {
-      // console.log("dbresult", JSON.stringify(dbResult));
-      if (dbResult.data.length) {
+      console.log("dbresult", JSON.stringify(dbResult));
+      if (dbResult.data[0]._id) {
         console.log("id", dbResult.data[0]._id);
         AsyncStorage.setItem("userToken", dbResult.data[0]._id);
         this.props.navigation.navigate("App");
@@ -86,8 +86,8 @@ export default class LogInScreen extends React.Component {
                 value={this.state.email}
                 onChangeText={text => this.setState({ email: text })}
               />
-              <Text>{this.state.errorMessage}</Text>
             </Item>
+            <Text>{this.state.errorMessage}</Text>
             {/* <Item last>
                             <Input placeholder="Password" />
                         </Item> */}

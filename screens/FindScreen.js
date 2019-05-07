@@ -28,14 +28,13 @@ export default class FindScreen extends Component {
     var itemLocationInfo = {
       distance: "",
       showTaken: false
-    }
-    
+    };
+
     const distanceToItem = haversine(itemLocation, this.state.location);
     if (distanceToItem > 0.1) {
       itemLocationInfo.distance = distanceToItem.toPrecision(2) + "Mi.";
       itemLocationInfo.showTaken = false;
     } else {
-      // itemLocationInfo.distance =  "Close!";
       itemLocationInfo.showTaken = true;
     }
 
@@ -99,9 +98,7 @@ export default class FindScreen extends Component {
                   id={data._id}
                 />
               );
-              
             })}
-            
           </Content>
         </Container>
       )

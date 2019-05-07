@@ -13,7 +13,6 @@
   "dependencies": {
     "@expo/samples": "2.1.1",
     "axios": "^0.18.0",
-    "cloudinary": "^1.14.0",
     "expo": "^32.0.6",
     "firebase": "^5.11.1",
     "haversine-js": "^1.0.0",
@@ -21,7 +20,6 @@
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-open-maps": "^0.3.3",
-    "react-native-snap-carousel": "^3.7.5",
     "react-navigation": "^3.0.9"
   },
   "devDependencies": {

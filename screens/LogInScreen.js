@@ -16,6 +16,8 @@ import {
   Button
 } from "native-base";
 
+import AppName from "../components/AppName";
+
 export default class LogInScreen extends React.Component {
   state = {
     email: "",
@@ -73,8 +75,8 @@ export default class LogInScreen extends React.Component {
   render() {
     return (
       <Container>
-        <Header />
-        <Content>
+        <AppName />
+        <Content>   
           <Form>
             <Item>
               <Input

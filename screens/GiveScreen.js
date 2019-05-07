@@ -36,6 +36,7 @@ export default class GiveScreen extends Component {
     longitude: null,
     description: "",
     uploaded: [],
+    message:"",
     //sets the post item state enabling the display on the post item UI to update
     post: false,
     postText: "New Post"
@@ -134,17 +135,24 @@ export default class GiveScreen extends Component {
     // TODO: store the description in Mongo DB
     console.log(this.state.description);
 
-    this.togglePost();
+    
 
-    API.postNewItem({
-      images: this.state.uploaded,
-      giverId: this.state.userId,
-      location: {
-        latitude: this.state.latitude,
-        longitude: this.state.longitude
-      },
-      description: this.state.description
-    });
+    if (this.state.uploaded.length > 0) {
+      API.postNewItem({
+        images: this.state.uploaded,
+        giverId: this.state.userId,
+        location: {
+          latitude: this.state.latitude,
+          longitude: this.state.longitude
+        },
+        description: this.state.description
+      });
+      this.togglePost();
+    } else {
+      this.setState({
+        message: "Your post must include an image"
+      });
+    }
   };
 
   // updates the description each time the user modifies the description text box
@@ -163,7 +171,6 @@ export default class GiveScreen extends Component {
           <Button style={{ margin: 50 }} onPress={this.togglePost}>
             <Text>{postText}</Text>
           </Button>
-
           {/* inserts image picker UI */}
           {post && (
             <Container>
@@ -185,6 +192,7 @@ export default class GiveScreen extends Component {
                     </Body>
                   </CardItem>
                   <CardItem footer />
+                  <Text>{this.state.message}</Text>
                   <Button onPress={this.postItem} primary>
                     <Text> Post </Text>
                   </Button>
@@ -197,7 +205,7 @@ export default class GiveScreen extends Component {
           {this.state.active.map(data => (
             <GiveCard
               key={data._id}
-              images={data.images}
+              images={data.images[0]}
               textBody={data.description}
             />
           ))}

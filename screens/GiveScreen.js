@@ -157,7 +157,7 @@ export default class GiveScreen extends Component {
 
   // updates the description each time the user modifies the description text box
   handleDiscriptionChange = event => {
-    this.setState({description : event.nativeEvent.text});
+    this.setState({ description: event.nativeEvent.text });
   };
 
   // renders the UI to the screen
@@ -200,22 +200,26 @@ export default class GiveScreen extends Component {
               </Content>
             </Container>
           )}
-
+          <Text>Active Posts</Text>
           {/* map active array at top */}
           {this.state.active.map(data => (
             <GiveCard
               key={data._id}
               images={data.images[0]}
               textBody={data.description}
+              topRight={
+                <Text>{data.timeStamp[data.timeStamp.length - 1]}</Text>
+              }
             />
           ))}
-
+          <Text>Inactive Posts</Text>
           {/* map inactive array below */}
           {this.state.inactive.map(data => (
             <GiveCard
               key={data._id}
               image={data.images[0]}
               textBody={data.description}
+              topRight={<Text>Repost(TEMP)</Text>}
             />
           ))}
         </Content>

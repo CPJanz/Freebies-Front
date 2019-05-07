@@ -28,14 +28,13 @@ export default class FindScreen extends Component {
     var itemLocationInfo = {
       distance: "",
       showTaken: false
-    }
-    
+    };
+
     const distanceToItem = haversine(itemLocation, this.state.location);
     if (distanceToItem > 0.1) {
       itemLocationInfo.distance = distanceToItem.toPrecision(2) + "Mi.";
       itemLocationInfo.showTaken = false;
     } else {
-      // itemLocationInfo.distance =  "Close!";
       itemLocationInfo.showTaken = true;
     }
 
@@ -59,10 +58,6 @@ export default class FindScreen extends Component {
     this.setState({ userId: result });
   }
 
-  logOut = function() {
-    AsyncStorage.setItem("userToken", "");
-  };
-
   render() {
     return (
       //This is a check to ensure that we have gotten a call back from the db
@@ -83,9 +78,6 @@ export default class FindScreen extends Component {
               this.state.location.longitude.toPrecision(8)}
           </Text>
           <Text>Account: {this.state.userId}</Text>
-          <Button onPress={this.logOut}>
-            <Text>Log Out</Text>
-          </Button>
           <Content>
             {this.state.nearbyItems.map((data, i) => {
               return (
@@ -99,9 +91,7 @@ export default class FindScreen extends Component {
                   id={data._id}
                 />
               );
-              
             })}
-            
           </Content>
         </Container>
       )

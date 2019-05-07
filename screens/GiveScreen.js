@@ -149,7 +149,7 @@ export default class GiveScreen extends Component {
 
   // updates the description each time the user modifies the description text box
   handleDiscriptionChange = event => {
-    this.state.description = event.nativeEvent.text;
+    this.setState({description : event.nativeEvent.text});
   };
 
   // renders the UI to the screen

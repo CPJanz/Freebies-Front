@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { Image } from 'react-native';
+import style from './style.js';
 
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Body } from 'native-base';
 

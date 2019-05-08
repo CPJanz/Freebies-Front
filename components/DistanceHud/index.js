@@ -1,12 +1,10 @@
 import React from "react";
 import { Button, Text } from "react-native";
+import TakeButton from "../TakeButton";
 
 function DistanceHud(props) {
   return props.distanceInfo.showTaken ? (
-    <Button
-      onPress={props.onPress}
-      title={props.available ? "Take It!" : "Un Take It!"}
-    />
+    <TakeButton onPress={props.onPress} available={props.available} />
   ) : (
     <Text>{props.distanceInfo.distance}</Text>
   );

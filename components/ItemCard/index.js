@@ -5,25 +5,42 @@ import Map from "../Map";
 import ItemImage from "../ItemImage";
 import DistanceHud from "../DistanceHud";
 
-import { Card, CardItem, Text, Body, View, Input } from "native-base";
+import { Card, CardItem, Text, Body, View } from "native-base";
 import API from "../../utils/API";
 import TakeButton from "../TakeButton";
 import Duration from "../Duration";
+import RepostButton from "../RepostButton";
 
 export default class ItemCard extends Component {
   state = {
     available: this.props.available
   };
 
+  componentDidMount = () => {
+    console.log("Mounted!");
+  };
   takeItem = async () => {
     var response = await API.takeItem(this.props.id, !this.state.available);
-    if (response.status == 200) {
+    if (response.status === 200) {
       this.setState({ available: response.data.available });
       this.forceUpdate();
     } else {
       console.log("RESPONSE DATA");
       console.log(response.data);
     }
+    this.props.reload();
+  };
+
+  repostItem = async () => {
+    var response = await API.itemRepost(this.props.id);
+    if (response.status === 200) {
+      this.setState({ available: true });
+      this.forceUpdate();
+    } else {
+      console.log("RESPONSE DATA");
+      console.log(response.data);
+    }
+    this.props.reload();
   };
 
   formatElement = input => {
@@ -40,31 +57,6 @@ export default class ItemCard extends Component {
         return <Map location={input.location} />;
       case "Duration":
         return <Duration timeLeft={input.timeLeft} />;
-      //     let displayString;
-      //     const SECONDS = 1000;
-      //     const MINUTES = 60 * SECONDS;
-      //     const HOURS = 60 * MINUTES;
-      //     const DAYS = 24 * HOURS;
-      //     if (Math.floor(input.timeLeft / DAYS)) {
-      //       displayString =
-      //         Math.floor(input.timeLeft / DAYS) +
-      //         "d " +
-      //         Math.floor((input.timeLeft % DAYS) / HOURS) +
-      //         "h";
-      //     } else if (Math.floor(input.timeLeft / HOURS)) {
-      //       displayString =
-      //         Math.floor(input.timeLeft / HOURS) +
-      //         "h " +
-      //         Math.floor((input.timeLeft % HOURS) / MINUTES) +
-      //         "m";
-      //     } else {
-      //       displayString =
-      //         Math.floor(input.timeLeft / MINUTES) +
-      //         "m " +
-      //         Math.floor((input.timeLeft % MINUTES) / SECONDS) +
-      //         "s ";
-      //     }
-      //     return <Text>{displayString}</Text>;
       case "Take":
         return (
           <TakeButton
@@ -73,7 +65,7 @@ export default class ItemCard extends Component {
           />
         );
       case "Repost":
-        return <Text>REPOST</Text>;
+        return <RepostButton onPress={this.repostItem} />;
       case "None":
         return null;
     }

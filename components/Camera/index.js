@@ -97,7 +97,7 @@ export default class ImagePickerComponent extends React.Component {
     console.log(result);
 
     //if the user does not cancel, save a local copy of the image and add to image list
-    if (!result.cancelled) {     
+    if (!result.cancelled && this.images.length < 5) {     
       this.images.push(result.uri);
     }
 

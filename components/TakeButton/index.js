@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Text } from "react-native";
+import { Button } from "react-native";
 
 function TakeButton(props) {
   return (

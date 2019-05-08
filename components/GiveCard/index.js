@@ -12,14 +12,15 @@ import {
   Text,
   Button,
   Icon,
-  Body
+  Body,
+  StyleSheet
 } from "native-base";
 import ItemImage from "../ItemImage/index.js";
 
 export default class GiveCard extends Component {
   render() {
     return (
-      <Card style={{ marginTop: 5 }}>
+      <Card style={{ marginTop: 50 }}>
         <CardItem>
           <Body>
             <ItemImage

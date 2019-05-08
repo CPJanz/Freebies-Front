@@ -28,19 +28,23 @@ export default class LogInScreen extends React.Component {
     console.log("email", this.state.email);
     const thisthing = await AsyncStorage.getItem("userToken");
     console.log("userId:", thisthing);
-    API.signIn(this.state.email).then(dbResult => {
-      // console.log("dbresult", JSON.stringify(dbResult));
-      if (dbResult.data.length) {
-        console.log("id", dbResult.data[0]._id);
-        AsyncStorage.setItem("userToken", dbResult.data[0]._id);
-        this.props.navigation.navigate("App");
-      } else {
-        console.log("No account associated with that email!");
-        this.setState({
-          errorMessage: "No account associated with that email!"
-        });
-      }
-    });
+    if (this.state.email.length === 0) {
+      this.setState({ errorMessage: "Please enter an email address." })
+    } else {
+      API.signIn(this.state.email).then(dbResult => {
+        console.log("dbresult", JSON.stringify(dbResult));
+        if (dbResult.data.length) {
+          console.log("id", dbResult.data[0]._id);
+          AsyncStorage.setItem("userToken", dbResult.data[0]._id);
+          this.props.navigation.navigate("App");
+        } else {
+          console.log("No account associated with that email!");
+          this.setState({
+            errorMessage: "No account associated with that email!"
+          });
+        }
+      });
+    };
   };
 
   signUpAsync = async () => {
@@ -86,8 +90,8 @@ export default class LogInScreen extends React.Component {
                 value={this.state.email}
                 onChangeText={text => this.setState({ email: text })}
               />
-              <Text>{this.state.errorMessage}</Text>
             </Item>
+            <Text>{this.state.errorMessage}</Text>
             {/* <Item last>
                             <Input placeholder="Password" />
                         </Item> */}

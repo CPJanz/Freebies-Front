@@ -15,8 +15,8 @@ import {
 } from "native-base";
 import API from "../utils/API";
 const haversine = require("haversine-js");
-import { AsyncStorage } from "react-native";
 import ItemCard from "../components/ItemCard";
+import { AsyncStorage, ActivityIndicator, RefreshControl } from "react-native";
 
 export default class FindScreen extends Component {
   state = {
@@ -42,7 +42,7 @@ export default class FindScreen extends Component {
     return itemLocationInfo;
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     //Grab current client position then use that to query the database for nearby items, finally set the state with the nearbyItems and location.
     navigator.geolocation.getCurrentPosition(position => {
       API.getNearbyItems(position.coords)
@@ -52,7 +52,24 @@ export default class FindScreen extends Component {
         .catch(err => console.log(err));
       this.asyncGetUser();
     });
+
+    if (!this.focusListener) {
+      this.focusListener = this.props.navigation.addListener("willFocus", () =>
+        this.componentDidMount()
+      );
+    }
   }
+
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
+
+  _onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.componentDidMount().then(() => {
+      this.setState({ refreshing: false });
+    });
+  };
 
   async asyncGetUser() {
     const result = await AsyncStorage.getItem("userToken");
@@ -62,16 +79,25 @@ export default class FindScreen extends Component {
   render() {
     return (
       //This is a check to ensure that we have gotten a call back from the db
-      !this.state.nearbyItems ? (
-        // Haven't gotten a response yet.
-        <Text>{"loading"}</Text>
+      this.state.refreshing || !this.state.nearbyItems ? (
+        //loading view while data is loading
+        <View style={{ flex: 1, paddingTop: 20 }}>
+          <ActivityIndicator />
+        </View>
       ) : this.state.nearbyItems.length === 0 ? (
         // Got a response back but don't have any nearby items.
         <Text>{"No Results"}</Text>
       ) : (
         // Got a response back and have nearby items.
-        <Container>
-          <Content>
+        <Container style={{ backgroundColor: "#C2DFE3" }}>
+          <Content
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh}
+              />
+            }
+          >
             {this.state.nearbyItems.map((data, i) => {
               return (
                 <ItemCard

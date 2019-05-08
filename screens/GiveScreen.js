@@ -1,21 +1,18 @@
 //this code creates the GIVE page
 
 import React, { Component } from "react";
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, ActivityIndicator, RefreshControl } from "react-native";
 import ImagePickerComponent from "../components/Camera";
 import {
   Container,
-  Header,
   Content,
-  Form,
-  Item,
-  Input,
   Text,
   Button,
   Card,
   CardItem,
   Body,
-  Textarea
+  Textarea,
+  View
 } from "native-base";
 //brings in firebaseDB
 import * as firebase from "firebase";
@@ -36,16 +33,26 @@ export default class GiveScreen extends Component {
     longitude: null,
     description: "",
     uploaded: [],
+    message: "",
     //sets the post item state enabling the display on the post item UI to update
-    post: false,
-    postText: "New Post"
+    post: false
   };
 
   //   when give screen loads, state will set with the users location, id, and previously posted items
   componentDidMount = () => {
     this.getLocation();
     this.setUserId();
+
+    if (!this.focusListener) {
+      this.focusListener = this.props.navigation.addListener("willFocus", () =>
+        this.getPostedItems()
+      );
+    }
   };
+
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
 
   getLocation() {
     navigator.geolocation.getCurrentPosition(position => {
@@ -64,14 +71,23 @@ export default class GiveScreen extends Component {
     this.getPostedItems(this.state.userId);
   };
 
-  getPostedItems = userId => {
+  _onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.getPostedItems().then(() => {
+      this.setState({ refreshing: false });
+    });
+  };
+
+  getPostedItems = async () => {
+    this.setState({ refreshing: true });
     API.findGiven(this.state.userId)
       .then(res => {
         let avail = res.data.active;
         let unAvail = res.data.inactive;
         this.setState({
           active: avail,
-          inactive: unAvail
+          inactive: unAvail,
+          refreshing: false
         });
         console.log("IN STATE: ", this.state.active, this.state.inactive);
       })
@@ -112,9 +128,10 @@ export default class GiveScreen extends Component {
 
   // changes the text according to the state (see above)
   togglePost = () => {
+    this.images = [];
     this.setState({
       post: !this.state.post,
-      postText: !this.state.post ? "Close Post" : "New Post"
+      description: ""
     });
   };
 
@@ -134,17 +151,25 @@ export default class GiveScreen extends Component {
     // TODO: store the description in Mongo DB
     console.log(this.state.description);
 
-    this.togglePost();
-
-    API.postNewItem({
-      images: this.state.uploaded,
-      giverId: this.state.userId,
-      location: {
-        latitude: this.state.latitude,
-        longitude: this.state.longitude
-      },
-      description: this.state.description
-    });
+    if (this.state.uploaded.length > 0) {
+      API.postNewItem({
+        images: this.state.uploaded,
+        giverId: this.state.userId,
+        location: {
+          latitude: this.state.latitude,
+          longitude: this.state.longitude
+        },
+        description: this.state.description
+      });
+      this.togglePost();
+      this.setState({
+        message: ""
+      });
+    } else {
+      this.setState({
+        message: "Your post must include an image"
+      });
+    }
   };
 
   // updates the description each time the user modifies the description text box
@@ -154,43 +179,58 @@ export default class GiveScreen extends Component {
 
   // renders the UI to the screen
   render() {
-    let { post, postText } = this.state;
+    let { post } = this.state;
 
     return (
-      <Container>
-        {/* button to open form to post an item */}
-        <Content>
-          <Button style={{ margin: 50 }} onPress={this.togglePost}>
-            <Text>{postText}</Text>
-          </Button>
+      <Container style={{ backgroundColor: "#C2DFE3" }}>
+        {this.state.refreshing && (
+          <View style={{ flex: 1, paddingTop: 20 }}>
+            <ActivityIndicator />
+          </View>
+        )}
 
+        {/* button to open form to post an item */}
+        <Content
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+          }
+        >
+          {!post && (
+            <Button style={{ margin: 50 }} onPress={this.togglePost}>
+              <Text>New Post</Text>
+            </Button>
+          )}
           {/* inserts image picker UI */}
           {post && (
-            <Container>
-              <Content>
-                <Card>
-                  <CardItem header>
-                    <Text>Post an Item</Text>
-                  </CardItem>
-                  <CardItem>
-                    <Body>
-                      <ImagePickerComponent images={this.images} />
-                      <Textarea
-                        rowSpan={5}
-                        bordered
-                        placeholder="Optional item description"
-                        value={this.state.description}
-                        onChange={this.handleDiscriptionChange}
-                      />
-                    </Body>
-                  </CardItem>
-                  <CardItem footer />
-                  <Button onPress={this.postItem} primary>
-                    <Text> Post </Text>
-                  </Button>
-                </Card>
-              </Content>
-            </Container>
+            <Form>
+              <Item>
+                <Text>Post an Item</Text>
+              </Item>
+              <Item>
+                <ImagePickerComponent images={this.images} />
+              </Item>
+              <Item>
+                <Input
+                  rowSpan={5}
+                  bordered
+                  placeholder="Optional item description"
+                  value={this.state.description}
+                  onChange={this.handleDiscriptionChange}
+                />
+              </Item>
+              <Item>
+                <Text>{this.state.message}</Text>
+                <Button onPress={this.postItem} primary>
+                  <Text> Post </Text>
+                </Button>
+                <Button style={{ margin: 50 }} onPress={this.togglePost}>
+                  <Text>Cancel</Text>
+                </Button>
+              </Item>
+            </Form>
           )}
           <Text>Active Posts</Text>
           {/* map active array at top */}

@@ -38,8 +38,7 @@ export default class GiveScreen extends Component {
     uploaded: [],
     message: "",
     //sets the post item state enabling the display on the post item UI to update
-    post: false,
-    postText: "New Post"
+    post: false
   };
 
   //   when give screen loads, state will set with the users location, id, and previously posted items
@@ -113,9 +112,10 @@ export default class GiveScreen extends Component {
 
   // changes the text according to the state (see above)
   togglePost = () => {
+    this.images = [];
     this.setState({
       post: !this.state.post,
-      postText: !this.state.post ? "Close Post" : "New Post"
+      description: ""
     });
   };
 
@@ -165,43 +165,43 @@ export default class GiveScreen extends Component {
 
   // renders the UI to the screen
   render() {
-    let { post, postText } = this.state;
+    let { post } = this.state;
 
     return (
       <Container>
         {/* button to open form to post an item */}
         <Content>
-          <Button style={{ margin: 50 }} onPress={this.togglePost}>
-            <Text>{postText}</Text>
-          </Button>
+          {!post && (<Button style={{ margin: 50 }} onPress={this.togglePost}>
+            <Text>New Post</Text>
+          </Button>)}
           {/* inserts image picker UI */}
           {post && (
-            <Container>
-              <Content>
-                <Card>
-                  <CardItem header>
+                <Form>
+                  <Item >
                     <Text>Post an Item</Text>
-                  </CardItem>
-                  <CardItem>
-                    <Body>
-                      <ImagePickerComponent images={this.images} />
-                      <Textarea
-                        rowSpan={5}
-                        bordered
-                        placeholder="Optional item description"
-                        value={this.state.description}
-                        onChange={this.handleDiscriptionChange}
-                      />
-                    </Body>
-                  </CardItem>
-                  <CardItem footer />
-                  <Text>{this.state.message}</Text>
-                  <Button onPress={this.postItem} primary>
-                    <Text> Post </Text>
-                  </Button>
-                </Card>
-              </Content>
-            </Container>
+                  </Item>
+                  <Item>
+                    <ImagePickerComponent images={this.images} />
+                  </Item>
+                  <Item>
+                    <Input
+                      rowSpan={5}
+                      bordered
+                      placeholder="Optional item description"
+                      value={this.state.description}
+                      onChange={this.handleDiscriptionChange}
+                    />
+                  </Item>
+                  <Item>
+                    <Text>{this.state.message}</Text>
+                    <Button onPress={this.postItem} primary>
+                      <Text> Post </Text>
+                    </Button>
+                    <Button style={{ margin: 50 }} onPress={this.togglePost}>
+                      <Text>Cancel</Text>
+                    </Button>
+                  </Item>
+                </Form>
           )}
           <Text>Active Posts</Text>
           {/* map active array at top */}

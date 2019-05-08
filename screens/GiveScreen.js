@@ -241,8 +241,8 @@ export default class GiveScreen extends Component {
           {/* map active array at top */}
           {this.state.active.map((data, i) => (
             <ItemCard
-              key={i}
-              id={data.id}
+              key={data._id}
+              id={data._id}
               images={data.images}
               available={data.available}
               textBody={data.description}
@@ -259,7 +259,7 @@ export default class GiveScreen extends Component {
             (data, i) =>
               data.available ? (
                 <ItemCard
-                  key={i}
+                  key={data._id}
                   id={data._id}
                   images={data.images}
                   available={data.available}
@@ -269,7 +269,7 @@ export default class GiveScreen extends Component {
                 />
               ) : (
                 <ItemCard
-                  key={i}
+                  key={data._id}
                   id={data._id}
                   images={data.images}
                   available={data.available}

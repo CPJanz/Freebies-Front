@@ -112,6 +112,7 @@ export default class FindScreen extends Component {
                   images={data.images}
                   location={data.location}
                   id={data._id}
+                  active={true}
                 />
               );
             })}

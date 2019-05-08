@@ -14,7 +14,8 @@ import styles from "./style";
 
 export default class ItemCard extends Component {
   state = {
-    available: this.props.available
+    available: this.props.available,
+    active: this.props.active
   };
 
   componentDidMount = () => {
@@ -72,13 +73,21 @@ export default class ItemCard extends Component {
     }
   };
 
+  activeStatus = () => {
+    if (this.state.active) {
+      return 1
+    } else {
+      return 0.2
+    }
+  }
+
   render() {
     return (
         <Card > 
           <CardItem>
           <View>
             <Body>
-              <ItemImage images={this.props.images}/>
+              <ItemImage images={this.props.images} opacity={this.activeStatus()} />
               <CardItem
                 style={styles.topLeft}
               >

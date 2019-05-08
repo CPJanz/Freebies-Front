@@ -252,6 +252,7 @@ export default class GiveScreen extends Component {
                 type: "Duration",
                 timeLeft: data.timeLeft
               }}
+              active={true}
             />
           ))}
           <Text>Inactive Posts</Text>
@@ -266,6 +267,7 @@ export default class GiveScreen extends Component {
                 textBody={data.description}
                 topLeft={{ type: "Repost", reload: this._onRefresh() }}
                 topRight={{ type: "Repost", reload: this._onRefresh() }}
+                active={false}
               />
             ) : (
               <ItemCard
@@ -276,6 +278,7 @@ export default class GiveScreen extends Component {
                 textBody={data.description}
                 topLeft={{ type: "Repost" }}
                 topRight={{ type: "Take" }}
+                active={false}
               />
             )
           )}

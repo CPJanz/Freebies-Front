@@ -8,6 +8,8 @@ import DistanceHud from "../DistanceHud";
 import { Card, CardItem, Text, Body, View } from "native-base";
 import API from "../../utils/API";
 
+import styles from "./style";
+
 export default class FindCard extends Component {
   state = {
     taken: !this.props.availible
@@ -31,14 +33,7 @@ export default class FindCard extends Component {
             <Body>
               <ItemImage images={this.props.images} />
               <CardItem
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  backgroundColor: "rgba(255,255,255,.5)",
-                  borderRadius: 0,
-                  borderBottomRightRadius: "50%"
-                }}
+                style={styles.topLeft}
               >
                 <DistanceHud
                   distanceInfo={this.props.distanceInfo}
@@ -47,26 +42,13 @@ export default class FindCard extends Component {
                 />
               </CardItem>
               <CardItem
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0,
-                  backgroundColor: "rgba(255,255,255,.5)",
-                  borderRadius: 0,
-                  borderBottomLeftRadius: "50%"
-                }}
+                style={styles.topRight}
               >
                 <Map location={this.props.location} />
               </CardItem>
               {this.props.textBody ? (
                 <CardItem
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    backgroundColor: "rgba(255,255,255,.5)",
-                    width: "100%"
-                  }}
+                  style={styles.bottomBar}
                 >
                   <Text>{this.props.textBody}</Text>
                 </CardItem>

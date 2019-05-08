@@ -1,22 +1,19 @@
 //this code creates the GIVE page
 
 import React, { Component } from "react";
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, ActivityIndicator, RefreshControl } from "react-native";
 import GiveCard from "../components/GiveCard";
 import ImagePickerComponent from "../components/Camera";
 import {
   Container,
-  Header,
   Content,
-  Form,
-  Item,
-  Input,
   Text,
   Button,
   Card,
   CardItem,
   Body,
-  Textarea
+  Textarea,
+  View
 } from "native-base";
 //brings in firebaseDB
 import * as firebase from "firebase";
@@ -45,7 +42,18 @@ export default class GiveScreen extends Component {
   componentDidMount = () => {
     this.getLocation();
     this.setUserId();
+
+    if (!this.focusListener) {
+      this.focusListener = this.props.navigation.addListener(
+        'willFocus', 
+        () => this.getPostedItems()
+      );
+    }
   };
+
+  componentWillUnmount() {
+    this.focusListener.remove()
+  }
 
   getLocation() {
     navigator.geolocation.getCurrentPosition(position => {
@@ -64,14 +72,23 @@ export default class GiveScreen extends Component {
     this.getPostedItems(this.state.userId);
   };
 
-  getPostedItems = userId => {
+  _onRefresh = () => {
+    this.setState({refreshing: true});
+    this.getPostedItems().then(() => {
+      this.setState({refreshing: false});
+    });
+  }
+
+  getPostedItems = async () => {
+    this.setState({refreshing: true});
     API.findGiven(this.state.userId)
       .then(res => {
         let avail = res.data.active;
         let unAvail = res.data.inactive;
         this.setState({
           active: avail,
-          inactive: unAvail
+          inactive: unAvail,
+          refreshing: false
         });
         console.log("IN STATE: ", this.state.active, this.state.inactive);
       })
@@ -135,7 +152,6 @@ export default class GiveScreen extends Component {
     // TODO: store the description in Mongo DB
     console.log(this.state.description);
 
-    
 
     if (this.state.uploaded.length > 0) {
       API.postNewItem({
@@ -168,9 +184,21 @@ export default class GiveScreen extends Component {
     let { post } = this.state;
 
     return (
-      <Container>
+      <Container style={{backgroundColor: '#C2DFE3'}}>
+        {this.state.refreshing &&
+          <View style={{ flex: 1, paddingTop: 20 }}>
+          <ActivityIndicator />
+        </View>
+        }
+
         {/* button to open form to post an item */}
-        <Content>
+        <Content
+        refreshControl={
+          <RefreshControl
+          refreshing={this.state.refreshing}
+          onRefresh={this._onRefresh}
+        />
+        }>
           {!post && (<Button style={{ margin: 50 }} onPress={this.togglePost}>
             <Text>New Post</Text>
           </Button>)}

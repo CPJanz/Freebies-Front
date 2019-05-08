@@ -13,7 +13,9 @@ import {
   CardItem,
   Body,
   Textarea,
-  View
+  View,
+  Form,
+  Item
 } from "native-base";
 //brings in firebaseDB
 import * as firebase from "firebase";
@@ -212,7 +214,7 @@ export default class GiveScreen extends Component {
                 <ImagePickerComponent images={this.images} />
               </Item>
               <Item>
-                <Input
+                <Textarea
                   rowSpan={5}
                   bordered
                   placeholder="Optional item description"

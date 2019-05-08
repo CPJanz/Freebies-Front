@@ -45,7 +45,7 @@ export default class GiveScreen extends Component {
 
     if (!this.focusListener) {
       this.focusListener = this.props.navigation.addListener(
-        'willFocus', 
+        'willFocus',
         () => this.getPostedItems()
       );
     }
@@ -73,14 +73,14 @@ export default class GiveScreen extends Component {
   };
 
   _onRefresh = () => {
-    this.setState({refreshing: true});
+    this.setState({ refreshing: true });
     this.getPostedItems().then(() => {
-      this.setState({refreshing: false});
+      this.setState({ refreshing: false });
     });
   }
 
   getPostedItems = async () => {
-    this.setState({refreshing: true});
+    this.setState({ refreshing: true });
     API.findGiven(this.state.userId)
       .then(res => {
         let avail = res.data.active;
@@ -102,10 +102,10 @@ export default class GiveScreen extends Component {
     // creates a blob (binary image format)
     const blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.onload = function() {
+      xhr.onload = function () {
         resolve(xhr.response);
       };
-      xhr.onerror = function(e) {
+      xhr.onerror = function (e) {
         console.log(e);
         reject(new TypeError("Network request failed"));
       };
@@ -184,51 +184,51 @@ export default class GiveScreen extends Component {
     let { post } = this.state;
 
     return (
-      <Container style={{backgroundColor: '#C2DFE3'}}>
+      <Container style={{ backgroundColor: '#C2DFE3' }}>
         {this.state.refreshing &&
           <View style={{ flex: 1, paddingTop: 20 }}>
-          <ActivityIndicator />
+            <ActivityIndicator />
           </View>
         }
         <Content
-        refreshControl={
-          <RefreshControl
-          refreshing={this.state.refreshing}
-          onRefresh={this._onRefresh}
-        />
-        }>
-        {/* button to open form to post an item */}
-        {!post && (<Button style={{ margin: 50 }} onPress={this.togglePost}>
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+          }>
+          {/* button to open form to post an item */}
+          {!post && (<Button style={{ margin: 50 }} onPress={this.togglePost}>
             <Text>New Post</Text>
-        </Button>)}
+          </Button>)}
           {/* inserts image picker UI */}
           {post && (
-                <Form>
-                  <Item >
-                    <Text>Post an Item</Text>
-                  </Item>
-                  <Item>
-                    <ImagePickerComponent images={this.images} />
-                  </Item>
-                  <Item>
-                    <Input
-                      rowSpan={5}
-                      bordered
-                      placeholder="Optional item description"
-                      value={this.state.description}
-                      onChange={this.handleDiscriptionChange}
-                    />
-                  </Item>
-                  <Item>
-                    <Text>{this.state.message}</Text>
-                    <Button onPress={this.postItem} primary>
-                      <Text> Post </Text>
-                    </Button>
-                    <Button style={{ margin: 50 }} onPress={this.togglePost}>
-                      <Text>Cancel</Text>
-                    </Button>
-                  </Item>
-                </Form>
+            <Form>
+              <Item >
+                <Text>Post an Item</Text>
+              </Item>
+              <Item>
+                <ImagePickerComponent images={this.images} />
+              </Item>
+              <Item>
+                <Input
+                  rowSpan={5}
+                  bordered
+                  placeholder="Optional item description"
+                  value={this.state.description}
+                  onChange={this.handleDiscriptionChange}
+                />
+              </Item>
+              <Item>
+                <Text>{this.state.message}</Text>
+                <Button onPress={this.postItem} primary>
+                  <Text> Post </Text>
+                </Button>
+                <Button style={{ margin: 50 }} onPress={this.togglePost}>
+                  <Text>Cancel</Text>
+                </Button>
+              </Item>
+            </Form>
           )}
           <Text>Active Posts</Text>
           {/* map active array at top */}

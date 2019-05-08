@@ -134,7 +134,8 @@ export default class GiveScreen extends Component {
     this.images = [];
     this.setState({
       post: !this.state.post,
-      description: ""
+      description: "",
+      message: ""
     });
   };
 
@@ -154,7 +155,7 @@ export default class GiveScreen extends Component {
     // TODO: store the description in Mongo DB
     console.log(this.state.description);
 
-    if (this.state.uploaded.length > 0) {
+    if (this.state.uploaded.length > 0 && this.state.post) {
       API.postNewItem({
         images: this.state.uploaded,
         giverId: this.state.userId,
@@ -165,9 +166,6 @@ export default class GiveScreen extends Component {
         description: this.state.description
       });
       this.togglePost();
-      this.setState({
-        message: ""
-      });
     } else {
       this.setState({
         message: "Your post must include an image"

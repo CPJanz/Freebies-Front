@@ -26,7 +26,7 @@ export default class FindCard extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Card style={{ marginTop: 5 }}>
+        <Card style={{ marginTop: 5, backgroundColor: 'blue' }}>
           <CardItem>
             <Body>
               <ItemImage images={this.props.images} />

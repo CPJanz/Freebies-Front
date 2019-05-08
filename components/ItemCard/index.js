@@ -13,7 +13,8 @@ import RepostButton from "../RepostButton";
 
 export default class ItemCard extends Component {
   state = {
-    available: this.props.available
+    available: this.props.available,
+    active: this.props.active
   };
 
   componentDidMount = () => {
@@ -71,13 +72,21 @@ export default class ItemCard extends Component {
     }
   };
 
+  activeStatus = () => {
+    if (this.state.active) {
+      return 1
+    } else {
+      return 0.2
+    }
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
         <Card style={{ marginTop: 5 }}>
           <CardItem>
             <Body>
-              <ItemImage images={this.props.images} shade={this.props.shade} />
+              <ItemImage images={this.props.images} opacity={this.activeStatus()} />
               <CardItem
                 style={{
                   position: "absolute",

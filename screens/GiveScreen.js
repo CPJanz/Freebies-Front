@@ -2,7 +2,6 @@
 
 import React, { Component } from "react";
 import { AsyncStorage, ActivityIndicator, RefreshControl } from "react-native";
-import GiveCard from "../components/GiveCard";
 import ImagePickerComponent from "../components/Camera";
 import {
   Container,
@@ -22,6 +21,7 @@ import * as firebase from "firebase";
 //uuid is used to generate a unique identifier for each image
 import uuid from "uuid";
 import API from "../utils/API";
+import ItemCard from "../components/ItemCard";
 
 //this code renders the Give screen
 export default class GiveScreen extends Component {
@@ -46,15 +46,14 @@ export default class GiveScreen extends Component {
     this.setUserId();
 
     if (!this.focusListener) {
-      this.focusListener = this.props.navigation.addListener(
-        'willFocus',
-        () => this.getPostedItems()
+      this.focusListener = this.props.navigation.addListener("willFocus", () =>
+        this.getPostedItems()
       );
     }
   };
 
   componentWillUnmount() {
-    this.focusListener.remove()
+    this.focusListener.remove();
   }
 
   getLocation() {
@@ -79,7 +78,7 @@ export default class GiveScreen extends Component {
     this.getPostedItems().then(() => {
       this.setState({ refreshing: false });
     });
-  }
+  };
 
   getPostedItems = async () => {
     this.setState({ refreshing: true });
@@ -104,10 +103,10 @@ export default class GiveScreen extends Component {
     // creates a blob (binary image format)
     const blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
+      xhr.onload = function() {
         resolve(xhr.response);
       };
-      xhr.onerror = function (e) {
+      xhr.onerror = function(e) {
         console.log(e);
         reject(new TypeError("Network request failed"));
       };
@@ -154,7 +153,6 @@ export default class GiveScreen extends Component {
     // TODO: store the description in Mongo DB
     console.log(this.state.description);
 
-
     if (this.state.uploaded.length > 0) {
       API.postNewItem({
         images: this.state.uploaded,
@@ -186,28 +184,31 @@ export default class GiveScreen extends Component {
     let { post } = this.state;
 
     return (
-      <Container style={{ backgroundColor: '#C2DFE3' }}>
-        {this.state.refreshing &&
+      <Container style={{ backgroundColor: "#C2DFE3" }}>
+        {this.state.refreshing && (
           <View style={{ flex: 1, paddingTop: 20 }}>
             <ActivityIndicator />
           </View>
-        }
+        )}
 
         {/* button to open form to post an item */}
         <Content
-        refreshControl={
-          <RefreshControl
-          refreshing={this.state.refreshing}
-          onRefresh={this._onRefresh}
-        />
-        }>
-          {!post && (<Button style={{ margin: 50 }} onPress={this.togglePost}>
-            <Text>New Post</Text>
-          </Button>)}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+          }
+        >
+          {!post && (
+            <Button style={{ margin: 50 }} onPress={this.togglePost}>
+              <Text>New Post</Text>
+            </Button>
+          )}
           {/* inserts image picker UI */}
           {post && (
             <Form>
-              <Item >
+              <Item>
                 <Text>Post an Item</Text>
               </Item>
               <Item>
@@ -235,26 +236,53 @@ export default class GiveScreen extends Component {
           )}
           <Text>Active Posts</Text>
           {/* map active array at top */}
-          {this.state.active.map(data => (
-            <GiveCard
-              key={data._id}
+          {this.state.active.map((data, i) => (
+            <ItemCard
+              key={i}
+              id={data.id}
               images={data.images}
+              available={data.available}
               textBody={data.description}
-              topRight={
-                <Text>{data.timeStamp[data.timeStamp.length - 1]}</Text>
-              }
+              topLeft={{ type: "Take" }}
+              topRight={{
+                type: "Duration",
+                timeLeft: data.timeLeft
+              }}
             />
           ))}
           <Text>Inactive Posts</Text>
           {/* map inactive array below */}
-          {this.state.inactive.map(data => (
-            <GiveCard
-              key={data._id}
-              image={data.images[0]}
-              textBody={data.description}
-              topRight={<Text>Repost(TEMP)</Text>}
-            />
-          ))}
+          {this.state.inactive.map(
+            (data, i) =>
+              data.available ? (
+                <ItemCard
+                  key={i}
+                  id={data._id}
+                  images={data.images}
+                  available={data.available}
+                  textBody={data.description}
+                  topLeft={{ type: "None" }}
+                  topRight={{ type: "Repost" }}
+                />
+              ) : (
+                <ItemCard
+                  key={i}
+                  id={data._id}
+                  images={data.images}
+                  available={data.available}
+                  textBody={data.description}
+                  topLeft={{ type: "None" }}
+                  topRight={{ type: "Take" }}
+                />
+              )
+
+            // <GiveCard
+            //   key={data._id}
+            //   image={data.images[0]}
+            //   textBody={data.description}
+            //   topRight={<Text>Repost(TEMP)</Text>}
+            // />
+          )}
         </Content>
       </Container>
     );

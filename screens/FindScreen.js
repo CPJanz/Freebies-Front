@@ -15,6 +15,7 @@ import {
 } from "native-base";
 import API from "../utils/API";
 const haversine = require("haversine-js");
+import ItemCard from "../components/ItemCard";
 import { AsyncStorage, ActivityIndicator, RefreshControl } from "react-native";
 
 export default class FindScreen extends Component {
@@ -53,23 +54,22 @@ export default class FindScreen extends Component {
     });
 
     if (!this.focusListener) {
-      this.focusListener = this.props.navigation.addListener(
-        'willFocus', 
-        () => this.componentDidMount()
+      this.focusListener = this.props.navigation.addListener("willFocus", () =>
+        this.componentDidMount()
       );
     }
   }
 
   componentWillUnmount() {
-    this.focusListener.remove()
+    this.focusListener.remove();
   }
 
   _onRefresh = () => {
-    this.setState({refreshing: true});
+    this.setState({ refreshing: true });
     this.componentDidMount().then(() => {
-      this.setState({refreshing: false});
+      this.setState({ refreshing: false });
     });
-  }
+  };
 
   async asyncGetUser() {
     const result = await AsyncStorage.getItem("userToken");
@@ -77,7 +77,6 @@ export default class FindScreen extends Component {
   }
 
   render() {
-
     return (
       //This is a check to ensure that we have gotten a call back from the db
       this.state.refreshing || !this.state.nearbyItems ? (
@@ -90,30 +89,26 @@ export default class FindScreen extends Component {
         <Text>{"No Results"}</Text>
       ) : (
         // Got a response back and have nearby items.
-        <Container style={{backgroundColor: '#C2DFE3'}}
-        >
-          {/* DEBUG ELEMENT REMOVE BEFORE MDP */}
-          <Text>
-            {"Lat: " +
-              this.state.location.latitude.toPrecision(8) +
-              " Long: " +
-              this.state.location.longitude.toPrecision(8)}
-          </Text>
-          <Text>Account: {this.state.userId}</Text>
+        <Container style={{ backgroundColor: "#C2DFE3" }}>
           <Content
-          refreshControl={
-            <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh}
-          />
-          }>
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh}
+              />
+            }
+          >
             {this.state.nearbyItems.map((data, i) => {
               return (
-                <FindCard
+                <ItemCard
                   key={i}
+                  available={data.available}
                   textBody={data.description}
-                  distanceInfo={this.calculateDistance(data.location)}
-                  availible={data.availible}
+                  topLeft={{
+                    type: "DistanceHud",
+                    distanceInfo: this.calculateDistance(data.location)
+                  }}
+                  topRight={{ type: "Map", location: data.location }}
                   images={data.images}
                   location={data.location}
                   id={data._id}

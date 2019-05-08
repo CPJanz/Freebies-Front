@@ -37,7 +37,8 @@ export default class GiveScreen extends Component {
     uploaded: [],
     message: "",
     //sets the post item state enabling the display on the post item UI to update
-    post: false
+    post: false,
+    refreshing: false
   };
 
   //   when give screen loads, state will set with the users location, id, and previously posted items
@@ -170,6 +171,7 @@ export default class GiveScreen extends Component {
         message: "Your post must include an image"
       });
     }
+    this._onRefresh();
   };
 
   // updates the description each time the user modifies the description text box
@@ -226,7 +228,7 @@ export default class GiveScreen extends Component {
                 <Text>{this.state.message}</Text>
               </Item>
               <Item style={{ flexDirection: "row" }}>
-                <Button onPress={this.postItem} style={{marginRight: 20}}>
+                <Button onPress={this.postItem} style={{ marginRight: 20 }}>
                   <Text> Post </Text>
                 </Button>
                 <Button onPress={this.togglePost}>
@@ -239,11 +241,12 @@ export default class GiveScreen extends Component {
           {/* map active array at top */}
           {this.state.active.map((data, i) => (
             <ItemCard
-              key={i}
-              id={data.id}
+              key={data._id}
+              id={data._id}
               images={data.images}
               available={data.available}
               textBody={data.description}
+              reload={this._onRefresh}
               topLeft={{ type: "Take" }}
               topRight={{
                 type: "Duration",
@@ -253,36 +256,28 @@ export default class GiveScreen extends Component {
           ))}
           <Text>Inactive Posts</Text>
           {/* map inactive array below */}
-          {this.state.inactive.map(
-            (data, i) =>
-              data.available ? (
-                <ItemCard
-                  key={i}
-                  id={data._id}
-                  images={data.images}
-                  available={data.available}
-                  textBody={data.description}
-                  topLeft={{ type: "None" }}
-                  topRight={{ type: "Repost" }}
-                />
-              ) : (
-                <ItemCard
-                  key={i}
-                  id={data._id}
-                  images={data.images}
-                  available={data.available}
-                  textBody={data.description}
-                  topLeft={{ type: "None" }}
-                  topRight={{ type: "Take" }}
-                />
-              )
-
-            // <GiveCard
-            //   key={data._id}
-            //   image={data.images[0]}
-            //   textBody={data.description}
-            //   topRight={<Text>Repost(TEMP)</Text>}
-            // />
+          {this.state.inactive.map((data, i) =>
+            data.available ? (
+              <ItemCard
+                key={data._id}
+                id={data._id}
+                images={data.images}
+                available={data.available}
+                textBody={data.description}
+                topLeft={{ type: "Repost", reload: this._onRefresh() }}
+                topRight={{ type: "Repost", reload: this._onRefresh() }}
+              />
+            ) : (
+              <ItemCard
+                key={data._id}
+                id={data._id}
+                images={data.images}
+                available={data.available}
+                textBody={data.description}
+                topLeft={{ type: "Repost" }}
+                topRight={{ type: "Take" }}
+              />
+            )
           )}
         </Content>
       </Container>

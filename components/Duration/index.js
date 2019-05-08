@@ -28,23 +28,15 @@ export default class Duration extends Component {
     const HOURS = 60 * MINUTES;
     const DAYS = 24 * HOURS;
     if (Math.floor(time / DAYS)) {
-      displayString =
-        Math.floor(time / DAYS) +
-        "d " +
-        Math.floor((time % DAYS) / HOURS) +
-        "h";
-    } else if (Math.floor(time / HOURS)) {
+      displayString = "> " + Math.floor(time / DAYS) + "d";
+    } else {
       displayString =
         Math.floor(time / HOURS) +
         "h " +
         Math.floor((time % HOURS) / MINUTES) +
-        "m";
-    } else {
-      displayString =
-        Math.floor(time / MINUTES) +
         "m " +
         Math.floor((time % MINUTES) / SECONDS) +
-        "s ";
+        "s";
     }
     return displayString;
   };

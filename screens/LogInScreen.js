@@ -29,7 +29,7 @@ export default class LogInScreen extends React.Component {
     const thisthing = await AsyncStorage.getItem("userToken");
     console.log("userId:", thisthing);
     if (this.state.email.length === 0) {
-      this.setState({ errorMessage: "Please enter an email address." })
+      this.setState({ errorMessage: "Please enter an email address." });
     } else {
       API.signIn(this.state.email).then(dbResult => {
         console.log("dbresult", JSON.stringify(dbResult));
@@ -44,7 +44,7 @@ export default class LogInScreen extends React.Component {
           });
         }
       });
-    };
+    }
   };
 
   signUpAsync = async () => {
@@ -74,13 +74,13 @@ export default class LogInScreen extends React.Component {
   validateEmail = email => {
     const pattern = /\S+@\S+\.\S+/;
     return pattern.test(email);
-  }
+  };
 
   render() {
     return (
       <Container>
         <AppName />
-        <Content>   
+        <Content>
           <Form>
             <Item>
               <Input
@@ -88,7 +88,9 @@ export default class LogInScreen extends React.Component {
                 placeholder="E-Mail"
                 name="email"
                 value={this.state.email}
-                onChangeText={text => this.setState({ email: text })}
+                onChangeText={text =>
+                  this.setState({ email: text.toLowerCase() })
+                }
               />
             </Item>
             <Text>{this.state.errorMessage}</Text>

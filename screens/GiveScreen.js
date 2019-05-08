@@ -14,7 +14,8 @@ import {
   Textarea,
   View,
   Form,
-  Item
+  Item,
+  Input
 } from "native-base";
 //brings in firebaseDB
 import * as firebase from "firebase";
@@ -215,10 +216,8 @@ export default class GiveScreen extends Component {
                 <ImagePickerComponent images={this.images} />
               </Item>
               <Item>
-                <Textarea
+                <Input
                   style={{ backgroundColor: "white" }}
-                  rowSpan={5}
-                  bordered
                   placeholder="Optional item description"
                   value={this.state.description}
                   onChange={this.handleDiscriptionChange}

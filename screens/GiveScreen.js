@@ -133,7 +133,8 @@ export default class GiveScreen extends Component {
     this.images = [];
     this.setState({
       post: !this.state.post,
-      description: ""
+      description: "",
+      message: ""
     });
   };
 
@@ -164,9 +165,6 @@ export default class GiveScreen extends Component {
         description: this.state.description
       });
       this.togglePost();
-      this.setState({
-        message: ""
-      });
     } else {
       this.setState({
         message: "Your post must include an image"

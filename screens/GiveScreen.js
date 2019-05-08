@@ -2,7 +2,6 @@
 
 import React, { Component } from "react";
 import { AsyncStorage } from "react-native";
-import GiveCard from "../components/GiveCard";
 import ImagePickerComponent from "../components/Camera";
 import {
   Container,
@@ -23,6 +22,7 @@ import * as firebase from "firebase";
 //uuid is used to generate a unique identifier for each image
 import uuid from "uuid";
 import API from "../utils/API";
+import ItemCard from "../components/ItemCard";
 
 //this code renders the Give screen
 export default class GiveScreen extends Component {
@@ -194,26 +194,53 @@ export default class GiveScreen extends Component {
           )}
           <Text>Active Posts</Text>
           {/* map active array at top */}
-          {this.state.active.map(data => (
-            <GiveCard
-              key={data._id}
+          {this.state.active.map((data, i) => (
+            <ItemCard
+              key={i}
+              id={data.id}
               images={data.images}
+              available={data.available}
               textBody={data.description}
-              topRight={
-                <Text>{data.timeStamp[data.timeStamp.length - 1]}</Text>
-              }
+              topLeft={{ type: "Take" }}
+              topRight={{
+                type: "Duration",
+                timeLeft: data.timeLeft
+              }}
             />
           ))}
           <Text>Inactive Posts</Text>
           {/* map inactive array below */}
-          {this.state.inactive.map(data => (
-            <GiveCard
-              key={data._id}
-              image={data.images[0]}
-              textBody={data.description}
-              topRight={<Text>Repost(TEMP)</Text>}
-            />
-          ))}
+          {this.state.inactive.map(
+            (data, i) =>
+              data.available ? (
+                <ItemCard
+                  key={i}
+                  id={data._id}
+                  images={data.images}
+                  available={data.available}
+                  textBody={data.description}
+                  topLeft={{ type: "None" }}
+                  topRight={{ type: "Repost" }}
+                />
+              ) : (
+                <ItemCard
+                  key={i}
+                  id={data._id}
+                  images={data.images}
+                  available={data.available}
+                  textBody={data.description}
+                  topLeft={{ type: "None" }}
+                  topRight={{ type: "Take" }}
+                />
+              )
+
+            // <GiveCard
+            //   key={data._id}
+            //   image={data.images[0]}
+            //   textBody={data.description}
+            //   topRight={<Text>Repost(TEMP)</Text>}
+            // />
+          )}
         </Content>
       </Container>
     );

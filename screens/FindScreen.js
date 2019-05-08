@@ -16,6 +16,7 @@ import {
 import API from "../utils/API";
 const haversine = require("haversine-js");
 import { AsyncStorage } from "react-native";
+import ItemCard from "../components/ItemCard";
 
 export default class FindScreen extends Component {
   state = {
@@ -70,22 +71,18 @@ export default class FindScreen extends Component {
       ) : (
         // Got a response back and have nearby items.
         <Container>
-          {/* DEBUG ELEMENT REMOVE BEFORE MDP */}
-          <Text>
-            {"Lat: " +
-              this.state.location.latitude.toPrecision(8) +
-              " Long: " +
-              this.state.location.longitude.toPrecision(8)}
-          </Text>
-          <Text>Account: {this.state.userId}</Text>
           <Content>
             {this.state.nearbyItems.map((data, i) => {
               return (
-                <FindCard
+                <ItemCard
                   key={i}
+                  available={data.available}
                   textBody={data.description}
-                  distanceInfo={this.calculateDistance(data.location)}
-                  availible={data.availible}
+                  topLeft={{
+                    type: "DistanceHud",
+                    distanceInfo: this.calculateDistance(data.location)
+                  }}
+                  topRight={{ type: "Map", location: data.location }}
                   images={data.images}
                   location={data.location}
                   id={data._id}

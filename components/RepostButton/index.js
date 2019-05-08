@@ -1,15 +1,12 @@
 import React from "react";
 import { Button, Text } from "react-native";
 
-function DistanceHud(props) {
+function RepostButton(props) {
   return props.distanceInfo.showTaken ? (
-    <Button
-      onPress={props.onPress}
-      title={props.available ? "Take It!" : "Un Take It!"}
-    />
+    <Button onPress={props.onPress} title="Repost" />
   ) : (
     <Text>{props.distanceInfo.distance}</Text>
   );
 }
 
-export default DistanceHud;
+export default RepostButton;

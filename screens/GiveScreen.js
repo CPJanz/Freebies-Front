@@ -153,7 +153,7 @@ export default class GiveScreen extends Component {
     // TODO: store the description in Mongo DB
     console.log(this.state.description);
 
-    if (this.state.uploaded.length > 0) {
+    if (this.state.uploaded.length > 0 && this.state.post) {
       API.postNewItem({
         images: this.state.uploaded,
         giverId: this.state.userId,

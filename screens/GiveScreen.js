@@ -190,14 +190,15 @@ export default class GiveScreen extends Component {
             <ActivityIndicator />
           </View>
         }
+
+        {/* button to open form to post an item */}
         <Content
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this._onRefresh}
-            />
-          }>
-          {/* button to open form to post an item */}
+        refreshControl={
+          <RefreshControl
+          refreshing={this.state.refreshing}
+          onRefresh={this._onRefresh}
+        />
+        }>
           {!post && (<Button style={{ margin: 50 }} onPress={this.togglePost}>
             <Text>New Post</Text>
           </Button>)}

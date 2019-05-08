@@ -77,7 +77,7 @@ export default class ItemCard extends Component {
         <Card style={{ marginTop: 5 }}>
           <CardItem>
             <Body>
-              <ItemImage images={this.props.images} />
+              <ItemImage images={this.props.images} shade={this.props.shade} />
               <CardItem
                 style={{
                   position: "absolute",

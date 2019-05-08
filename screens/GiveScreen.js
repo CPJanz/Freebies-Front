@@ -12,7 +12,9 @@ import {
   CardItem,
   Body,
   Textarea,
-  View
+  View,
+  Form,
+  Item
 } from "native-base";
 //brings in firebaseDB
 import * as firebase from "firebase";
@@ -44,8 +46,9 @@ export default class GiveScreen extends Component {
     this.setUserId();
 
     if (!this.focusListener) {
-      this.focusListener = this.props.navigation.addListener("willFocus", () =>
-        this.getPostedItems()
+      this.focusListener = this.props.navigation.addListener(
+        'willFocus',
+        () => this.getPostedItems()
       );
     }
   };
@@ -101,10 +104,10 @@ export default class GiveScreen extends Component {
     // creates a blob (binary image format)
     const blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.onload = function() {
+      xhr.onload = function () {
         resolve(xhr.response);
       };
-      xhr.onerror = function(e) {
+      xhr.onerror = function (e) {
         console.log(e);
         reject(new TypeError("Network request failed"));
       };
@@ -182,12 +185,21 @@ export default class GiveScreen extends Component {
     let { post } = this.state;
 
     return (
+<<<<<<< HEAD
       <Container style={{ backgroundColor: "#C2DFE3" }}>
         {this.state.refreshing && (
           <View style={{ flex: 1, paddingTop: 20 }}>
             <ActivityIndicator />
           </View>
         )}
+=======
+      <Container style={{ backgroundColor: '#C2DFE3' }}>
+        {this.state.refreshing &&
+          <View style={{ flex: 1, paddingTop: 20 }}>
+            <ActivityIndicator />
+          </View>
+        }
+>>>>>>> c04fb125f270901d9ffc722ab37fac8266cf3d4c
 
         {/* button to open form to post an item */}
         <Content
@@ -206,14 +218,22 @@ export default class GiveScreen extends Component {
           {/* inserts image picker UI */}
           {post && (
             <Form>
+<<<<<<< HEAD
               <Item>
+=======
+              <Item >
+>>>>>>> c04fb125f270901d9ffc722ab37fac8266cf3d4c
                 <Text>Post an Item</Text>
               </Item>
               <Item>
                 <ImagePickerComponent images={this.images} />
               </Item>
               <Item>
+<<<<<<< HEAD
                 <Input
+=======
+                <Textarea
+>>>>>>> c04fb125f270901d9ffc722ab37fac8266cf3d4c
                   rowSpan={5}
                   bordered
                   placeholder="Optional item description"

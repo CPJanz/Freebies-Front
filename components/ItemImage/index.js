@@ -10,7 +10,7 @@ export default class ItemImage extends React.Component {
       return (
         <Image
           source={{ uri: this.props.images[0] }}
-          style={{ height: 300, width: 340, flex: 1 }}
+          style={{ height: 300, width: 340, flex: 1, borderRadius: 15 }}
         />
       );
     }

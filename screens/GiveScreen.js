@@ -216,6 +216,7 @@ export default class GiveScreen extends Component {
               </Item>
               <Item>
                 <Textarea
+                  style={{ backgroundColor: "white" }}
                   rowSpan={5}
                   bordered
                   placeholder="Optional item description"
@@ -224,11 +225,13 @@ export default class GiveScreen extends Component {
                 />
               </Item>
               <Item>
+              </Item>
                 <Text>{this.state.message}</Text>
-                <Button onPress={this.postItem} primary>
+              <Item style={{ flexDirection: "row" }}>
+                <Button onPress={this.postItem} style={{marginRight: 20}}>
                   <Text> Post </Text>
                 </Button>
-                <Button style={{ margin: 50 }} onPress={this.togglePost}>
+                <Button onPress={this.togglePost}>
                   <Text>Cancel</Text>
                 </Button>
               </Item>

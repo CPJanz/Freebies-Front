@@ -4,15 +4,16 @@ import React from 'react';
 import { Image, AsyncStorage } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
-import TabBarIcon from '../components/TabBarIcon';
 import FindScreen from '../screens/FindScreen';
 import GiveScreen from '../screens/GiveScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 //sets up buttons for bee menu
 import { ActionSheet } from "native-base";
-var BUTTONS = ["Log Out", "Cancel"];
-var Logout_Index = 0;
-var Cancel_Index = 1;
+var BUTTONS = ["About", "Log Out", "Cancel"];
+var About_Index = 0;
+var Logout_Index = 1;
+var Cancel_Index = 2;
 
 const FindStack = createStackNavigator({
   Find: FindScreen,
@@ -30,8 +31,18 @@ GiveStack.navigationOptions = {
   tabBarLabel: 'Give',
 };
 
+const AboutStack = createStackNavigator({
+  About2: AboutScreen,
+});
+
+AboutStack.navigationOptions = {
+  showLabel: false,
+  showIcon: false,
+};
+
 //creates bottom navigation
 export default createBottomTabNavigator({
+  //AboutStack,
   FindStack,
   //creates expandable bee menu
   ExpandMenu : {
@@ -55,6 +66,10 @@ export default createBottomTabNavigator({
               // logout
               await AsyncStorage.setItem("userToken", "");
               props.navigation.navigate('AuthLoading');
+              break;
+
+              case About_Index:
+              props.navigation.navigate("About");
               break;
             }
           }

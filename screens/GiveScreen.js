@@ -225,8 +225,8 @@ export default class GiveScreen extends Component {
                 />
               </Item>
               <Item>
-              </Item>
                 <Text>{this.state.message}</Text>
+              </Item>
               <Item style={{ flexDirection: "row" }}>
                 <Button onPress={this.postItem} style={{marginRight: 20}}>
                   <Text> Post </Text>

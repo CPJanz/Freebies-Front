@@ -111,7 +111,7 @@ export default class ItemCard extends Component {
             </Body>
           </CardItem>
        </Card>
-     
+     </View>
     );
   }
 }

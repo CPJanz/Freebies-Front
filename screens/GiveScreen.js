@@ -79,16 +79,16 @@ export default class GiveScreen extends Component {
     return (
       <Container style={{ backgroundColor: "#C2DFE3" }}>
         {this.state.refreshing && (
-          <View style={{ flex: 1, paddingTop: 20 }}>
+          <View style={{ flex: 1, paddingTop: 10 }}>
             <ActivityIndicator />
           </View>
         )}
-
+        <View style={{ flex: .2, flexDirection: "row", justifyContent: "center", alignItems: "center", paddingTop: 0, backgroundColor: }} >
         {/* button to open form to post an item */}
         <Button style={{ margin: 50 }} onPress={() => this.props.navigation.navigate("Post")}>
           <Text>New Post</Text>
         </Button>
-
+        </View>
         <Content
           refreshControl={
             <RefreshControl
@@ -98,7 +98,6 @@ export default class GiveScreen extends Component {
           }
         >
 
-          <Text>Active Posts</Text>
           {/* map active array at top */}
           {this.state.active.map((data, i) => (
             <ItemCard
@@ -116,7 +115,7 @@ export default class GiveScreen extends Component {
               active={true}
             />
           ))}
-          <Text>Inactive Posts</Text>
+
           {/* map inactive array below */}
           {this.state.inactive.map((data, i) =>
             data.available ? (

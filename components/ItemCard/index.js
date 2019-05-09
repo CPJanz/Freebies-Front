@@ -99,7 +99,6 @@ export default class ItemCard extends Component {
               <CardItem 
                 style={styles.topLeft}>
               {this.formatElement(this.props.topLeft)}
-              <Ionicons name="location" size={22} color="black"/>
               </CardItem> 
               <CardItem
                 style={styles.topRight}

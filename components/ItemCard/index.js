@@ -83,9 +83,12 @@ export default class ItemCard extends Component {
 
   render() {
     return (
-        <Card > 
-          <CardItem>
-          <View>
+
+      <View style={{ flex: 1 }}>
+      {/* this is where changes were made so that there is no border showing around the image */}
+        <Card transparent style={{ marginTop: 5 }}>
+          <CardItem style={{backgroundColor: "transparent"}}>
+
             <Body>
               <ItemImage images={this.props.images} opacity={this.activeStatus()} />
               <CardItem
@@ -106,10 +109,9 @@ export default class ItemCard extends Component {
                 </CardItem>
               ) : null}
             </Body>
-            </View>
           </CardItem>
        </Card>
-     
+     </View>
     );
   }
 }

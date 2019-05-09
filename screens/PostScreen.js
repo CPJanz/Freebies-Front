@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { AsyncStorage } from "react-native";
+import ImagePickerComponent from "../components/Camera";
 import {
     Container,
     Content,
@@ -13,7 +15,6 @@ import {
     Item,
     Input
 } from "native-base";
-import ImagePickerComponent from "../components/Camera";
 import * as firebase from "firebase";
 import uuid from "uuid";
 import API from "../utils/API";
@@ -32,11 +33,6 @@ export default class PostScreen extends Component {
     componentDidMount = () => {
         this.getLocation();
         this.setUserId();
-        this.images = [];
-        this.setState({
-            description: "",
-            message: ""
-        });
     };
 
     getLocation() {
@@ -56,6 +52,7 @@ export default class PostScreen extends Component {
     };
 
     uploadImage = async uri => {
+        console.log("IMAGES FROM CAMERA BEFORE FIREBASE ", this.images)
         // generates a random image ID for firebase
         var imageID = uuid.v4() + ".jpg";
         // creates a blob (binary image format)
@@ -72,7 +69,7 @@ export default class PostScreen extends Component {
             xhr.open("GET", uri, true);
             xhr.send(null);
         });
-
+        
         // creates a reference based off of the generated image ID
         var ref = firebase
             .storage()
@@ -107,7 +104,8 @@ export default class PostScreen extends Component {
         console.log(this.state.description);
 
         if (this.state.uploaded.length > 0) {
-            props.navigation.navigate("Give");
+            // route back to give screen when item is posted
+            this.props.navigation.navigate("Give");
             API.postNewItem({
                 images: this.state.uploaded,
                 giverId: this.state.userId,
@@ -127,12 +125,10 @@ export default class PostScreen extends Component {
     };
 
     render() {
+        return (
         <Form>
             <Item>
                 <Text>{this.state.message}</Text>
-            </Item>
-            <Item>
-                <ImagePickerComponent images={this.images} />
             </Item>
             <Item>
                 <Input
@@ -142,14 +138,18 @@ export default class PostScreen extends Component {
                     onChange={this.handleDiscriptionChange}
                 />
             </Item>
+            <Item>
+                <ImagePickerComponent images={this.images} />
+            </Item>
             <Item style={{ flexDirection: "row" }}>
                 <Button onPress={this.postItem} style={{ marginRight: 20 }}>
                     <Text> Post </Text>
                 </Button>
-                <Button onPress={() => props.navigation.navigate("Give")}>
+                <Button onPress={() => this.props.navigation.navigate("Give")}>
                     <Text>Cancel</Text>
                 </Button>
             </Item>
         </Form>
+        )
     }
 };

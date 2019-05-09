@@ -16,10 +16,13 @@ export default class Duration extends Component {
   };
 
   tick() {
-    // if (this.state.timeLeft <= 0) {this.props.setInactive};
-    this.setState(function(prevState) {
-      return { timeLeft: prevState.timeLeft - 1000 };
-    });
+    if (this.state.timeLeft <= 0) {
+      this.props.setInactive();
+    } else {
+      this.setState(function(prevState) {
+        return { timeLeft: prevState.timeLeft - 1000 };
+      });
+    }
   }
 
   formatTime = time => {
@@ -47,7 +50,7 @@ export default class Duration extends Component {
       this.state.timeLeft > 0 ? (
         <Text>{this.formatTime(this.state.timeLeft)}</Text>
       ) : (
-        this.props.setInactive
+        <Text>Expired!</Text>
       )
     )};
 }

@@ -5,11 +5,12 @@ import Map from "../Map";
 import ItemImage from "../ItemImage";
 import DistanceHud from "../DistanceHud";
 
-import { Card, CardItem, Text, Body, View } from "native-base";
+import { Card, CardItem, Text, Body, View, StyleSheet } from "native-base";
 import API from "../../utils/API";
 import TakeButton from "../TakeButton";
 import Duration from "../Duration";
 import RepostButton from "../RepostButton";
+import styles from "./style";
 
 export default class ItemCard extends Component {
   state = {
@@ -86,52 +87,35 @@ export default class ItemCard extends Component {
 
   render() {
     return (
+
       <View style={{ flex: 1 }}>
-        <Card style={{ marginTop: 5 }}>
-          <CardItem>
+      {/* this is where changes were made so that there is no border showing around the image */}
+        <Card transparent style={{ marginTop: 5 }}>
+          <CardItem style={{backgroundColor: "transparent"}}>
+
             <Body>
               <ItemImage images={this.props.images} opacity={this.activeStatus()} />
               <CardItem
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  backgroundColor: "rgba(255,255,255,.5)",
-                  borderRadius: 0,
-                  borderBottomRightRadius: "50%"
-                }}
+                style={styles.topLeft}
               >
                 {this.formatElement(this.props.topLeft)}
-              </CardItem>
+              </CardItem> 
               <CardItem
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0,
-                  backgroundColor: "rgba(255,255,255,.5)",
-                  borderRadius: 0,
-                  borderBottomLeftRadius: "50%"
-                }}
+                style={styles.topRight}
               >
                 {this.formatElement(this.props.topRight)}
               </CardItem>
               {this.props.textBody ? (
                 <CardItem
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    backgroundColor: "rgba(255,255,255,.5)",
-                    width: "100%"
-                  }}
+                  style={styles.bottomBar}
                 >
                   <Text>{this.props.textBody}</Text>
                 </CardItem>
               ) : null}
             </Body>
           </CardItem>
-        </Card>
-      </View>
+       </Card>
+     </View>
     );
   }
 }

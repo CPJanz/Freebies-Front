@@ -1,7 +1,8 @@
 //this code creates the user log in page
 
 import React from "react";
-import API from "../utils/API";
+import API from "../../utils/API";
+import styles from "./style"
 
 import { AsyncStorage } from "react-native";
 
@@ -13,10 +14,11 @@ import {
   Item,
   Input,
   Text,
-  Button
+  Button,
+  View
 } from "native-base";
 
-import AppName from "../components/AppName";
+import AppName from "../../components/AppName";
 
 export default class LogInScreen extends React.Component {
   state = {
@@ -31,11 +33,12 @@ export default class LogInScreen extends React.Component {
     if (this.state.email.length === 0) {
       this.setState({ errorMessage: "Please enter an email address." });
     } else {
-      API.signIn(this.state.email).then(dbResult => {
+      API.signIn(this.state.email).then(async dbResult => {
         console.log("dbresult", JSON.stringify(dbResult));
         if (dbResult.data.length) {
           console.log("id", dbResult.data[0]._id);
           AsyncStorage.setItem("userToken", dbResult.data[0]._id);
+          await AsyncStorage.setItem("userEmail", this.state.email);
           this.props.navigation.navigate("App");
         } else {
           console.log("No account associated with that email!");
@@ -50,11 +53,12 @@ export default class LogInScreen extends React.Component {
   signUpAsync = async () => {
     console.log("Clicked!");
     if (this.validateEmail(this.state.email)) {
-      API.createUser(this.state.email).then(dbResult => {
+      API.createUser(this.state.email).then(async dbResult => {
         console.log("result", JSON.stringify(dbResult.data));
         if (dbResult.data !== false) {
           console.log(dbResult.data._id);
           AsyncStorage.setItem("userToken", dbResult.data._id);
+          await AsyncStorage.setItem("userEmail", this.state.email);
           this.props.navigation.navigate("App");
         } else {
           console.log("There is an account with that email already");
@@ -78,12 +82,14 @@ export default class LogInScreen extends React.Component {
 
   render() {
     return (
-      <Container>
+      <View style={styles.container}>
+      <Container >
         <AppName />
         <Content>
+          <View style={styles.email}>
           <Form>
-            <Item>
-              <Input
+            <Item >
+              <Input 
                 type="text"
                 placeholder="E-Mail"
                 name="email"
@@ -98,14 +104,16 @@ export default class LogInScreen extends React.Component {
                             <Input placeholder="Password" />
                         </Item> */}
           </Form>
-          <Button onPress={this.signInAsync}>
-            <Text>Sign In</Text>
+          </View>
+          <Button transparent onPress={this.signInAsync} style={styles.signInButton}>
+            <Text style={styles.signInText}>          Sign In</Text>
           </Button>
-          <Button onPress={this.signUpAsync}>
-            <Text>Sign Up</Text>
+          <Button transparent onPress={this.signUpAsync} style={styles.signUpButton}>
+            <Text style={styles.signUpText}>          Sign Up</Text>
           </Button>
         </Content>
       </Container>
+      </View>
     );
   }
 }

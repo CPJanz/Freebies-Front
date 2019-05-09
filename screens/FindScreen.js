@@ -1,7 +1,6 @@
 //this code creates the FIND page
 
 import React, { Component } from "react";
-import FindCard from "../components/FindCard";
 import {
   Container,
   Header,
@@ -47,7 +46,16 @@ export default class FindScreen extends Component {
     navigator.geolocation.getCurrentPosition(position => {
       API.getNearbyItems(position.coords)
         .then(items => {
-          this.setState({ nearbyItems: items.data, location: position.coords });
+          if (items) {
+            this.setState({
+              nearbyItems: items.data,
+              location: position.coords
+            });
+          } else {
+            this.setState({
+              location: position.coords
+            });
+          }
         })
         .catch(err => console.log(err));
       this.asyncGetUser();
@@ -99,6 +107,15 @@ export default class FindScreen extends Component {
             }
           >
             {this.state.nearbyItems.map((data, i) => {
+
+//for bug fixing only
+              if (!data) {
+                return (
+                  <Text>no data</Text>
+                )
+              }
+else
+
               return (
                 <ItemCard
                   key={i}

@@ -131,22 +131,22 @@ export default class GiveScreen extends Component {
                 images={data.images}
                 available={data.available}
                 textBody={data.description}
-                topLeft={{ type: "Repost", reload: this._onRefresh }}
+                topLeft={{ type: "None" }}
                 topRight={{ type: "Repost", reload: this._onRefresh }}
                 active={false}
               />
             ) : (
-                <ItemCard
-                  key={data._id}
-                  id={data._id}
-                  images={data.images}
-                  available={data.available}
-                  textBody={data.description}
-                  topLeft={{ type: "Repost", reload: this._onRefresh }}
-                  topRight={{ type: "Take" }}
-                  active={false}
-                />
-              )
+              <ItemCard
+                key={data._id}
+                id={data._id}
+                images={data.images}
+                available={data.available}
+                textBody={data.description}
+                topLeft={{ type: "None" }}
+                topRight={{ type: "Repost", reload: this._onRefresh }}
+                active={false}
+              />
+            )
           )}
         </Content>
       </Container>

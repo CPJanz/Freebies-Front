@@ -16,6 +16,7 @@ export default class Duration extends Component {
   };
 
   tick() {
+    if (this.state.timeLeft <= 0) {this.props.setInactive};
     this.setState(function(prevState) {
       return { timeLeft: prevState.timeLeft - 1000 };
     });

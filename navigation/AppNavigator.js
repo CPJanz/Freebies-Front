@@ -5,6 +5,7 @@ import MainTabNavigator from './MainTabNavigator';
 import LoginStack from './LogInNavigator';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import AboutScreen from '../screens/AboutScreen';
+import PostScreen from '../screens/PostScreen';
 
 export default createAppContainer(createSwitchNavigator({
   // You could add another route here for authentication.
@@ -12,7 +13,8 @@ export default createAppContainer(createSwitchNavigator({
   AuthLoading: AuthLoadingScreen,
   App: MainTabNavigator,
   Auth: LoginStack,
-  About: AboutScreen
+  About: AboutScreen,
+  Post: PostScreen
 },
 {
   initialRouteName: 'AuthLoading'

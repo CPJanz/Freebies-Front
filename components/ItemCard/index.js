@@ -59,7 +59,7 @@ export default class ItemCard extends Component {
       case "Map":
         return <Map location={input.location} />;
       case "Duration":
-        return <Duration timeLeft={input.timeLeft} />;
+        return <Duration timeLeft={input.timeLeft} setInactive={this.setInactive}/>;
       case "Take":
         return (
           <TakeButton
@@ -79,8 +79,12 @@ export default class ItemCard extends Component {
       return 1
     } else {
       return 0.2
-    }
-  }
+    };
+  };
+
+  setInactive = () => {
+    this.setState({ active: false });
+  };
 
   render() {
     return (

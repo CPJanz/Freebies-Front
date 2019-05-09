@@ -27,8 +27,6 @@ export default class GiveScreen extends Component {
     active: [],
     inactive: [],
     userId: null,
-    // latitude: null,
-    // longitude: null,
     refreshing: false
   };
 
@@ -131,8 +129,9 @@ export default class GiveScreen extends Component {
                 images={data.images}
                 available={data.available}
                 textBody={data.description}
+                reload={this._onRefresh}
                 topLeft={{ type: "None" }}
-                topRight={{ type: "Repost", reload: this._onRefresh }}
+                topRight={{ type: "Repost" }}
                 active={false}
               />
             ) : (
@@ -142,8 +141,9 @@ export default class GiveScreen extends Component {
                 images={data.images}
                 available={data.available}
                 textBody={data.description}
+                reload={this._onRefresh}
                 topLeft={{ type: "None" }}
-                topRight={{ type: "Repost", reload: this._onRefresh }}
+                topRight={{ type: "Repost" }}
                 active={false}
               />
             )

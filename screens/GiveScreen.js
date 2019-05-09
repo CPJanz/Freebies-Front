@@ -264,8 +264,8 @@ export default class GiveScreen extends Component {
                 images={data.images}
                 available={data.available}
                 textBody={data.description}
-                topLeft={{ type: "Repost", reload: this._onRefresh() }}
-                topRight={{ type: "Repost", reload: this._onRefresh() }}
+                topLeft={{ type: "Repost", reload: this._onRefresh }}
+                topRight={{ type: "Repost", reload: this._onRefresh }}
                 active={false}
               />
             ) : (
@@ -275,7 +275,7 @@ export default class GiveScreen extends Component {
                 images={data.images}
                 available={data.available}
                 textBody={data.description}
-                topLeft={{ type: "Repost" }}
+                topLeft={{ type: "Repost", reload: this._onRefresh }}
                 topRight={{ type: "Take" }}
                 active={false}
               />

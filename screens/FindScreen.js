@@ -52,6 +52,10 @@ export default class FindScreen extends Component {
               nearbyItems: items.data,
               location: position.coords
             });
+          } else {
+            this.setState({
+              location: position.coords
+            });
           }
         })
         .catch(err => console.log(err));

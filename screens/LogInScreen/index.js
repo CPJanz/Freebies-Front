@@ -1,8 +1,8 @@
 //this code creates the user log in page
 
 import React from "react";
-import API from "../utils/API";
-import { StyleSheet} from 'react-native';
+import API from "../../utils/API";
+import styles from "./style"
 
 import { AsyncStorage } from "react-native";
 
@@ -17,7 +17,7 @@ import {
   Button
 } from "native-base";
 
-import AppName from "../components/AppName";
+import AppName from "../../components/AppName";
 
 export default class LogInScreen extends React.Component {
   state = {
@@ -99,7 +99,7 @@ export default class LogInScreen extends React.Component {
                             <Input placeholder="Password" />
                         </Item> */}
           </Form>
-          <Button onPress={this.signInAsync} style={ color: "pink"}>
+          <Button onPress={this.signInAsync} style={styles.signIn}>
             <Text>Sign In</Text>
           </Button>
           <Button onPress={this.signUpAsync}>

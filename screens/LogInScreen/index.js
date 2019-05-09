@@ -86,7 +86,7 @@ export default class LogInScreen extends React.Component {
       <Container >
         <AppName />
         <Content>
-          {/* <View style={styles.email}> */}
+          <View style={styles.email}>
           <Form>
             <Item >
               <Input 
@@ -104,12 +104,12 @@ export default class LogInScreen extends React.Component {
                             <Input placeholder="Password" />
                         </Item> */}
           </Form>
-          {/* </View> */}
+          </View>
           <Button transparent onPress={this.signInAsync} style={styles.signInButton}>
-            <Text style={styles.signInText}>Sign In</Text>
+            <Text style={styles.signInText}>          Sign In</Text>
           </Button>
           <Button transparent onPress={this.signUpAsync} style={styles.signUpButton}>
-            <Text style={styles.signUpText}>Sign Up</Text>
+            <Text style={styles.signUpText}>          Sign Up</Text>
           </Button>
         </Content>
       </Container>

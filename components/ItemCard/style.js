@@ -6,23 +6,21 @@ export default styles = StyleSheet.create({
         position: "absolute",
         top: 0,
         left: 0,
-        backgroundColor: "rgba(255,255,255,.5)",
-        borderRadius: 0,
-        borderBottomRightRadius: 50
+        backgroundColor: "transparent"
     },
     topRight: {
         position: "absolute",
         top: 0,
         right: 0,
-        backgroundColor: "rgba(255,255,255,.5)",
-        borderRadius: 0,
-        borderBottomLeftRadius: 50
+        backgroundColor: "transparent"
     },
     bottomBar: {
         position: "absolute",
         bottom: 0,
         left: 0,
         backgroundColor: "rgba(255,255,255,.5)",
-        width: "100%"
+        width: "100%",
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15
     }
 })

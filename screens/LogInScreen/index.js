@@ -79,7 +79,7 @@ export default class LogInScreen extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.container}>
         <AppName />
         <Content>
           <Form>
@@ -99,10 +99,10 @@ export default class LogInScreen extends React.Component {
                             <Input placeholder="Password" />
                         </Item> */}
           </Form>
-          <Button onPress={this.signInAsync} style={styles.signIn}>
-            <Text>Sign In</Text>
+          <Button transparent onPress={this.signInAsync} style={styles.signIn}>
+            <Text style={styles.signInText}>Sign In</Text>
           </Button>
-          <Button onPress={this.signUpAsync}>
+          <Button block onPress={this.signUpAsync}>
             <Text>Sign Up</Text>
           </Button>
         </Content>

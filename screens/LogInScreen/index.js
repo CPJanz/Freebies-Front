@@ -32,11 +32,12 @@ export default class LogInScreen extends React.Component {
     if (this.state.email.length === 0) {
       this.setState({ errorMessage: "Please enter an email address." });
     } else {
-      API.signIn(this.state.email).then(dbResult => {
+      API.signIn(this.state.email).then(async dbResult => {
         console.log("dbresult", JSON.stringify(dbResult));
         if (dbResult.data.length) {
           console.log("id", dbResult.data[0]._id);
           AsyncStorage.setItem("userToken", dbResult.data[0]._id);
+          await AsyncStorage.setItem("userEmail", this.state.email);
           this.props.navigation.navigate("App");
         } else {
           console.log("No account associated with that email!");
@@ -51,11 +52,12 @@ export default class LogInScreen extends React.Component {
   signUpAsync = async () => {
     console.log("Clicked!");
     if (this.validateEmail(this.state.email)) {
-      API.createUser(this.state.email).then(dbResult => {
+      API.createUser(this.state.email).then(async dbResult => {
         console.log("result", JSON.stringify(dbResult.data));
         if (dbResult.data !== false) {
           console.log(dbResult.data._id);
           AsyncStorage.setItem("userToken", dbResult.data._id);
+          await AsyncStorage.setItem("userEmail", this.state.email);
           this.props.navigation.navigate("App");
         } else {
           console.log("There is an account with that email already");

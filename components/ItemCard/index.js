@@ -4,8 +4,9 @@ import React, { Component } from "react";
 import Map from "../Map";
 import ItemImage from "../ItemImage";
 import DistanceHud from "../DistanceHud";
+import { Ionicons } from '@expo/vector-icons';
 
-import { Card, CardItem, Text, Body, View, StyleSheet } from "native-base";
+import { Card, CardItem, Text, Body, Icon, View, StyleSheet } from "native-base";
 import API from "../../utils/API";
 import TakeButton from "../TakeButton";
 import Duration from "../Duration";
@@ -91,10 +92,10 @@ export default class ItemCard extends Component {
 
             <Body>
               <ItemImage images={this.props.images} opacity={this.activeStatus()} />
-              <CardItem
-                style={styles.topLeft}
-              >
-                {this.formatElement(this.props.topLeft)}
+              <CardItem 
+                style={styles.topLeft}>
+              {this.formatElement(this.props.topLeft)}
+              <Ionicons name="location" size={22} color="black"/>
               </CardItem> 
               <CardItem
                 style={styles.topRight}

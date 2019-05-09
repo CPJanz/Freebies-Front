@@ -14,7 +14,8 @@ import {
   Item,
   Input,
   Text,
-  Button
+  Button,
+  View
 } from "native-base";
 
 import AppName from "../../components/AppName";
@@ -81,7 +82,8 @@ export default class LogInScreen extends React.Component {
 
   render() {
     return (
-      <Container style={styles.container}>
+      <View style={styles.container}>
+      <Container >
         <AppName />
         <Content>
           <Form>
@@ -101,14 +103,15 @@ export default class LogInScreen extends React.Component {
                             <Input placeholder="Password" />
                         </Item> */}
           </Form>
-          <Button transparent onPress={this.signInAsync} style={styles.signIn}>
+          <Button transparent onPress={this.signInAsync} style={styles.signInButton}>
             <Text style={styles.signInText}>Sign In</Text>
           </Button>
-          <Button block onPress={this.signUpAsync}>
-            <Text>Sign Up</Text>
+          <Button transparent onPress={this.signUpAsync} style={styles.signUpButton}>
+            <Text style={styles.signUpText}>Sign Up</Text>
           </Button>
         </Content>
       </Container>
+      </View>
     );
   }
 }

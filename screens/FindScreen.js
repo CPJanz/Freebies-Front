@@ -47,7 +47,16 @@ export default class FindScreen extends Component {
     navigator.geolocation.getCurrentPosition(position => {
       API.getNearbyItems(position.coords)
         .then(items => {
-          this.setState({ nearbyItems: items.data, location: position.coords });
+          if (items) {
+            this.setState({
+              nearbyItems: items.data,
+              location: position.coords
+            });
+          } else {
+            this.setState({
+              location: position.coords
+            });
+          }
         })
         .catch(err => console.log(err));
       this.asyncGetUser();

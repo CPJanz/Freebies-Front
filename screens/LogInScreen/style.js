@@ -8,30 +8,42 @@ export default styles = StyleSheet.create({
         flex: 1,
         // backgroundColor: "#feffea"
     //    justifyContent: "center"
-    // alignItems: "center"
+    // alignItems: "center",
+    // alignContent: "center",
+    // margin: 0
+    },
+
+    email: {
+       backgroundColor: "#424242",
+    //    alignSelf: "flex-start",
+    //    marginLeft: 0
     },
 
     signInButton: {
     //    backgroundColor: "rgba(240, 300, 75, .5)",
     //    borderColor: "#424242",
     //    alignContent: "center",
-    // justifyContent: "center"
-    alignItems: "center"
+    display: "flex",
+    justifyContent: "center"
+    // alignItems: "center"
     },
 
     signInText: {
         color: "#F3D34A",
         fontSize: 25,
+        justifyContent: "space-between"
+        // alignItems: "center"
         // textAlign: "center"
         // justifyContent: "center"
     },
 
     signUpButton: {
-
+        justifyContent: "center"
     },
 
     signUpText: {
         color: "#F3D34A",
-        fontSize: 24
+        fontSize: 24,
+        justifyContent: "space-between"
     }
 })

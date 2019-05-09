@@ -5,7 +5,7 @@ function TakeButton(props) {
   return (
     <Button
       onPress={props.onPress}
-      title={props.available ? "Take" : "Un Take"}
+      title={props.available ? "Take" : "Put Back"}
     />
   );
 }

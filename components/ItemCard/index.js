@@ -82,6 +82,7 @@ export default class ItemCard extends Component {
 
   setInactive = () => {
     this.setState({ active: false });
+    this.activeStatus();
   };
 
   render() {

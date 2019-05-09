@@ -21,8 +21,6 @@ import ItemCard from "../components/ItemCard";
 
 //this code renders the Give screen
 export default class GiveScreen extends Component {
-  //stores the image URLs from the users camera/image library in an array
-  // images = [];
   state = {
     active: [],
     inactive: [],
@@ -30,9 +28,8 @@ export default class GiveScreen extends Component {
     refreshing: false
   };
 
-  //   when give screen loads, state will set with the users location, id, and previously posted items
+  //   when give screen loads, state will set with the user's id, and previously posted items
   componentDidMount = () => {
-    // this.getLocation();
     this.setUserId();
 
     if (!this.focusListener) {

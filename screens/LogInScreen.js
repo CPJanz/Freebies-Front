@@ -2,6 +2,7 @@
 
 import React from "react";
 import API from "../utils/API";
+import { StyleSheet} from 'react-native';
 
 import { AsyncStorage } from "react-native";
 
@@ -98,7 +99,7 @@ export default class LogInScreen extends React.Component {
                             <Input placeholder="Password" />
                         </Item> */}
           </Form>
-          <Button onPress={this.signInAsync}>
+          <Button onPress={this.signInAsync} style={ color: "pink"}>
             <Text>Sign In</Text>
           </Button>
           <Button onPress={this.signUpAsync}>

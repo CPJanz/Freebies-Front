@@ -52,19 +52,27 @@ export default createBottomTabNavigator({
       tabBarIcon: () => (
        <Image source={require('../assets/images/bee.png')} style={{width:40, height: 40, marginTop:15}}/>
       ),
-      tabBarOnPress: props => {
+      tabBarOnPress: async (props) => {
+        
+        var userEmail = await AsyncStorage.getItem("userEmail");
+
+        if (!userEmail) {
+          userEmail = "Log Out";
+        }
+
         ActionSheet.show(
           {
             options: BUTTONS,
             cancelButtonIndex: Cancel_Index,
             destructiveButtonIndex: Logout_Index,
-            title: "Expand Menu"
+            title: userEmail
           },
           async (buttonIndex) => {
             switch(buttonIndex) {
               case Logout_Index:
               // logout
               await AsyncStorage.setItem("userToken", "");
+              await AsyncStorage.setItem("userEmail", "");
               props.navigation.navigate('AuthLoading');
               break;
 

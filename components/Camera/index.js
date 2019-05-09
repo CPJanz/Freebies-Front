@@ -64,7 +64,7 @@ export default class ImagePickerComponent extends React.Component {
         {gotImages &&
           this.images.map((data, i) => {
             return (
-              <Image key={i} source={{ uri: data }} style={{ width: 300, height: 300, marginTop: 5 }} />
+              <Image key={i} source={{ uri: data }} style={{ width: 300, height: 300, marginTop: 5, borderRadius: 15 }} />
             );
           })
         }

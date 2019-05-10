@@ -78,12 +78,8 @@ export default class GiveScreen extends Component {
   // renders the UI to the screen
   render() {
     return (
-<<<<<<< HEAD
-      <Container style={{ backgroundColor: "#C2DFE3", paddingTop: 0 }}>
-=======
       <Container style={{ backgroundColor: "#C2DFE3" }}>
       <AppNameHeader />
->>>>>>> add headers (will be resizing)
         {this.state.refreshing && (
           <View style={{ flex: 1, paddingTop: 20 }}>
             <ActivityIndicator />

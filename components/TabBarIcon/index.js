@@ -1,17 +1,21 @@
 import React from 'react';
-import { Icon } from 'expo';
 
-import Colors from '../../constants/Colors';
+import {Text} from 'native-base'
 
 export default class TabBarIcon extends React.Component {
   render() {
+
+    var textStyle = {
+      fontSize: 22,
+      fontWeight: (this.props.focused) ? "bold" : "normal",
+      color: "#424242",
+      marginBottom: 8
+    }    
+
     return (
-      <Icon.Ionicons
-        name={this.props.name}
-        size={26}
-        style={{ marginBottom: -3 }}
-        color={this.props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
-      />
+      <Text style={textStyle}>
+        {this.props.name}
+      </Text>     
     );
   }
 }

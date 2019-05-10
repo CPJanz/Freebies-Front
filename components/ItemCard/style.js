@@ -6,7 +6,8 @@ export default styles = StyleSheet.create({
         position: "absolute",
         top: 0,
         left: 0,
-        backgroundColor: "transparent",
+        backgroundColor: "transparent"
+        
     },
     topRight: {
         position: "absolute",

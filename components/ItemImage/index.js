@@ -13,7 +13,7 @@ export default class ItemImage extends React.Component {
     } else {
       return (
         <View>
-          <PlaceholderImage opacity={props.opacity} />
+          <PlaceholderImage opacity={this.props.opacity} />
           <Image
             source={{ uri: this.props.images[0] }}
             style={{

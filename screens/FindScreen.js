@@ -15,7 +15,12 @@ import {
 import API from "../utils/API";
 const haversine = require("haversine-js");
 import ItemCard from "../components/ItemCard";
-import { AsyncStorage, ActivityIndicator, RefreshControl } from "react-native";
+import {
+  AsyncStorage,
+  ActivityIndicator,
+  RefreshControl,
+  Image
+} from "react-native";
 
 export default class FindScreen extends Component {
   state = {
@@ -87,14 +92,30 @@ export default class FindScreen extends Component {
   render() {
     return (
       //This is a check to ensure that we have gotten a call back from the db
-      this.state.refreshing || !this.state.nearbyItems ? (
+      this.state.refreshing ? (
         //loading view while data is loading
         <View style={{ flex: 1, paddingTop: 20 }}>
           <ActivityIndicator />
         </View>
-      ) : this.state.nearbyItems.length === 0 ? (
+      ) : !this.state.nearbyItems ? (
         // Got a response back but don't have any nearby items.
-        <Text>{"No Results"}</Text>
+        <View
+          style={{
+            flex: 0.2,
+            // flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingTop: 200
+          }}
+        >
+          <Text style={{ fontSize: 25, paddingBottom: 100 }}>
+            {"No Nearby Items Found"}
+          </Text>
+          <Image
+            source={require("../assets/images/bee.png")}
+            style={{ width: 125, height: 125 }}
+          />
+        </View>
       ) : (
         // Got a response back and have nearby items.
         <Container style={{ backgroundColor: "#C2DFE3" }}>
@@ -107,31 +128,26 @@ export default class FindScreen extends Component {
             }
           >
             {this.state.nearbyItems.map((data, i) => {
-
-//for bug fixing only
+              //for bug fixing only
               if (!data) {
+                return <Text>no data</Text>;
+              } else
                 return (
-                  <Text>no data</Text>
-                )
-              }
-else
-
-              return (
-                <ItemCard
-                  key={i}
-                  available={data.available}
-                  textBody={data.description}
-                  topLeft={{
-                    type: "DistanceHud",
-                    distanceInfo: this.calculateDistance(data.location)
-                  }}
-                  topRight={{ type: "Map", location: data.location }}
-                  images={data.images}
-                  location={data.location}
-                  id={data._id}
-                  active={true}
-                />
-              );
+                  <ItemCard
+                    key={i}
+                    available={data.available}
+                    textBody={data.description}
+                    topLeft={{
+                      type: "DistanceHud",
+                      distanceInfo: this.calculateDistance(data.location)
+                    }}
+                    topRight={{ type: "Map", location: data.location }}
+                    images={data.images}
+                    location={data.location}
+                    id={data._id}
+                    active={true}
+                  />
+                );
             })}
           </Content>
         </Container>

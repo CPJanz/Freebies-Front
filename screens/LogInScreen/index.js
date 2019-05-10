@@ -18,7 +18,7 @@ import {
   View
 } from "native-base";
 
-import AppName from "../../components/AppName";
+import AppName2 from "../../components/AppName2";
 
 export default class LogInScreen extends React.Component {
   state = {
@@ -86,7 +86,7 @@ export default class LogInScreen extends React.Component {
       <Container >
       <Text style={styles.invisibleText}>The items are evenly distributed within the alignment container along the main axis. The spacing between ea </Text>
         <View containerContentStyle={styles.logo}>
-          <AppName />
+          <AppName2/>
         </View>
         <Text style={styles.invisibleText}>The items are evenly distributed within the alignment container along the main axis.  </Text>
         <Content>

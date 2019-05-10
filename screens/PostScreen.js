@@ -1,21 +1,7 @@
 import React, { Component } from "react";
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, KeyboardAvoidingView } from "react-native";
 import ImagePickerComponent from "../components/Camera";
-import {
-    Container,
-    Content,
-    Text,
-    Button,
-    Card,
-    CardItem,
-    Body,
-    Textarea,
-    View,
-    Form,
-    Item,
-    Input,
-    Toast
-} from "native-base";
+import { Container, Content, Text, Button, View, Form, Item, Input, Toast } from "native-base";
 import * as firebase from "firebase";
 import uuid from "uuid";
 import API from "../utils/API";
@@ -28,7 +14,8 @@ export default class PostScreen extends Component {
         longitude: null,
         description: "",
         uploaded: [],
-        showToast: false
+        showToast: false,
+        makingPost: false
     };
 
     componentDidMount = () => {
@@ -53,7 +40,6 @@ export default class PostScreen extends Component {
     };
 
     uploadImage = async uri => {
-        console.log("IMAGES FROM CAMERA BEFORE FIREBASE ", this.images)
         // generates a random image ID for firebase
         var imageID = uuid.v4() + ".jpg";
         // creates a blob (binary image format)
@@ -89,13 +75,17 @@ export default class PostScreen extends Component {
         this.setState({ description: event.nativeEvent.text });
     };
 
+    disableBtn = () => {
+        this.setState({ makingPost: true });
+        this.postItem();
+    }
+
     postItem = async () => {
         let uploadArr = [];
         for (var i = 0; i < this.images.length; i++) {
             console.log(this.images[i]);
             var uploadImageResult = await this.uploadImage(this.images[i]);
             // TODO: store the resulting image URL in MongoDB
-            console.log(uploadImageResult);
             uploadArr.push(uploadImageResult);
         }
 
@@ -105,7 +95,6 @@ export default class PostScreen extends Component {
         console.log(this.state.description);
 
         if (this.state.uploaded.length > 0) {
-            // route back to give screen when item is posted
             this.props.navigation.navigate("Give");
             API.postNewItem({
                 images: this.state.uploaded,
@@ -129,26 +118,29 @@ export default class PostScreen extends Component {
 
     render() {
         return (
+            
         <Container 
             contentContainerStyle={{
                 backgroundColor: "#c2dfe3",
             }}>
+            
         <Content 
             contentContainerStyle={{
                 flexGrow: 1,
                 justifyContent: "center",
                 backgroundColor: "#c2dfe3",
             }}>
+            <KeyboardAvoidingView>
         <Form style={{
             backgroundColor: "#c2dfe3",
-            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center"
             }}>
             <View style={{
-            padding: 15,
+            paddingTop: 30,
+            paddingBottom: 30,
             backgroundColor: "white",
-            width: "92%"
+            width: "85%"
             }}>
             <Item style={{ borderColor: "transparent" }}>
                 <ImagePickerComponent images={this.images} />
@@ -177,7 +169,7 @@ export default class PostScreen extends Component {
                 padding: 10
                 }}>
                 <Button
-                    onPress={this.postItem}
+                    onPress={this.state.makingPost === false ? this.disableBtn : null}
                     style={{
                         marginRight: 20,
                         backgroundColor: "#f3d34a"
@@ -194,6 +186,7 @@ export default class PostScreen extends Component {
             </Item>
             </View>
         </Form>
+        </KeyboardAvoidingView>
         </Content>
         </Container>
         )

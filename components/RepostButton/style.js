@@ -1,5 +1,10 @@
 import { StyleSheet} from 'react-native';
+import React, { Component } from 'react';
 
-Button: {
+export default styles = StyleSheet.create({
+    repostWord: {
+       
+        
+    }
+})
 
-}

@@ -1,9 +1,10 @@
 //this code creates the navigation elements 
 
 import React from 'react';
-import { Image, AsyncStorage } from 'react-native';
+import { Image, AsyncStorage, Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
+import TabBarIcon from '../components/TabBarIcon';
 import FindScreen from '../screens/FindScreen';
 import GiveScreen from '../screens/GiveScreen';
 import AboutScreen from '../screens/AboutScreen';
@@ -20,7 +21,11 @@ const FindStack = createStackNavigator({
 });
 
 FindStack.navigationOptions = {
-  tabBarLabel: 'Find',
+  tabBarLabel: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name='Find'
+    />)
 };
 
 const GiveStack = createStackNavigator({
@@ -28,7 +33,11 @@ const GiveStack = createStackNavigator({
 });
 
 GiveStack.navigationOptions = {
-  tabBarLabel: 'Give',
+  tabBarLabel: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name='Give'
+    />)
 };
 
 const AboutStack = createStackNavigator({

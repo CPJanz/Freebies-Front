@@ -18,6 +18,7 @@ import {
 } from "native-base";
 import API from "../utils/API";
 import ItemCard from "../components/ItemCard";
+import AppNameHeader from "../components/AppNameHeader";
 
 //this code renders the Give screen
 export default class GiveScreen extends Component {
@@ -77,7 +78,8 @@ export default class GiveScreen extends Component {
   // renders the UI to the screen
   render() {
     return (
-      <Container style={{ backgroundColor: "#C2DFE3", paddingTop: 0 }}>
+      <Container style={{ backgroundColor: "#C2DFE3" }}>
+      <AppNameHeader />
         {this.state.refreshing && (
           <View style={{ flex: 1, paddingTop: 20 }}>
             <ActivityIndicator />

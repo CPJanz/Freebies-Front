@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container, Header, Content, Card, CardItem, Text, Icon, Title, Body, Button, Left, Right } from "native-base";
 
-import {Linking} from 'react-native';
+import {Linking, Image} from 'react-native';
 
 export default class AboutScreen extends React.Component {
 
@@ -24,17 +24,15 @@ export default class AboutScreen extends React.Component {
         <Content padder>
         <Card>
           <CardItem header border>
-          <Text>
-          What is Freebeez?
-          </Text>
+          <Image source={require("../assets/images/AppName.png")} style={{height:80, resizeMode: "center", flex:1, alignSelf:"center"}} />
           </CardItem>
           <CardItem bordered>
             <Body>
-              <Text style={{fontWeight:"bold", marginTop:5, marginBottom:5}}>
+              <Text style={{fontWeight:"bold", marginBottom:5}}>
               Free Stuff
               </Text>
               <Text >
-              Freebeez is an app designed for giving and getting free stuff without having to talk to anyone! Remember the days when you could put unwanted items on the corner with a free sign and first-come-first-serve it would be taken by some lucky person who happened by? Freebeez takes this to next level by providing a platform for posting and finding free items.
+              Freebeez is an app designed for giving and getting free stuff without having to talk to anyone! Remember the days when you could put unwanted items on the corner with a free sign and first-come-first-serve it would be taken by some lucky person who happened by? Freebeez takes this to the next level by providing a platform for posting and finding free items.
               </Text>
               <Text style={{fontWeight:"bold", marginTop:5, marginBottom:5}}>
               How Does It Work?
@@ -53,7 +51,7 @@ export default class AboutScreen extends React.Component {
               To report any concerns, Email us at <Text style={{color:"blue", textDecorationLine:"underline"}}>freebeez@freestuff.com</Text>.
               </Text>
               <Text style={{margin:5}}>
-              No longer want to get or give free stuff? We are sad to see you go. Click here and we’ll remove your account.
+              No longer want to get or give free stuff? We are sad to see you go. Click <Text style={{color:"blue", textDecorationLine:"underline"}}>here</Text> and we’ll remove your account.
               </Text>
               <Text style={{margin:5}}>
               See more here: <Icon name="logo-github" onPress={() => Linking.openURL("https://github.com/CPJanz/Freebies-Front")} />

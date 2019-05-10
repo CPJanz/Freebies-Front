@@ -16,8 +16,15 @@ var About_Index = 0;
 var Logout_Index = 1;
 var Cancel_Index = 2;
 
+var screenNavigation = {
+  header: null
+};
+
 const FindStack = createStackNavigator({
-  Find: FindScreen,
+  Find: {
+    screen: FindScreen,
+    navigationOptions : screenNavigation
+  }
 });
 
 FindStack.navigationOptions = {
@@ -29,7 +36,10 @@ FindStack.navigationOptions = {
 };
 
 const GiveStack = createStackNavigator({
-  Give: GiveScreen,
+  Give: {
+    screen: GiveScreen,
+    navigationOptions : screenNavigation
+  }
 });
 
 GiveStack.navigationOptions = {
@@ -40,18 +50,8 @@ GiveStack.navigationOptions = {
     />)
 };
 
-const AboutStack = createStackNavigator({
-  About2: AboutScreen,
-});
-
-AboutStack.navigationOptions = {
-  showLabel: false,
-  showIcon: false,
-};
-
 //creates bottom navigation
 export default createBottomTabNavigator({
-  //AboutStack,
   FindStack,
   //creates expandable bee menu
   ExpandMenu : {

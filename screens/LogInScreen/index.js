@@ -22,7 +22,7 @@ export default class LogInScreen extends React.Component {
       this.setState({ errorMessage: "Please enter an email address." });
       Toast.show({
         text: "Please enter an email address.",
-        buttonText: "Okay",
+        textStyle: { color: "#f3d34a", textAlign: "center" },
         duration: 3000,
         position: "top"
       })
@@ -41,7 +41,7 @@ export default class LogInScreen extends React.Component {
           });
           Toast.show({
             text: "No account associated with that email!",
-            buttonText: "Okay",
+            textStyle: { color: "#f3d34a", textAlign: "center" },
             duration: 3000,
             position: "top"
           })
@@ -67,7 +67,7 @@ export default class LogInScreen extends React.Component {
           });
           Toast.show({
             text: "There is an account with that email already",
-            buttonText: "Okay",
+            textStyle: { color: "#f3d34a", textAlign: "center" },
             duration: 3000,
             position: "top"
           })
@@ -80,7 +80,7 @@ export default class LogInScreen extends React.Component {
       });
       Toast.show({
         text: "Please enter a valid email address",
-        buttonText: "Okay",
+        textStyle: { color: "#f3d34a", textAlign: "center" },
         duration: 3000,
         position: "top"
       });

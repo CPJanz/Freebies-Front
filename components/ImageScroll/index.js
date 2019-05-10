@@ -3,7 +3,7 @@ import { ScrollView, Image, Text } from "react-native";
 
 function ImageScroll(props) {
   return (
-    <ScrollView style={{ borderRadius: 15 }}
+    <ScrollView style={{ borderRadius: 15, opacity: props.opacity }}
       horizontal={true}
       decelerationRate={0}
       snapToInterval={400} //your element width

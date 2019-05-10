@@ -1,17 +1,16 @@
 import React from "react";
-import { Stylesheet, Button } from "react-native";
-import styles from "./style"
+import { Button, Text } from "native-base";
+
 
 
 function TakeButton(props) {
   return (
-    <Button
-      color="#FFFFFF"
-      fontWeight="bold"
-      fontSize="22"
+    <Button 
+      transparent
+      // color="#FF0000"
       onPress={props.onPress}
-      title= {props.available ? "TAKE" : "PUT BACK"}
-    />
+      // title= {props.available ? "TAKE" : "PUT BACK"}
+    ><Text style={{color: "#FFFFFF", fontSize:"22", fontWeight: "bold"}}>{props.available ? "TAKE" : "PUT BACK"}</Text></Button>
   );
 }
 

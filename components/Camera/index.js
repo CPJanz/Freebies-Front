@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Image, View } from 'react-native';
+import { Toast } from "native-base";
 //loads the ImagePicker and FileSystem to be used for selecting and capturing user images
 import { ImagePicker } from 'expo';
 
@@ -46,6 +47,7 @@ export default class ImagePickerComponent extends React.Component {
   
   state = {
     gotImages: false,
+    showToast: false
   };
 
   render() {
@@ -64,7 +66,7 @@ export default class ImagePickerComponent extends React.Component {
         {gotImages &&
           this.images.map((data, i) => {
             return (
-              <Image key={i} source={{ uri: data }} style={{ width: 300, height: 300, marginTop: 5, borderRadius: 15 }} />
+              <Image key={i} source={{ uri: data }} style={{ width: 300, height: 300, marginTop: 5 }} />
             );
           })
         }
@@ -99,6 +101,13 @@ export default class ImagePickerComponent extends React.Component {
     //if the user does not cancel, save a local copy of the image and add to image list
     if (!result.cancelled && this.images.length < 5) {     
       this.images.push(result.uri);
+    } else if (this.images.length >= 5) {
+      Toast.show({
+        text: "You may only add up to 5 images",
+        buttonText: "Okay",
+        duration: 3000,
+        position: "top"
+      })
     }
 
     //refreshes the state if images were selected/taken

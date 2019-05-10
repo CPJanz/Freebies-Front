@@ -7,7 +7,7 @@ function TakeButton(props) {
       transparent
       onPress={props.onPress}
       // title= {props.available ? "TAKE" : "PUT BACK"}
-    ><Text style={{color: "#FFFFFF", fontSize:"22", fontWeight: "bold", marginLeft: -13, marginTop: -17}}>{props.available ? "Take" : "Put Back"}</Text></Button>
+    ><Text style={{color: "#FFFFFF", fontSize: 22, fontWeight: "bold", marginLeft: -13, marginTop: -17}}>{props.available ? "Take" : "Put Back"}</Text></Button>
   );
 }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Text } from "react-native";
+import { styles } from "./style"
 
 function RepostButton(props) {
   // return props.distanceInfo.showTaken ? (
@@ -7,7 +8,7 @@ function RepostButton(props) {
   // ) : (
   //   <Text>{props.distanceInfo.distance}</Text>
   // );
-  return <Button onPress={props.onPress} title="Repost" title="Repost" />;
+  return <Button style={styles.Button} onPress={props.onPress} title="Repost" title="Repost" />;
 }
 
 export default RepostButton;

@@ -27,7 +27,7 @@ export default class GiveScreen extends Component {
     active: [],
     inactive: [],
     userId: null,
-    refreshing: false
+    refreshing: true
   };
 
   //   when give screen loads, state will set with the user's id, and previously posted items
@@ -86,9 +86,9 @@ export default class GiveScreen extends Component {
             <ActivityIndicator />
           </View>
         )}
-        <View style={{ flex: .25, flexDirection: "row", justifyContent: "center", paddingButtom: 40}} >
+        <View style={{ flexDirection: "row", justifyContent: "center"}} >
         {/* button to open form to post an item */}
-        <Button style={{ margin: 50, backgroundColor: "#F3D34A" }} onPress={() => this.props.navigation.navigate("Post")}>
+        <Button style={{ marginTop: 22, marginBottom: 27, backgroundColor: "#F3D34A" }} onPress={() => this.props.navigation.navigate("Post")}>
           <Text>New Post</Text>
         </Button>
         </View>
@@ -100,9 +100,9 @@ export default class GiveScreen extends Component {
             />
           }
         >
-          {!this.state.active.length && !this.state.inactive.length ? (
+          {!this.state.active.length && !this.state.inactive.length && !this.state.refreshing ? (
             <EmptyListMessage
-              topPadding={75}
+              topPadding={2}
               message={
                 "Looks like you're a newBEE! \n\n Press the New Post button \n to get started!"
               }

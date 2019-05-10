@@ -5,9 +5,6 @@ export default styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         flex: 1,
-alignItems: "center"
+        alignItems: "center"
     }
-    // logo: {
-    //     justifyContent: "center"
-    // }
 })

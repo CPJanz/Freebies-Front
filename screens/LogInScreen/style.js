@@ -1,52 +1,46 @@
 import { StyleSheet} from 'react-native';
 import React, { Component } from 'react';
-import { yellow } from 'ansi-colors';
+import { yellow, bold } from 'ansi-colors';
 
 export default styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         flex: 1,
-        // backgroundColor: "#feffea"
-    //    justifyContent: "center"
-    alignItems: "center",
-    // alignContent: "center",
-    // margin: 0
+        alignItems: "center",
+        // alignContent: "center"
+        justifyContent: "center"
+    },
+
+    logo: {  
+    },
+
+    invisibleText: {
+        color: "transparent"
+    },
+
+    invisibleTextSign: {
+        color: "transparent",
+        fontSize: 5
     },
 
     email: {
-    //    backgroundColor: "#424242",
        alignSelf: "stretch",
-    //    marginLeft: 0
-    },
-
-    signInButton: {
-    //    backgroundColor: "rgba(240, 300, 75, .5)",
-    //    borderColor: "#424242",
-    //    alignContent: "center",
-    // display: "flex",
-    // justifyContent: "center"
-    // alignItems: "center"
+    //    color: "#FF0000"
     },
 
     signInText: {
-        // paddingTop: 20,
         color: "#F3D34A",
         fontSize: 25,
-        justifyContent: "space-between"
-        // alignItems: "center"
-        // textAlign: "center"
-        // justifyContent: "center"
-    },
-
-    signUpButton: {
-        // justifyContent: "center"
+        fontWeight: "bold",
+        // justifyContent: "space-between"
     },
 
     signUpText: {
         paddingBottom: 30,
         bottom: 0,
         color: "#F3D34A",
-        fontSize: 24,
-        justifyContent: "space-between"
+        fontSize: 25,
+        fontWeight: "bold",
+        // justifyContent: "space-between"
     }
 })

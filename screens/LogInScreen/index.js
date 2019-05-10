@@ -84,12 +84,16 @@ export default class LogInScreen extends React.Component {
     return (
       <View style={styles.container}>
       <Container >
-        <AppName />
+      <Text style={styles.invisibleText}>The items are evenly distributed within the alignment container along the main axis. The spacing between ea </Text>
+        <View containerContentStyle={styles.logo}>
+          <AppName />
+        </View>
+        <Text style={styles.invisibleText}>The items are evenly distributed within the alignment container along the main axis.  </Text>
         <Content>
           <View style={styles.email}>
           <Form>
             <Item >
-              <Input 
+              <Input
                 type="text"
                 placeholder="E-Mail"
                 name="email"
@@ -104,13 +108,16 @@ export default class LogInScreen extends React.Component {
                             <Input placeholder="Password" />
                         </Item> */}
           </Form>
-          </View>
+          
+          <Text style={styles.invisibleText}>The items are evenly distributed within the alignment container  </Text>
           <Button transparent onPress={this.signInAsync} style={styles.signInButton}>
-            <Text style={styles.signInText}>          Sign In</Text>
+            <Text style={styles.signInText}>                    Sign In</Text>
           </Button>
+          <Text style={styles.invisibleTextSign}>The items are eve </Text>
           <Button transparent onPress={this.signUpAsync} style={styles.signUpButton}>
-            <Text style={styles.signUpText}>          Sign Up</Text>
+            <Text style={styles.signUpText}>                   Sign Up</Text>
           </Button>
+          </View>
         </Content>
       </Container>
       </View>

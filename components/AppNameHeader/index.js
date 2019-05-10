@@ -8,7 +8,7 @@ export default class AppNameHeader extends React.Component {
         return (
             <Header>
                 <Body >
-                    <AppName />
+                    <AppName style={{height: 80}} />
                 </Body>
             </Header>
         );

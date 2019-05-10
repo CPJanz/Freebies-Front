@@ -82,14 +82,12 @@ export default class LogInScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-      <Container >
-        <AppName />
-        <Content>
-          <View style={styles.email}>
+      <Container style={styles.container} >
+        <AppName style={styles.appName} />
+        <Content scrollEnabled={false} style={styles.content}>
           <Form>
             <Item >
-              <Input 
+              <Input
                 type="text"
                 placeholder="E-Mail"
                 name="email"
@@ -101,19 +99,17 @@ export default class LogInScreen extends React.Component {
             </Item>
             <Text>{this.state.errorMessage}</Text>
             {/* <Item last>
-                            <Input placeholder="Password" />
-                        </Item> */}
+                  <Input placeholder="Password" />
+                </Item> */}
           </Form>
-          </View>
-          <Button transparent onPress={this.signInAsync} style={styles.signInButton}>
-            <Text style={styles.signInText}>          Sign In</Text>
+          <Button transparent onPress={this.signInAsync} style={styles.button}>
+            <Text style={styles.buttonText}>Sign In</Text>
           </Button>
-          <Button transparent onPress={this.signUpAsync} style={styles.signUpButton}>
-            <Text style={styles.signUpText}>          Sign Up</Text>
+          <Button transparent onPress={this.signUpAsync} style={styles.button}>
+            <Text style={styles.buttonText}>Sign Up</Text>
           </Button>
         </Content>
       </Container>
-      </View>
     );
   }
 }

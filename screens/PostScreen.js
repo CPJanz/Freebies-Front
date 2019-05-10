@@ -13,7 +13,8 @@ import {
     View,
     Form,
     Item,
-    Input
+    Input,
+    Toast
 } from "native-base";
 import * as firebase from "firebase";
 import uuid from "uuid";
@@ -27,7 +28,7 @@ export default class PostScreen extends Component {
         longitude: null,
         description: "",
         uploaded: [],
-        message: ""
+        showToast: false
     };
 
     componentDidMount = () => {
@@ -117,39 +118,84 @@ export default class PostScreen extends Component {
             });
             
         } else {
-            this.setState({
-                message: "Your post must include an image"
-            });
+            Toast.show({
+                text: "Your post must include an image",
+                buttonText: "Okay",
+                duration: 3000,
+                position: "top"
+              })
         }
-        
     };
 
     render() {
         return (
-        <Form>
-            <Item>
-                <Text>{this.state.message}</Text>
+        <Container 
+            contentContainerStyle={{
+                backgroundColor: "#c2dfe3",
+            }}>
+        <Content 
+            contentContainerStyle={{
+                flexGrow: 1,
+                justifyContent: "center",
+                backgroundColor: "#c2dfe3",
+            }}>
+        <Form style={{
+            backgroundColor: "#c2dfe3",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center"
+            }}>
+            <View style={{
+            padding: 15,
+            backgroundColor: "white",
+            width: "92%"
+            }}>
+            <Item style={{ borderColor: "transparent" }}>
+                <ImagePickerComponent images={this.images} />
             </Item>
-            <Item>
+            <Item style={{ borderColor: "transparent" }}>
                 <Input
-                    style={{ backgroundColor: "white" }}
+                    style={{ 
+                        margin: 15,
+                        padding: 20,
+                        borderLeftWidth: 1,
+                        borderTopWidth: 1,
+                        borderRightWidth: 1,
+                        borderBottomWidth: 1
+                    }}
+                    multiline={true}
+                    maxLength={150}
                     placeholder="Optional item description"
                     value={this.state.description}
                     onChange={this.handleDiscriptionChange}
                 />
             </Item>
-            <Item>
-                <ImagePickerComponent images={this.images} />
-            </Item>
-            <Item style={{ flexDirection: "row" }}>
-                <Button onPress={this.postItem} style={{ marginRight: 20 }}>
+            <Item style={{
+                borderColor: "transparent",
+                flexDirection: "row",
+                justifyContent: "center",
+                padding: 10
+                }}>
+                <Button
+                    onPress={this.postItem}
+                    style={{
+                        marginRight: 20,
+                        backgroundColor: "#f3d34a"
+                    }}>
                     <Text> Post </Text>
                 </Button>
-                <Button onPress={() => this.props.navigation.navigate("Give")}>
+                <Button
+                    onPress={() => this.props.navigation.navigate("Give")}
+                    style={{
+                        backgroundColor: "#f3d34a"
+                    }}>
                     <Text>Cancel</Text>
                 </Button>
             </Item>
+            </View>
         </Form>
+        </Content>
+        </Container>
         )
     }
 };

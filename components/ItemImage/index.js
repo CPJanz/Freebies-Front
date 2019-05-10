@@ -5,7 +5,7 @@ import { Image } from "react-native";
 export default class ItemImage extends React.Component {
   render() {
     if (this.props.images.length > 1) {
-      return <ImageScroll images={this.props.images} />;
+      return <ImageScroll images={this.props.images} opacity={this.props.opacity} />;
     } else {
       return (
         <Image

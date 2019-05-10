@@ -7,8 +7,13 @@ export default styles = StyleSheet.create({
         position: "absolute",
         top: 0,
         left: 0,
+<<<<<<< HEAD
         backgroundColor:"transparent",
         color: "#424242",
+=======
+        backgroundColor: "transparent"
+        
+>>>>>>> 1af87d4020b4601c243dd449dee6121307b84de7
     },
     topRight: {
         position: "absolute",

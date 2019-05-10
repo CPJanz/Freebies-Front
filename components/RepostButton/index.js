@@ -1,7 +1,6 @@
 import React from "react";
-import { Button, Text, StyleSheet } from "react-native";
+import { Button, Text } from "react-native";
 import styles from "./style";
-
 
 function RepostButton(props) {
   // return props.distanceInfo.showTaken ? (

@@ -4,8 +4,15 @@ import React, { Component } from "react";
 import Map from "../Map";
 import ItemImage from "../ItemImage";
 import DistanceHud from "../DistanceHud";
-
-import { Card, CardItem, Text, Body, View, StyleSheet } from "native-base";
+import {
+  Card,
+  CardItem,
+  Text,
+  Body,
+  Icon,
+  View,
+  StyleSheet
+} from "native-base";
 import API from "../../utils/API";
 import TakeButton from "../TakeButton";
 import Duration from "../Duration";
@@ -21,7 +28,7 @@ export default class ItemCard extends Component {
   componentDidMount = () => {
     console.log("Mounted!");
   };
-  
+
   takeItem = async () => {
     var response = await API.takeItem(this.props.id, !this.state.available);
     if (response.status === 200) {
@@ -31,7 +38,9 @@ export default class ItemCard extends Component {
       console.log("RESPONSE DATA");
       console.log(response.data);
     }
-    this.props.reload();
+    if (this.props.reload) {
+      this.props.reload();
+    }
   };
 
   repostItem = async () => {
@@ -43,7 +52,9 @@ export default class ItemCard extends Component {
       console.log("RESPONSE DATA");
       console.log(response.data);
     }
-    this.props.reload();
+    if (this.props.reload) {
+      this.props.reload();
+    }
   };
 
   formatElement = input => {
@@ -59,7 +70,9 @@ export default class ItemCard extends Component {
       case "Map":
         return <Map location={input.location} />;
       case "Duration":
-        return <Duration timeLeft={input.timeLeft} setInactive={this.setInactive}/>;
+        return (
+          <Duration timeLeft={input.timeLeft} setInactive={this.setInactive} />
+        );
       case "Take":
         return (
           <TakeButton
@@ -76,10 +89,10 @@ export default class ItemCard extends Component {
 
   activeStatus = () => {
     if (this.state.active) {
-      return 1
+      return 1;
     } else {
-      return 0.2
-    };
+      return 0.2;
+    }
   };
 
   setInactive = () => {
@@ -88,34 +101,30 @@ export default class ItemCard extends Component {
 
   render() {
     return (
-
       <View style={{ flex: 1 }}>
-      {/* this is where changes were made so that there is no border showing around the image */}
+        {/* this is where changes were made so that there is no border showing around the image */}
         <Card transparent style={{ marginTop: 5 }}>
-          <CardItem style={{backgroundColor: "transparent"}}>
-
+          <CardItem style={{ backgroundColor: "transparent" }}>
             <Body>
-              <ItemImage images={this.props.images} opacity={this.activeStatus()} />
-              <CardItem 
-                style={styles.topLeft}>
-              {this.formatElement(this.props.topLeft)}
-              </CardItem> 
-              <CardItem
-                style={styles.topRight}
-              >
+              <ItemImage
+                images={this.props.images}
+                opacity={this.activeStatus()}
+              />
+              <CardItem style={styles.topLeft}>
+                {this.formatElement(this.props.topLeft)}
+              </CardItem>
+              <CardItem style={styles.topRight}>
                 {this.formatElement(this.props.topRight)}
               </CardItem>
               {this.props.textBody ? (
-                <CardItem
-                  style={styles.bottomBar}
-                >
+                <CardItem style={styles.bottomBar}>
                   <Text>{this.props.textBody}</Text>
                 </CardItem>
               ) : null}
             </Body>
           </CardItem>
-       </Card>
-     </View>
+        </Card>
+      </View>
     );
   }
 }

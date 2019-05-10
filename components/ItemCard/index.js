@@ -109,7 +109,7 @@ export default class ItemCard extends Component {
                 <CardItem
                   style={styles.bottomBar}
                 >
-                  <Text>{this.props.textBody}</Text>
+                  <Text style={{color: "#FFFFFF", fontWeight: "bold", fontSize: 22}}>{this.props.textBody}</Text>
                 </CardItem>
               ) : null}
             </Body>

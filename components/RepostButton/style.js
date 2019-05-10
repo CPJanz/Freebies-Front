@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 export default styles = StyleSheet.create({
     repostWord: {
-       
+       color: "#424242"
         
     }
 })

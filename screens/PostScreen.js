@@ -112,7 +112,7 @@ export default class PostScreen extends Component {
                 buttonText: "Okay",
                 duration: 3000,
                 position: "top"
-              })
+              });
         }
     };
 

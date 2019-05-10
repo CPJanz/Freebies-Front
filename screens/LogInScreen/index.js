@@ -3,27 +3,15 @@
 import React from "react";
 import API from "../../utils/API";
 import styles from "./style"
-
 import { AsyncStorage } from "react-native";
-
-import {
-  Container,
-  Header,
-  Content,
-  Form,
-  Item,
-  Input,
-  Text,
-  Button,
-  View
-} from "native-base";
-
+import { Container, Content, Form, Item, Input, Text, Button, View, Toast } from "native-base";
 import AppName from "../../components/AppName";
 
 export default class LogInScreen extends React.Component {
   state = {
     email: "",
-    errorMessage: ""
+    errorMessage: "",
+    showToast: false
   };
 
   signInAsync = async () => {
@@ -32,6 +20,12 @@ export default class LogInScreen extends React.Component {
     console.log("userId:", thisthing);
     if (this.state.email.length === 0) {
       this.setState({ errorMessage: "Please enter an email address." });
+      Toast.show({
+        text: "Please enter an email address.",
+        buttonText: "Okay",
+        duration: 3000,
+        position: "top"
+      })
     } else {
       API.signIn(this.state.email).then(async dbResult => {
         console.log("dbresult", JSON.stringify(dbResult));
@@ -45,6 +39,12 @@ export default class LogInScreen extends React.Component {
           this.setState({
             errorMessage: "No account associated with that email!"
           });
+          Toast.show({
+            text: "No account associated with that email!",
+            buttonText: "Okay",
+            duration: 3000,
+            position: "top"
+          })
         }
       });
     }
@@ -65,12 +65,24 @@ export default class LogInScreen extends React.Component {
           this.setState({
             errorMessage: "There is an account with that email already"
           });
+          Toast.show({
+            text: "There is an account with that email already",
+            buttonText: "Okay",
+            duration: 3000,
+            position: "top"
+          })
         }
       });
     } else {
       console.log("Not a valid email address");
       this.setState({
         errorMessage: "Please enter a valid email address"
+      });
+      Toast.show({
+        text: "Please enter a valid email address",
+        buttonText: "Okay",
+        duration: 3000,
+        position: "top"
       });
     }
   };

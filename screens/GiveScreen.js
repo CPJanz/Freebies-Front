@@ -77,13 +77,13 @@ export default class GiveScreen extends Component {
   // renders the UI to the screen
   render() {
     return (
-      <Container style={{ backgroundColor: "#C2DFE3" }}>
+      <Container style={{ backgroundColor: "#C2DFE3", paddingTop: 0 }}>
         {this.state.refreshing && (
-          <View style={{ flex: 1, paddingTop: 10 }}>
+          <View style={{ flex: 1, paddingTop: 20 }}>
             <ActivityIndicator />
           </View>
         )}
-        <View style={{ flex: .2, flexDirection: "row", justifyContent: "center", alignItems: "center", paddingTop: 0}} >
+        <View style={{ flex: .25, flexDirection: "row", justifyContent: "flex-end", paddingTop: 0}} >
         {/* button to open form to post an item */}
         <Button style={{ margin: 50, backgroundColor: "#F3D34A" }} onPress={() => this.props.navigation.navigate("Post")}>
           <Text>New Post</Text>

@@ -4,9 +4,8 @@ import React, { Component } from "react";
 import Map from "../Map";
 import ItemImage from "../ItemImage";
 import DistanceHud from "../DistanceHud";
-import { Ionicons } from '@expo/vector-icons';
 
-import { Card, CardItem, Text, Body, Icon, View, StyleSheet } from "native-base";
+import { Card, CardItem, Text, Body, View, StyleSheet } from "native-base";
 import API from "../../utils/API";
 import TakeButton from "../TakeButton";
 import Duration from "../Duration";
@@ -22,6 +21,7 @@ export default class ItemCard extends Component {
   componentDidMount = () => {
     console.log("Mounted!");
   };
+  
   takeItem = async () => {
     var response = await API.takeItem(this.props.id, !this.state.available);
     if (response.status === 200) {

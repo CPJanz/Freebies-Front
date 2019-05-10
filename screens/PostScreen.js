@@ -113,6 +113,7 @@ export default class PostScreen extends Component {
                 duration: 3000,
                 position: "top"
               });
+            this.setState({ makingPost: false });
         }
     };
 

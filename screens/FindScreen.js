@@ -15,12 +15,16 @@ import {
 import API from "../utils/API";
 const haversine = require("haversine-js");
 import ItemCard from "../components/ItemCard";
+
 import {
   AsyncStorage,
   ActivityIndicator,
   RefreshControl,
   Image
 } from "react-native";
+
+import AppNameHeader from "../components/AppNameHeader";
+
 
 export default class FindScreen extends Component {
   state = {
@@ -91,6 +95,9 @@ export default class FindScreen extends Component {
 
   render() {
     return (
+      <Container style={{ backgroundColor: "#C2DFE3" }}>
+      <AppNameHeader />
+      {
       //This is a check to ensure that we have gotten a call back from the db
       this.state.refreshing ? (
         //loading view while data is loading
@@ -118,7 +125,6 @@ export default class FindScreen extends Component {
         </View>
       ) : (
         // Got a response back and have nearby items.
-        <Container style={{ backgroundColor: "#C2DFE3" }}>
           <Content
             refreshControl={
               <RefreshControl
@@ -149,9 +155,10 @@ export default class FindScreen extends Component {
                   />
                 );
             })}
-          </Content>
-        </Container>
-      )
+          </Content>          
+        
+      )}
+      </Container>
     );
   }
 }

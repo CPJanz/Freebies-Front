@@ -6,17 +6,14 @@ export default styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         flex: 1,
-        // backgroundColor: "#feffea"
-    //    justifyContent: "center"
-    alignItems: "center",
-    // alignContent: "center",
-    // margin: 0
+        alignItems: "center",
+    
     },
 
     email: {
-    //    backgroundColor: "#424242",
+    
        alignSelf: "stretch",
-    //    marginLeft: 0
+    
     },
 
     signInButton: {

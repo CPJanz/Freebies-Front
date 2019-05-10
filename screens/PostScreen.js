@@ -109,10 +109,11 @@ export default class PostScreen extends Component {
         } else {
             Toast.show({
                 text: "Your post must include an image",
-                buttonText: "Okay",
+                textStyle: { color: "#f3d34a", textAlign: "center" },
                 duration: 3000,
                 position: "top"
               });
+            this.setState({ makingPost: false });
         }
     };
 

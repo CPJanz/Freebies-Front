@@ -14,7 +14,9 @@ export default styles = StyleSheet.create({
         marginTop: 0,
         paddingTop: 9,
         fontSize: 22,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0
     },
 
     topRight: {
@@ -29,7 +31,10 @@ export default styles = StyleSheet.create({
         paddingTop: 5,
         flex: 1,
         justifyContent: "flex-end",
-        fontSize: 22
+        fontSize: 22,
+        alignItems: "center",
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0
     },
     
     bottomBar: {

@@ -85,7 +85,7 @@ export default class GiveScreen extends Component {
             <ActivityIndicator />
           </View>
         )}
-        <View style={{ flex: .25, flexDirection: "row", justifyContent: "flex-end", paddingTop: 0}} >
+        <View style={{ flex: .25, flexDirection: "row", justifyContent: "center", paddingButtom: 40}} >
         {/* button to open form to post an item */}
         <Button style={{ margin: 50, backgroundColor: "#F3D34A" }} onPress={() => this.props.navigation.navigate("Post")}>
           <Text>New Post</Text>

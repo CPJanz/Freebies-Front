@@ -4,10 +4,6 @@ import React, { Component } from "react";
 import Map from "../Map";
 import ItemImage from "../ItemImage";
 import DistanceHud from "../DistanceHud";
-<<<<<<< HEAD
-
-import { Card, CardItem, Text, Body, View, StyleSheet } from "native-base";
-=======
 import {
   Card,
   CardItem,
@@ -17,7 +13,6 @@ import {
   View,
   StyleSheet
 } from "native-base";
->>>>>>> 1af87d4020b4601c243dd449dee6121307b84de7
 import API from "../../utils/API";
 import TakeButton from "../TakeButton";
 import Duration from "../Duration";
@@ -33,11 +28,6 @@ export default class ItemCard extends Component {
   componentDidMount = () => {
     console.log("Mounted!");
   };
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> 1af87d4020b4601c243dd449dee6121307b84de7
   takeItem = async () => {
     var response = await API.takeItem(this.props.id, !this.state.available);
     if (response.status === 200) {
@@ -126,15 +116,8 @@ export default class ItemCard extends Component {
                 {this.formatElement(this.props.topRight)}
               </CardItem>
               {this.props.textBody ? (
-<<<<<<< HEAD
-                <CardItem
-                  style={styles.bottomBar}
-                >
-                  <Text style={{color: "#FFFFFF", fontWeight: "bold", fontSize: 22}}>{this.props.textBody}</Text>
-=======
                 <CardItem style={styles.bottomBar}>
-                  <Text>{this.props.textBody}</Text>
->>>>>>> 1af87d4020b4601c243dd449dee6121307b84de7
+                  <Text style={{color: "#FFFFFF", fontWeight: "bold", fontSize: 22}}> {this.props.textBody}</Text>
                 </CardItem>
               ) : null}
             </Body>

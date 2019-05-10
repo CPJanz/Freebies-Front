@@ -48,9 +48,9 @@ export default class Duration extends Component {
   render() {
     return(
       this.state.timeLeft > 0 ? (
-        <Text>{this.formatTime(this.state.timeLeft)}</Text>
+        <Text style={{ color: "#ffffff", fontWeight: "bold", fontSize: 22}}>{this.formatTime(this.state.timeLeft)}</Text>
       ) : (
-        <Text>Expired!</Text>
+        <Text style={{ color: "#ffffff", fontWeight: "bold", fontSize: 22}}>Expired!</Text>
       )
     )};
 }

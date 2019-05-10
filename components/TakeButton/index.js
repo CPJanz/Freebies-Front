@@ -6,10 +6,11 @@ import styles from "./style"
 function TakeButton(props) {
   return (
     <Button
-      color="#C2DFE3"
-      font-weight="bold"
+      color="#FFFFFF"
+      fontWeight="bold"
+      fontSize="22"
       onPress={props.onPress}
-      title={props.available ? "TAKE" : "PUT BACK"}
+      title= {props.available ? "TAKE" : "PUT BACK"}
     />
   );
 }

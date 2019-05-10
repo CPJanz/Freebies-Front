@@ -9,7 +9,7 @@ function RepostButton(props) {
   //   <Text>{props.distanceInfo.distance}</Text>
   // );
 
-  return <Button color="#FFFFFF" fontSize="22" onPress={props.onPress} title="Repost" title="Repost"/>;
+  return <Button color="#FFFFFF" fontSize="22" onPress={props.onPress} title="Repost"/>;
   
 }
 

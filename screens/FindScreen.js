@@ -107,31 +107,26 @@ export default class FindScreen extends Component {
             }
           >
             {this.state.nearbyItems.map((data, i) => {
-
-//for bug fixing only
+              //for bug fixing only
               if (!data) {
+                return <Text>no data</Text>;
+              } else
                 return (
-                  <Text>no data</Text>
-                )
-              }
-else
-
-              return (
-                <ItemCard
-                  key={i}
-                  available={data.available}
-                  textBody={data.description}
-                  topLeft={{
-                    type: "DistanceHud",
-                    distanceInfo: this.calculateDistance(data.location)
-                  }}
-                  topRight={{ type: "Map", location: data.location }}
-                  images={data.images}
-                  location={data.location}
-                  id={data._id}
-                  active={true}
-                />
-              );
+                  <ItemCard
+                    key={i}
+                    available={data.available}
+                    textBody={data.description}
+                    topLeft={{
+                      type: "DistanceHud",
+                      distanceInfo: this.calculateDistance(data.location)
+                    }}
+                    topRight={{ type: "Map", location: data.location }}
+                    images={data.images}
+                    location={data.location}
+                    id={data._id}
+                    active={true}
+                  />
+                );
             })}
           </Content>
         </Container>

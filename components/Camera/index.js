@@ -104,7 +104,7 @@ export default class ImagePickerComponent extends React.Component {
     } else if (this.images.length >= 5) {
       Toast.show({
         text: "You may only add up to 5 images",
-        buttonText: "Okay",
+        textStyle: { color: "#f3d34a", textAlign: "center" },
         duration: 3000,
         position: "top"
       })

@@ -97,7 +97,7 @@ export default class LogInScreen extends React.Component {
       <Container style={styles.container} >
         <AppName style={styles.appName} />
         <Content scrollEnabled={false} style={styles.content}>
-          <Form>
+          <Form style={{marginBottom: 40}}>
             <Item >
               <Input
                 type="text"
@@ -107,13 +107,14 @@ export default class LogInScreen extends React.Component {
                 onChangeText={text =>
                   this.setState({ email: text.toLowerCase() })
                 }
+                
               />
             </Item>
-            <Text>{this.state.errorMessage}</Text>
+            <Text >{this.state.errorMessage} </Text>
             {/* <Item last>
                   <Input placeholder="Password" />
                 </Item> */}
-          </Form>
+          </Form >
           <Button transparent onPress={this.signInAsync} style={styles.button}>
             <Text style={styles.buttonText}>Sign In</Text>
           </Button>

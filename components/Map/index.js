@@ -10,6 +10,7 @@ export default class Map extends Component {
   render() {
     return (
       <Button
+        alignContent="flex-end"
         color={'#bdc3c7'}
         onPress={this._goToMaps}
         title="🗺" />

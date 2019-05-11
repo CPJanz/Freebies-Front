@@ -10,8 +10,12 @@ export default class Map extends Component {
 
   render() {
     return (
-      <Button transparent onPress={this._goToMaps}>
-        <Text style={{ fontSize: 30 }}>🗺</Text>
+      <Button
+        transparent
+        // style={{ flexDirection: "column", flex: 1, justifyContent: "center" }}
+        onPress={this._goToMaps}
+      >
+        <Text style={{ fontSize: 30, marginTop: -10 }}>🗺</Text>
       </Button>
     );
   }

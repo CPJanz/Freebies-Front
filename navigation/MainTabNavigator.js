@@ -1,60 +1,99 @@
+//this code creates the navigation elements 
+
 import React from 'react';
-import { Platform } from 'react-native';
+import { Image, AsyncStorage, Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import FindScreen from '../screens/FindScreen';
+import GiveScreen from '../screens/GiveScreen';
+import AboutScreen from '../screens/AboutScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
-});
+//sets up buttons for bee menu
+import { ActionSheet } from "native-base";
+var BUTTONS = ["About", "Log Out", "Cancel"];
+var About_Index = 0;
+var Logout_Index = 1;
+var Cancel_Index = 2;
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
+var screenNavigation = {
+  header: null
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const FindStack = createStackNavigator({
+  Find: {
+    screen: FindScreen,
+    navigationOptions : screenNavigation
+  }
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
+FindStack.navigationOptions = {
+  tabBarLabel: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  ),
+      name='Find'
+    />)
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const GiveStack = createStackNavigator({
+  Give: {
+    screen: GiveScreen,
+    navigationOptions : screenNavigation
+  }
 });
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
+GiveStack.navigationOptions = {
+  tabBarLabel: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
+      name='Give'
+    />)
 };
 
+//creates bottom navigation
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+  FindStack,
+  //creates expandable bee menu
+  ExpandMenu : {
+    screen: () => null,
+    navigationOptions: () => ({
+      tabBarLabel: " ",
+      tabBarIcon: () => (
+       <Image source={require('../assets/images/bee.png')} style={{width:40, height: 40, marginTop:15}}/>
+      ),
+      tabBarOnPress: async (props) => {
+        
+        var userEmail = await AsyncStorage.getItem("userEmail");
+
+        if (!userEmail) {
+          userEmail = "Log Out";
+        }
+
+        ActionSheet.show(
+          {
+            options: BUTTONS,
+            cancelButtonIndex: Cancel_Index,
+            destructiveButtonIndex: Logout_Index,
+            title: userEmail
+          },
+          async (buttonIndex) => {
+            switch(buttonIndex) {
+              case Logout_Index:
+              // logout
+              await AsyncStorage.setItem("userToken", "");
+              await AsyncStorage.setItem("userEmail", "");
+              props.navigation.navigate('AuthLoading');
+              break;
+
+              case About_Index:
+              props.navigation.navigate("About");
+              break;
+            }
+          }
+        )}
+      }
+    )
+
+  },
+  GiveStack,
 });

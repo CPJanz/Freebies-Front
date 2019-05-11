@@ -1,13 +1,38 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Root } from "native-base";
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+import * as firebase from 'firebase';
+
+firebase.initializeApp({
+  storageBucket: "gs://freebies-119d0.appspot.com"
+});
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
+    location: null,
   };
 
+  componentDidMount() {
+  this.findCoordinates();
+  console.log("this.state.location: ", this.state.location);
+  
+  }
+
+  findCoordinates = () => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const location = JSON.stringify(position);
+        console.log("location: ", location);
+        this.setState({ location });
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+  };
+  
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
@@ -19,10 +44,12 @@ export default class App extends React.Component {
       );
     } else {
       return (
+        <Root>
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           <AppNavigator />
         </View>
+        </Root>
       );
     }
   }

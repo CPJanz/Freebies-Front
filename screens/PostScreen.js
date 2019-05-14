@@ -157,7 +157,7 @@ export default class PostScreen extends Component {
                         borderBottomWidth: 1
                     }}
                     multiline={true}
-                    maxLength={150}
+                    maxLength={50}
                     placeholder="Optional item description"
                     value={this.state.description}
                     onChange={this.handleDiscriptionChange}

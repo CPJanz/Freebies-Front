@@ -4,7 +4,9 @@ import { Container, Header, Content, Card, CardItem, Text, Icon, Title, Body, Bu
 
 import {Linking, Image } from 'react-native';
 
-import Email from "../components/Email"
+import Email from "../components/EmailConcern"
+
+import EmailCancel from "../components/EmailCancellation"
 
 export default class AboutScreen extends React.Component {
 
@@ -51,14 +53,19 @@ export default class AboutScreen extends React.Component {
               </Text>
               <View style={{flex:1, flexDirection: "row", alignItems: "flex-start"}}>
               <Text>
-              To report any concerns, send us an
+              To report any concerns, please
               {/* <Text style={{color:"blue", textDecorationLine:"underline"}}>freebeez@freestuff.com</Text>. */}</Text>
               {/* <Button onPress={() => Linking.openURL('mailto:katiehaster@gmail.com') }
-      title="freebeez@freebeez.com" /> */}<Email>email</Email>
+      title="freebeez@freebeez.com" /> */}
+              <Email></Email> 
+              <Text>us.</Text>
               </View>
+              <View style={{flex:1, flexDirection: "row", alignItems: "flex-end"}}>
               <Text>
-              No longer want to get or give free stuff? We are sad to see you go. Click <Text style={{color:"blue", textDecorationLine:"underline"}}>here</Text> and we’ll remove your account.
-              </Text>
+              No longer want to get or give free stuff? We are sad to see you go. To delete your account, click </Text>
+              {/* <Text style={{color:"blue", textDecorationLine:"underline"}}>here</Text>  */}
+              <EmailCancel></EmailCancel>
+              </View>
               <Text>
               See more here: <Icon name="logo-github" onPress={() => Linking.openURL("https://github.com/CPJanz/Freebies-Front")} />
               </Text>

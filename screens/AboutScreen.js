@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { Container, Header, Content, Card, CardItem, Text, Icon, Title, Body, Button, Left, Right } from "native-base";
+import { Container, Header, Content, Card, CardItem, Text, Icon, Title, Body, Button, Left, Right, View } from "native-base";
 
-import {Linking, Image} from 'react-native';
+import {Linking, Image } from 'react-native';
+
+import Email from "../components/Email"
 
 export default class AboutScreen extends React.Component {
 
@@ -47,9 +49,13 @@ export default class AboutScreen extends React.Component {
               <Text style={{fontWeight:"bold", marginTop:5, marginBottom:5}}>
               FAQs
               </Text>
+              <View style={{flex:1, flexDirection: "row", alignItems: "flex-start"}}>
               <Text>
-              To report any concerns, Email us at <Text style={{color:"blue", textDecorationLine:"underline"}}>freebeez@freestuff.com</Text>.
-              </Text>
+              To report any concerns, send us an
+              {/* <Text style={{color:"blue", textDecorationLine:"underline"}}>freebeez@freestuff.com</Text>. */}</Text>
+              {/* <Button onPress={() => Linking.openURL('mailto:katiehaster@gmail.com') }
+      title="freebeez@freebeez.com" /> */}<Email>email</Email>
+              </View>
               <Text>
               No longer want to get or give free stuff? We are sad to see you go. Click <Text style={{color:"blue", textDecorationLine:"underline"}}>here</Text> and we’ll remove your account.
               </Text>

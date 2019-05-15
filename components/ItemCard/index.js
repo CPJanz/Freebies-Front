@@ -28,7 +28,6 @@ export default class ItemCard extends Component {
   componentDidMount = () => {
     console.log("Mounted!");
   };
-
   takeItem = async () => {
     var response = await API.takeItem(this.props.id, !this.state.available);
     if (response.status === 200) {
@@ -118,7 +117,7 @@ export default class ItemCard extends Component {
               </CardItem>
               {this.props.textBody ? (
                 <CardItem style={styles.bottomBar}>
-                  <Text>{this.props.textBody}</Text>
+                  <Text style={{color: "#FFFFFF", fontWeight: "bold", fontSize: 22}}> {this.props.textBody}</Text>
                 </CardItem>
               ) : null}
             </Body>

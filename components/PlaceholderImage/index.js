@@ -9,8 +9,6 @@ function PlaceholderImage(props) {
         height: 300,
         width: 340,
         borderRadius: 15,
-        borderColor: "#424242",
-        borderWidth: 1,
         opacity: props.opacity === 1 ? 0.5 : 0
       }}
     />

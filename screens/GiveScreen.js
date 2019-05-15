@@ -18,6 +18,8 @@ import {
 } from "native-base";
 import API from "../utils/API";
 import ItemCard from "../components/ItemCard";
+import AppNameHeader from "../components/AppNameHeader";
+import EmptyListMessage from "../components/EmptyListMessage";
 
 //this code renders the Give screen
 export default class GiveScreen extends Component {
@@ -25,7 +27,7 @@ export default class GiveScreen extends Component {
     active: [],
     inactive: [],
     userId: null,
-    refreshing: false
+    refreshing: true
   };
 
   //   when give screen loads, state will set with the user's id, and previously posted items
@@ -77,15 +79,16 @@ export default class GiveScreen extends Component {
   // renders the UI to the screen
   render() {
     return (
-      <Container style={{ backgroundColor: "#C2DFE3", paddingTop: 0 }}>
+      <Container style={{ backgroundColor: "#C2DFE3" }}>
+        <AppNameHeader />
         {this.state.refreshing && (
           <View style={{ flex: 1, paddingTop: 20 }}>
             <ActivityIndicator />
           </View>
         )}
-        <View style={{ flex: .25, flexDirection: "row", justifyContent: "flex-end", paddingTop: 0}} >
+        <View style={{ flexDirection: "row", justifyContent: "center"}} >
         {/* button to open form to post an item */}
-        <Button style={{ margin: 50, backgroundColor: "#F3D34A" }} onPress={() => this.props.navigation.navigate("Post")}>
+        <Button style={{ marginTop: 22, marginBottom: 27, backgroundColor: "#F3D34A" }} onPress={() => this.props.navigation.navigate("Post")}>
           <Text>New Post</Text>
         </Button>
         </View>
@@ -97,7 +100,14 @@ export default class GiveScreen extends Component {
             />
           }
         >
-
+          {!this.state.active.length && !this.state.inactive.length && !this.state.refreshing ? (
+            <EmptyListMessage
+              topPadding={2}
+              message={
+                "Looks like you're a newBEE! \n\n Press the New Post button \n to get started!"
+              }
+            />
+          ) : null}
           {/* map active array at top */}
           {this.state.active.map((data, i) => (
             <ItemCard
@@ -115,7 +125,6 @@ export default class GiveScreen extends Component {
               active={true}
             />
           ))}
-
           {/* map inactive array below */}
           {this.state.inactive.map((data, i) =>
             data.available ? (

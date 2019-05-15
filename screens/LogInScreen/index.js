@@ -3,27 +3,15 @@
 import React from "react";
 import API from "../../utils/API";
 import styles from "./style"
-
 import { AsyncStorage } from "react-native";
-
-import {
-  Container,
-  Header,
-  Content,
-  Form,
-  Item,
-  Input,
-  Text,
-  Button,
-  View
-} from "native-base";
-
+import { Container, Content, Form, Item, Input, Text, Button, View, Toast } from "native-base";
 import AppName from "../../components/AppName";
 
 export default class LogInScreen extends React.Component {
   state = {
     email: "",
-    errorMessage: ""
+    errorMessage: "",
+    showToast: false
   };
 
   signInAsync = async () => {
@@ -31,7 +19,13 @@ export default class LogInScreen extends React.Component {
     const thisthing = await AsyncStorage.getItem("userToken");
     console.log("userId:", thisthing);
     if (this.state.email.length === 0) {
-      this.setState({ errorMessage: "Please enter an email address." });
+      this.setState({ errorMessage: "Please enter an email address" });
+      Toast.show({
+        text: "Please enter an email address",
+        textStyle: { color: "#f3d34a", textAlign: "center" },
+        duration: 3000,
+        position: "top"
+      })
     } else {
       API.signIn(this.state.email).then(async dbResult => {
         console.log("dbresult", JSON.stringify(dbResult));
@@ -45,6 +39,12 @@ export default class LogInScreen extends React.Component {
           this.setState({
             errorMessage: "No account associated with that email!"
           });
+          Toast.show({
+            text: "No account associated with that email!",
+            textStyle: { color: "#f3d34a", textAlign: "center" },
+            duration: 3000,
+            position: "top"
+          })
         }
       });
     }
@@ -65,12 +65,24 @@ export default class LogInScreen extends React.Component {
           this.setState({
             errorMessage: "There is an account with that email already"
           });
+          Toast.show({
+            text: "There is an account with that email already",
+            textStyle: { color: "#f3d34a", textAlign: "center" },
+            duration: 3000,
+            position: "top"
+          })
         }
       });
     } else {
       console.log("Not a valid email address");
       this.setState({
         errorMessage: "Please enter a valid email address"
+      });
+      Toast.show({
+        text: "Please enter a valid email address",
+        textStyle: { color: "#f3d34a", textAlign: "center" },
+        duration: 3000,
+        position: "top"
       });
     }
   };
@@ -82,38 +94,34 @@ export default class LogInScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-      <Container >
-        <AppName />
-        <Content>
-          <View style={styles.email}>
-          <Form>
-            <Item >
-              <Input 
+      <Container style={styles.container} >
+        <AppName style={styles.appName} />
+        <Content scrollEnabled={false} style={styles.content}>
+          <Form style={styles.form}>
+            <Item style={styles.item}>
+              <Input                             
                 type="text"
                 placeholder="E-Mail"
                 name="email"
                 value={this.state.email}
                 onChangeText={text =>
                   this.setState({ email: text.toLowerCase() })
-                }
-              />
+                }                
+              />              
             </Item>
-            <Text>{this.state.errorMessage}</Text>
+            <Text style={styles.text}>{this.state.errorMessage} </Text>        
             {/* <Item last>
-                            <Input placeholder="Password" />
-                        </Item> */}
-          </Form>
-          </View>
-          <Button transparent onPress={this.signInAsync} style={styles.signInButton}>
-            <Text style={styles.signInText}>          Sign In</Text>
+                  <Input placeholder="Password" />
+                </Item> */}
+          </Form >
+          <Button transparent onPress={this.signInAsync} style={styles.button}>
+            <Text style={styles.buttonText}>Sign In</Text>
           </Button>
-          <Button transparent onPress={this.signUpAsync} style={styles.signUpButton}>
-            <Text style={styles.signUpText}>          Sign Up</Text>
+          <Button transparent onPress={this.signUpAsync} style={styles.button}>
+            <Text style={styles.buttonText}>Sign Up</Text>
           </Button>
         </Content>
       </Container>
-      </View>
     );
   }
 }

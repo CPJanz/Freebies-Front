@@ -15,6 +15,8 @@ import {
 import API from "../utils/API";
 const haversine = require("haversine-js");
 import ItemCard from "../components/ItemCard";
+import EmptyListMessage from "../components/EmptyListMessage";
+
 import {
   AsyncStorage,
   ActivityIndicator,
@@ -22,11 +24,13 @@ import {
   Image
 } from "react-native";
 
+import AppNameHeader from "../components/AppNameHeader";
 export default class FindScreen extends Component {
   state = {
     nearbyItems: null,
     location: null,
-    userId: null
+    userId: null,
+    refreshing: true
   };
   //Takes in an itemLocation (format: {latitude: 42, longitude: -112}) and compares it to the passed prop location (of the same format).
   calculateDistance = itemLocation => {
@@ -54,11 +58,13 @@ export default class FindScreen extends Component {
           if (items) {
             this.setState({
               nearbyItems: items.data,
-              location: position.coords
+              location: position.coords,
+              refreshing: false
             });
           } else {
             this.setState({
-              location: position.coords
+              location: position.coords,
+              refreshing: false
             });
           }
         })
@@ -91,34 +97,22 @@ export default class FindScreen extends Component {
 
   render() {
     return (
-      //This is a check to ensure that we have gotten a call back from the db
-      this.state.refreshing ? (
-        //loading view while data is loading
-        <View style={{ flex: 1, paddingTop: 20 }}>
-          <ActivityIndicator />
-        </View>
-      ) : !this.state.nearbyItems ? (
-        // Got a response back but don't have any nearby items.
-        <View
-          style={{
-            flex: 0.2,
-            // flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            paddingTop: 200
-          }}
-        >
-          <Text style={{ fontSize: 25, paddingBottom: 100 }}>
-            {"No Nearby Items Found"}
-          </Text>
-          <Image
-            source={require("../assets/images/bee.png")}
-            style={{ width: 125, height: 125 }}
+      <Container style={{ backgroundColor: "#C2DFE3" }}>
+        <AppNameHeader />
+        {//This is a check to ensure that we have gotten a call back from the db
+        this.state.refreshing ? (
+          //loading view while data is loading
+          <View style={{ flex: 1, paddingTop: 20 }}>
+            <ActivityIndicator />
+          </View>
+        ) : !this.state.nearbyItems ? (
+          // Got a response back but don't have any nearby items.
+          <EmptyListMessage
+            topPadding={200}
+            message={"No Nearby Items Found"}
           />
-        </View>
-      ) : (
-        // Got a response back and have nearby items.
-        <Container style={{ backgroundColor: "#C2DFE3" }}>
+        ) : (
+          // Got a response back and have nearby items.
           <Content
             refreshControl={
               <RefreshControl
@@ -150,8 +144,8 @@ export default class FindScreen extends Component {
                 );
             })}
           </Content>
-        </Container>
-      )
+        )}
+      </Container>
     );
   }
 }

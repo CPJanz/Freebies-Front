@@ -4,7 +4,12 @@ import { createStackNavigator } from 'react-navigation';
 import LogInScreen from '../screens/LogInScreen';
 
 const LogInStack = createStackNavigator({
-    LogIn: LogInScreen,
+    LogIn: {
+      screen: LogInScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
   });
 
   export default LogInStack;

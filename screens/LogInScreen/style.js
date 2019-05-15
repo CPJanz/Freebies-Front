@@ -1,45 +1,40 @@
 import { StyleSheet} from 'react-native';
-import React, { Component } from 'react';
-import { yellow } from 'ansi-colors';
 
 export default styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         flex: 1,
         alignItems: "center",
+        
+    },
+
+    appName: {
+        marginTop:"30%",
+        height:150
+    },
+
+    content: {
+        width:"80%"
+    },
+
+    form: {
+        marginBottom: 40,
+    },
+
+    item: {
+        marginLeft:0
+    },
     
+    text: {
+        alignSelf:"center"
     },
 
-    email: {
-    
-       alignSelf: "stretch",
-    
+    button: {
+        textAlign:"center",
+        alignSelf: "center"
     },
 
-    signInButton: {
-    //    backgroundColor: "rgba(240, 300, 75, .5)",
-    //    borderColor: "#424242",
-    //    alignContent: "center",
-    // display: "flex",
-    // justifyContent: "center"
-    // alignItems: "center"
-    },
-
-    signInText: {
-        // paddingTop: 20,
-        color: "#F3D34A",
-        fontSize: 25,
-        justifyContent: "space-between"
-        // alignItems: "center"
-        // textAlign: "center"
-        // justifyContent: "center"
-    },
-
-    signUpButton: {
-        // justifyContent: "center"
-    },
-
-    signUpText: {
+    buttonText: {
         paddingBottom: 30,
         bottom: 0,
         color: "#F3D34A",

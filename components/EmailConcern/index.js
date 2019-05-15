@@ -15,7 +15,7 @@ export default class Email extends React.Component {
     }
  
     handleEmail = () => {
-        const to = ['emailaddress@here.com'] // string or array of email addresses
+        const to = ['freebeezconnect@gmail.com'] // string or array of email addresses
         email(to, {
             // Optional additional arguments
             subject: 'Freebeez Question or Comment'

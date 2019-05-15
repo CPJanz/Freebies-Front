@@ -15,7 +15,7 @@ export default class EmailCancel extends React.Component {
     }
  
     handleEmail = () => {
-        const to = ['emailaddress@here.com'] // string or array of email addresses
+        const to = ['freebeezconnect@gmail.com'] // string or array of email addresses
         email(to, {
             // Optional additional arguments
             subject: 'Cancel my Freebeez Account'

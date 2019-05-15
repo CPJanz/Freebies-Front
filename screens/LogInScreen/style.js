@@ -17,6 +17,18 @@ export default styles = StyleSheet.create({
         width:"80%"
     },
 
+    form: {
+        marginBottom: 40,
+    },
+
+    item: {
+        marginLeft:0
+    },
+    
+    text: {
+        alignSelf:"center"
+    },
+
     button: {
         textAlign:"center",
         alignSelf: "center"

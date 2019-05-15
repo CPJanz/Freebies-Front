@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Text } from "react-native";
-import styles from "./style";
+import { Button, Text } from "native-base";
+
 
 function RepostButton(props) {
   // return props.distanceInfo.showTaken ? (
@@ -9,7 +9,10 @@ function RepostButton(props) {
   //   <Text>{props.distanceInfo.distance}</Text>
   // );
 
-  return <Button rounded warning onPress={props.onPress} title="Repost" title="Repost"/>;
+  return <Button 
+  transparent
+  onPress={props.onPress}><Text style={{color: "#FFFFFF", fontSize: 22, fontWeight: "bold", marginRight: -20, marginTop: -10}}>Repost</Text>
+  </Button>;
   
 }
 

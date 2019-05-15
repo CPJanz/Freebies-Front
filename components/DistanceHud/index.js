@@ -4,9 +4,9 @@ import TakeButton from "../TakeButton";
 
 function DistanceHud(props) {
   return props.distanceInfo.showTaken ? (
-    <TakeButton onPress={props.onPress} available={props.available} />
+    <TakeButton onPress={props.onPress} available={props.available}/>
   ) : (
-    <Text>{props.distanceInfo.distance}</Text>
+    <Text style={{color: "#FFFFFF", fontSize: 22, fontWeight: "bold" }}> {props.distanceInfo.distance}</Text>
   );
 }
 

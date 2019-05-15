@@ -19,9 +19,9 @@ export default class LogInScreen extends React.Component {
     const thisthing = await AsyncStorage.getItem("userToken");
     console.log("userId:", thisthing);
     if (this.state.email.length === 0) {
-      this.setState({ errorMessage: "Please enter an email address." });
+      this.setState({ errorMessage: "Please enter an email address" });
       Toast.show({
-        text: "Please enter an email address.",
+        text: "Please enter an email address",
         textStyle: { color: "#f3d34a", textAlign: "center" },
         duration: 3000,
         position: "top"
@@ -97,23 +97,23 @@ export default class LogInScreen extends React.Component {
       <Container style={styles.container} >
         <AppName style={styles.appName} />
         <Content scrollEnabled={false} style={styles.content}>
-          <Form>
-            <Item >
-              <Input
+          <Form style={styles.form}>
+            <Item style={styles.item}>
+              <Input                             
                 type="text"
                 placeholder="E-Mail"
                 name="email"
                 value={this.state.email}
                 onChangeText={text =>
                   this.setState({ email: text.toLowerCase() })
-                }
-              />
+                }                
+              />              
             </Item>
-            <Text>{this.state.errorMessage}</Text>
+            <Text style={styles.text}>{this.state.errorMessage} </Text>        
             {/* <Item last>
                   <Input placeholder="Password" />
                 </Item> */}
-          </Form>
+          </Form >
           <Button transparent onPress={this.signInAsync} style={styles.button}>
             <Text style={styles.buttonText}>Sign In</Text>
           </Button>

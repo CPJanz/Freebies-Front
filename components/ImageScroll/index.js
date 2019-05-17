@@ -1,6 +1,7 @@
 import React from "react";
-import { ScrollView, Image, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import PlaceholderImage from "../PlaceholderImage";
+import { Image } from "react-native-expo-image-cache";
 
 function ImageScroll(props) {
   return (
@@ -24,9 +25,11 @@ function ImageScroll(props) {
         {props.images.map((image, key) => {
           return (
             <Image
-              source={{ uri: image }}
               style={{ height: 300, width: 400, flex: 1 }}
               key={key}
+              {...{
+                uri: image
+              }}
             />
           );
         })}

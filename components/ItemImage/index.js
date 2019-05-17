@@ -1,7 +1,7 @@
 import React from "react";
 import ImageScroll from "../ImageScroll";
 import PlaceholderImage from "../PlaceholderImage";
-import { Image } from "react-native";
+import { Image } from "react-native-expo-image-cache";
 import { View } from "native-base";
 
 export default class ItemImage extends React.Component {
@@ -15,7 +15,6 @@ export default class ItemImage extends React.Component {
         <View>
           <PlaceholderImage opacity={this.props.opacity} />
           <Image
-            source={{ uri: this.props.images[0] }}
             style={{
               height: 300,
               width: 340,
@@ -27,6 +26,9 @@ export default class ItemImage extends React.Component {
               right: 0,
               bottom: 0,
               top: 0
+            }}
+            {...{
+              uri: this.props.images[0]
             }}
           />
         </View>

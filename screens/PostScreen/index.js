@@ -79,21 +79,25 @@ export default class PostScreen extends Component {
     disableBtn = () => {
         this.setState({ makingPost: true });
         this.postItem();
-    }
+    };
+
+    rmLineBreaks = txt => {
+        newTxt = txt.replace(/[\n\r]/g, " ");
+        this.setState({
+            description: newTxt
+        });
+    };
 
     postItem = async () => {
         let uploadArr = [];
         for (var i = 0; i < this.images.length; i++) {
-            console.log(this.images[i]);
             var uploadImageResult = await this.uploadImage(this.images[i]);
-            // TODO: store the resulting image URL in MongoDB
             uploadArr.push(uploadImageResult);
-        }
+        };
 
         this.setState({ uploaded: uploadArr });
 
-        // TODO: store the description in Mongo DB
-        console.log(this.state.description);
+        this.rmLineBreaks(this.state.description);
 
         if (this.state.uploaded.length > 0) {
             this.props.navigation.navigate("Give");

@@ -1,30 +1,14 @@
 //this code creates the FIND page
 
 import React, { Component } from "react";
-import {
-  Container,
-  Header,
-  Content,
-  Form,
-  Item,
-  Input,
-  Text,
-  Button,
-  View
-} from "native-base";
+import { Container, Content, Text, View } from "native-base";
 import API from "../utils/API";
 const haversine = require("haversine-js");
 import ItemCard from "../components/ItemCard";
 import EmptyListMessage from "../components/EmptyListMessage";
-
-import {
-  AsyncStorage,
-  ActivityIndicator,
-  RefreshControl,
-  Image
-} from "react-native";
-
+import { AsyncStorage, ActivityIndicator, RefreshControl } from "react-native";
 import AppNameHeader from "../components/AppNameHeader";
+
 export default class FindScreen extends Component {
   state = {
     nearbyItems: null,
@@ -34,7 +18,7 @@ export default class FindScreen extends Component {
   };
   //Takes in an itemLocation (format: {latitude: 42, longitude: -112}) and compares it to the passed prop location (of the same format).
   calculateDistance = itemLocation => {
-    var itemLocationInfo = {
+    const itemLocationInfo = {
       distance: "",
       showTaken: false
     };
@@ -50,8 +34,8 @@ export default class FindScreen extends Component {
     return itemLocationInfo;
   };
 
-  async componentDidMount() {
-    //Grab current client position then use that to query the database for nearby items, finally set the state with the nearbyItems and location.
+  //Grab current client position then use that to query the database for nearby items, finally set the state with the nearbyItems and location.
+  async fetchItems() {
     navigator.geolocation.getCurrentPosition(position => {
       API.getNearbyItems(position.coords)
         .then(items => {
@@ -71,10 +55,15 @@ export default class FindScreen extends Component {
         .catch(err => console.log(err));
       this.asyncGetUser();
     });
+  }
 
+  componentDidMount() {
     if (!this.focusListener) {
-      this.focusListener = this.props.navigation.addListener("willFocus", () =>
-        this.componentDidMount()
+      this.focusListener = this.props.navigation.addListener(
+        "willFocus",
+        () => {
+          this.fetchItems();
+        }
       );
     }
   }
@@ -84,6 +73,7 @@ export default class FindScreen extends Component {
   }
 
   _onRefresh = () => {
+    console.log("Refreshing Find Screen.");
     this.setState({ refreshing: true });
     this.componentDidMount().then(() => {
       this.setState({ refreshing: false });

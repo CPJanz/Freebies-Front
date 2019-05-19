@@ -4,7 +4,7 @@ import React from "react";
 import API from "../../utils/API";
 import styles from "./style"
 import { AsyncStorage } from "react-native";
-import { Container, Content, Form, Item, Input, Text, Button, View, Toast } from "native-base";
+import { Container, Content, Form, Item, Input, Text, Button, Toast } from "native-base";
 import AppName from "../../components/AppName";
 
 export default class LogInScreen extends React.Component {
@@ -25,7 +25,7 @@ export default class LogInScreen extends React.Component {
         textStyle: { color: "#f3d34a", textAlign: "center" },
         duration: 3000,
         position: "top"
-      })
+      });
     } else {
       API.signIn(this.state.email).then(async dbResult => {
         console.log("dbresult", JSON.stringify(dbResult));
@@ -44,7 +44,7 @@ export default class LogInScreen extends React.Component {
             textStyle: { color: "#f3d34a", textAlign: "center" },
             duration: 3000,
             position: "top"
-          })
+          });
         }
       });
     }
@@ -70,7 +70,7 @@ export default class LogInScreen extends React.Component {
             textStyle: { color: "#f3d34a", textAlign: "center" },
             duration: 3000,
             position: "top"
-          })
+          });
         }
       });
     } else {
@@ -100,7 +100,9 @@ export default class LogInScreen extends React.Component {
           <Form style={styles.form}>
             <Item style={styles.item}>
               <Input                             
-                type="text"
+                textContentType="username"
+                keyboardType="email-address"
+                autoCapitalize="none"
                 placeholder="E-Mail"
                 name="email"
                 value={this.state.email}

@@ -7,7 +7,6 @@ export default class Duration extends Component {
   };
 
   componentDidMount = () => {
-    console.log(this.state.timeLeft);
     this.intervalId = setInterval(() => this.tick(), 1000);
   };
 
@@ -46,11 +45,28 @@ export default class Duration extends Component {
   };
 
   render() {
-    return(
-      this.state.timeLeft > 0 ? (
-        <Text style={{ color: "#ffffff", fontWeight: "bold", fontSize: 22, marginTop: 6}}>{this.formatTime(this.state.timeLeft)}</Text>
-      ) : (
-        <Text style={{ color: "#ffffff", fontWeight: "bold", fontSize: 22, marginTop: 6}}>Expired!</Text>
-      )
-    )};
+    return this.state.timeLeft > 0 ? (
+      <Text
+        style={{
+          color: "#ffffff",
+          fontWeight: "bold",
+          fontSize: 22,
+          marginTop: 6
+        }}
+      >
+        {this.formatTime(this.state.timeLeft)}
+      </Text>
+    ) : (
+      <Text
+        style={{
+          color: "#ffffff",
+          fontWeight: "bold",
+          fontSize: 22,
+          marginTop: 6
+        }}
+      >
+        Expired!
+      </Text>
+    );
+  }
 }

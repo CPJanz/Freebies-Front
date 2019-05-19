@@ -2,20 +2,7 @@
 
 import React, { Component } from "react";
 import { AsyncStorage, ActivityIndicator, RefreshControl } from "react-native";
-import {
-  Container,
-  Content,
-  Text,
-  Button,
-  Card,
-  CardItem,
-  Body,
-  Textarea,
-  View,
-  Form,
-  Item,
-  Input
-} from "native-base";
+import { Container, Content, Text, Button, View } from "native-base";
 import API from "../utils/API";
 import ItemCard from "../components/ItemCard";
 import AppNameHeader from "../components/AppNameHeader";
@@ -32,13 +19,16 @@ export default class GiveScreen extends Component {
 
   //   when give screen loads, state will set with the user's id, and previously posted items
   componentDidMount = () => {
-    this.setUserId();
-
-    if (!this.focusListener) {
-      this.focusListener = this.props.navigation.addListener("willFocus", () =>
-        this.getPostedItems()
-      );
-    }
+    this.setUserId().then(() => {
+      if (!this.focusListener) {
+        this.focusListener = this.props.navigation.addListener(
+          "willFocus",
+          () => {
+            return this.getPostedItems();
+          }
+        );
+      }
+    });
   };
 
   componentWillUnmount() {
@@ -50,7 +40,7 @@ export default class GiveScreen extends Component {
     this.setState({
       userId: id
     });
-    this.getPostedItems(this.state.userId);
+    this.getPostedItems();
   };
 
   _onRefresh = () => {
@@ -71,7 +61,6 @@ export default class GiveScreen extends Component {
           inactive: unAvail,
           refreshing: false
         });
-        console.log("IN STATE: ", this.state.active, this.state.inactive);
       })
       .catch(err => console.log(err));
   };
@@ -81,16 +70,18 @@ export default class GiveScreen extends Component {
     return (
       <Container style={{ backgroundColor: "#C2DFE3" }}>
         <AppNameHeader />
-        {this.state.refreshing && (
-          <View style={{ flex: 1, paddingTop: 20 }}>
-            <ActivityIndicator />
-          </View>
-        )}
-        <View style={{ flexDirection: "row", justifyContent: "center"}} >
-        {/* button to open form to post an item */}
-        <Button style={{ marginTop: 22, marginBottom: 27, backgroundColor: "#F3D34A" }} onPress={() => this.props.navigation.navigate("Post")}>
-          <Text>New Post</Text>
-        </Button>
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          {/* button to open form to post an item */}
+          <Button
+            style={{
+              marginTop: 22,
+              marginBottom: 27,
+              backgroundColor: "#F3D34A"
+            }}
+            onPress={() => this.props.navigation.navigate("Post")}
+          >
+            <Text>New Post</Text>
+          </Button>
         </View>
         <Content
           refreshControl={
@@ -100,7 +91,9 @@ export default class GiveScreen extends Component {
             />
           }
         >
-          {!this.state.active.length && !this.state.inactive.length && !this.state.refreshing ? (
+          {!this.state.active.length &&
+          !this.state.inactive.length &&
+          !this.state.refreshing ? (
             <EmptyListMessage
               topPadding={2}
               message={
@@ -109,14 +102,14 @@ export default class GiveScreen extends Component {
             />
           ) : null}
           {/* map active array at top */}
-          {this.state.active.map((data, i) => (
+          {this.state.active.map(data => (
             <ItemCard
               key={data._id}
               id={data._id}
               images={data.images}
               available={data.available}
               textBody={data.description}
-              reload={this._onRefresh}
+              reload={this.getPostedItems}
               topLeft={{ type: "Take" }}
               topRight={{
                 type: "Duration",
@@ -126,7 +119,7 @@ export default class GiveScreen extends Component {
             />
           ))}
           {/* map inactive array below */}
-          {this.state.inactive.map((data, i) =>
+          {this.state.inactive.map(data =>
             data.available ? (
               <ItemCard
                 key={data._id}
@@ -134,7 +127,7 @@ export default class GiveScreen extends Component {
                 images={data.images}
                 available={data.available}
                 textBody={data.description}
-                reload={this._onRefresh}
+                reload={this.getPostedItems}
                 topLeft={{ type: "None" }}
                 topRight={{ type: "Repost" }}
                 active={false}
@@ -146,7 +139,7 @@ export default class GiveScreen extends Component {
                 images={data.images}
                 available={data.available}
                 textBody={data.description}
-                reload={this._onRefresh}
+                reload={this.getPostedItems}
                 topLeft={{ type: "None" }}
                 topRight={{ type: "Repost" }}
                 active={false}

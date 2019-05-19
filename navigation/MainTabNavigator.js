@@ -7,14 +7,14 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import FindScreen from '../screens/FindScreen';
 import GiveScreen from '../screens/GiveScreen';
-import AboutScreen from '../screens/AboutScreen';
 
 //sets up buttons for bee menu
 import { ActionSheet } from "native-base";
-var BUTTONS = ["About", "Log Out", "Cancel"];
+var BUTTONS = ["About", "Meet the Team", "Log Out", "Cancel"];
 var About_Index = 0;
-var Logout_Index = 1;
-var Cancel_Index = 2;
+var Meet_Index = 1;
+var Logout_Index = 2;
+var Cancel_Index = 3;
 
 var screenNavigation = {
   header: null
@@ -23,7 +23,7 @@ var screenNavigation = {
 const FindStack = createStackNavigator({
   Find: {
     screen: FindScreen,
-    navigationOptions : screenNavigation
+    navigationOptions: screenNavigation
   }
 });
 
@@ -38,7 +38,7 @@ FindStack.navigationOptions = {
 const GiveStack = createStackNavigator({
   Give: {
     screen: GiveScreen,
-    navigationOptions : screenNavigation
+    navigationOptions: screenNavigation
   }
 });
 
@@ -54,15 +54,15 @@ GiveStack.navigationOptions = {
 export default createBottomTabNavigator({
   FindStack,
   //creates expandable bee menu
-  ExpandMenu : {
+  ExpandMenu: {
     screen: () => null,
     navigationOptions: () => ({
       tabBarLabel: " ",
       tabBarIcon: () => (
-       <Image source={require('../assets/images/bee.png')} style={{width:40, height: 40, marginTop:15}}/>
+        <Image source={require('../assets/images/bee.png')} style={{ width: 40, height: 40, marginTop: 15 }} />
       ),
       tabBarOnPress: async (props) => {
-        
+
         var userEmail = await AsyncStorage.getItem("userEmail");
 
         if (!userEmail) {
@@ -77,21 +77,26 @@ export default createBottomTabNavigator({
             title: userEmail
           },
           async (buttonIndex) => {
-            switch(buttonIndex) {
+            switch (buttonIndex) {
               case Logout_Index:
-              // logout
-              await AsyncStorage.setItem("userToken", "");
-              await AsyncStorage.setItem("userEmail", "");
-              props.navigation.navigate('AuthLoading');
-              break;
+                // logout
+                await AsyncStorage.setItem("userToken", "");
+                await AsyncStorage.setItem("userEmail", "");
+                props.navigation.navigate('AuthLoading');
+                break;
 
               case About_Index:
-              props.navigation.navigate("About");
-              break;
+                props.navigation.navigate("About");
+                break;
+
+              case Meet_Index:
+                props.navigation.navigate("MeetTheTeam");
+                break;
             }
           }
-        )}
+        )
       }
+    }
     )
 
   },

@@ -5,6 +5,7 @@ import MainTabNavigator from './MainTabNavigator';
 import LoginStack from './LogInNavigator';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import AboutScreen from '../screens/AboutScreen';
+import MeetTheTeam from '../screens/MeetTheTeam';
 import PostScreen from '../screens/PostScreen';
 
 export default createAppContainer(createSwitchNavigator({
@@ -14,6 +15,7 @@ export default createAppContainer(createSwitchNavigator({
   App: MainTabNavigator,
   Auth: LoginStack,
   About: AboutScreen,
+  MeetTheTeam: MeetTheTeam,
   Post: PostScreen
 },
 {

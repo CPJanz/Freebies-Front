@@ -57,7 +57,7 @@ export default class FindScreen extends Component {
     });
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     if (!this.focusListener) {
       this.focusListener = this.props.navigation.addListener(
         "willFocus",

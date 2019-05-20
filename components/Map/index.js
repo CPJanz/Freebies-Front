@@ -15,7 +15,13 @@ export default class Map extends Component {
         // style={{ flexDirection: "column", flex: 1, justifyContent: "center" }}
         onPress={this._goToMaps}
       >
-        <Text style={{ fontSize: 30, marginTop: -10 }}>🗺</Text>
+        <Text style={{ 
+          fontSize: 30, 
+          marginTop: -10,
+          textShadowColor: "#424242",
+          textShadowOffset: {width: 2, height: 2},
+          textShadowRadius: 5
+        }}>🗺</Text>
       </Button>
     );
   }

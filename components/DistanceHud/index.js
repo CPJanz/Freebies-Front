@@ -6,7 +6,14 @@ function DistanceHud(props) {
   return props.distanceInfo.showTaken ? (
     <TakeButton onPress={props.onPress} available={props.available}/>
   ) : (
-    <Text style={{color: "#FFFFFF", fontSize: 22, fontWeight: "bold" }}> {props.distanceInfo.distance}</Text>
+    <Text style={{
+      color: "#FFFFFF", 
+      fontSize: 22, 
+      fontWeight: "bold",
+      textShadowColor: "#424242",
+      textShadowOffset: {width: 2, height: 2},
+      textShadowRadius: 5 
+    }}> {props.distanceInfo.distance}</Text>
   );
 }
 

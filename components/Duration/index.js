@@ -51,7 +51,10 @@ export default class Duration extends Component {
           color: "#ffffff",
           fontWeight: "bold",
           fontSize: 22,
-          marginTop: 6
+          marginTop: 6,
+          textShadowColor: "#424242",
+          textShadowOffset: {width: 2, height: 2},
+          textShadowRadius: 5
         }}
       >
         {this.formatTime(this.state.timeLeft)}
@@ -62,7 +65,10 @@ export default class Duration extends Component {
           color: "#ffffff",
           fontWeight: "bold",
           fontSize: 22,
-          marginTop: 6
+          marginTop: 6,
+          textShadowColor: "#424242",
+          textShadowOffset: {width: 2, height: 2},
+          textShadowRadius: 5
         }}
       >
         Expired!

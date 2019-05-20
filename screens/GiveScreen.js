@@ -86,11 +86,18 @@ export default class GiveScreen extends Component {
             <ActivityIndicator />
           </View>
         )}
-        <View style={{ flexDirection: "row", justifyContent: "center"}} >
-        {/* button to open form to post an item */}
-        <Button style={{ marginTop: 22, marginBottom: 27, backgroundColor: "#F3D34A" }} onPress={() => this.props.navigation.navigate("Post")}>
-          <Text>New Post</Text>
-        </Button>
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          {/* button to open form to post an item */}
+          <Button
+            style={{
+              marginTop: 22,
+              marginBottom: 27,
+              backgroundColor: "#F3D34A"
+            }}
+            onPress={() => this.props.navigation.navigate("Post")}
+          >
+            <Text>New Post</Text>
+          </Button>
         </View>
         <Content
           refreshControl={
@@ -100,7 +107,9 @@ export default class GiveScreen extends Component {
             />
           }
         >
-          {!this.state.active.length && !this.state.inactive.length && !this.state.refreshing ? (
+          {!this.state.active.length &&
+          !this.state.inactive.length &&
+          !this.state.refreshing ? (
             <EmptyListMessage
               topPadding={2}
               message={
@@ -135,7 +144,7 @@ export default class GiveScreen extends Component {
                 available={data.available}
                 textBody={data.description}
                 reload={this._onRefresh}
-                topLeft={{ type: "None" }}
+                topLeft={{ type: "Delete" }}
                 topRight={{ type: "Repost" }}
                 active={false}
               />
@@ -147,7 +156,7 @@ export default class GiveScreen extends Component {
                 available={data.available}
                 textBody={data.description}
                 reload={this._onRefresh}
-                topLeft={{ type: "None" }}
+                topLeft={{ type: "Delete" }}
                 topRight={{ type: "Repost" }}
                 active={false}
               />

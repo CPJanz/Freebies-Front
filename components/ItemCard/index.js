@@ -17,6 +17,7 @@ import API from "../../utils/API";
 import TakeButton from "../TakeButton";
 import Duration from "../Duration";
 import RepostButton from "../RepostButton";
+import DeleteButton from "../DeleteButton";
 import styles from "./style";
 
 export default class ItemCard extends Component {
@@ -56,6 +57,18 @@ export default class ItemCard extends Component {
     }
   };
 
+  deleteItem = () => {
+    API.itemDelete(this.props.id)
+      .then(response => {
+        console.log("Delete Response", response);
+        if (response.deletedCount === 1) {
+          console.log("TODO: remove images from firebase.");
+        }
+      })
+      .then(() => (this.props.reload ? this.props.reload() : null))
+      .throw(err => console.log(err));
+  };
+
   formatElement = input => {
     switch (input.type) {
       case "DistanceHud":
@@ -81,6 +94,8 @@ export default class ItemCard extends Component {
         );
       case "Repost":
         return <RepostButton onPress={this.repostItem} />;
+      case "Delete":
+        return <DeleteButton onPress={this.deleteItem} />;
       case "None":
         return null;
     }
@@ -117,7 +132,16 @@ export default class ItemCard extends Component {
               </CardItem>
               {this.props.textBody ? (
                 <CardItem style={styles.bottomBar}>
-                  <Text style={{color: "#FFFFFF", fontWeight: "bold", fontSize: 22}}> {this.props.textBody}</Text>
+                  <Text
+                    style={{
+                      color: "#FFFFFF",
+                      fontWeight: "bold",
+                      fontSize: 22
+                    }}
+                  >
+                    {" "}
+                    {this.props.textBody}
+                  </Text>
                 </CardItem>
               ) : null}
             </Body>

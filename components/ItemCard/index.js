@@ -121,7 +121,10 @@ export default class ItemCard extends Component {
                     style={{
                       color: "#FFFFFF",
                       fontWeight: "bold",
-                      fontSize: 22
+                      fontSize: 22,
+                      textShadowColor: "#424242",
+                      textShadowOffset: {width: 2, height: 2},
+                      textShadowRadius: 5
                     }}
                   >
                     {" "}

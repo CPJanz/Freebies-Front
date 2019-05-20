@@ -11,7 +11,17 @@ function RepostButton(props) {
 
   return <Button 
   transparent
-  onPress={props.onPress}><Text style={{color: "#FFFFFF", fontSize: 22, fontWeight: "bold", marginRight: -20, marginTop: -10}}>Repost</Text>
+  onPress={props.onPress}>
+  <Text style={{
+    color: "#FFFFFF", 
+    fontSize: 22, 
+    fontWeight: "bold", 
+    marginRight: -20, 
+    marginTop: -10,
+    textShadowColor: "#424242",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 5
+    }}>Repost</Text>
   </Button>;
   
 }

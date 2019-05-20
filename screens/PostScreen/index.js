@@ -1,17 +1,7 @@
 import React, { Component } from "react";
 import { AsyncStorage, KeyboardAvoidingView } from "react-native";
 import ImagePickerComponent from "../../components/Camera";
-import {
-  Container,
-  Content,
-  Text,
-  Button,
-  View,
-  Form,
-  Item,
-  Input,
-  Toast
-} from "native-base";
+import { Container, Content, Text, Button, View, Form, Item, Input, Toast } from "native-base";
 import * as firebase from "firebase";
 import uuid from "uuid";
 import API from "../../utils/API";

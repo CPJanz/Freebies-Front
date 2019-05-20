@@ -6,7 +6,7 @@ import API from "../utils/API";
 const haversine = require("haversine-js");
 import ItemCard from "../components/ItemCard";
 import EmptyListMessage from "../components/EmptyListMessage";
-import { AsyncStorage, ActivityIndicator, RefreshControl } from "react-native";
+import { AsyncStorage, ActivityIndicator, RefreshControl, FlatList } from "react-native";
 import AppNameHeader from "../components/AppNameHeader";
 
 export default class FindScreen extends Component {
@@ -111,28 +111,25 @@ export default class FindScreen extends Component {
               />
             }
           >
-            {this.state.nearbyItems.map((data, i) => {
-              //for bug fixing only
-              if (!data) {
-                return <Text>no data</Text>;
-              } else
-                return (
-                  <ItemCard
-                    key={i}
-                    available={data.available}
-                    textBody={data.description}
-                    topLeft={{
-                      type: "DistanceHud",
-                      distanceInfo: this.calculateDistance(data.location)
-                    }}
-                    topRight={{ type: "Map", location: data.location }}
-                    images={data.images}
-                    location={data.location}
-                    id={data._id}
-                    active={true}
-                  />
-                );
-            })}
+          <FlatList 
+              data={this.state.nearbyItems}
+              keyExtractor={data => data._id}
+              renderItem={({ item }) => (
+                <ItemCard
+                  available={item.available}
+                  textBody={item.description}
+                  topLeft={{
+                    type: "DistanceHud",
+                    distanceInfo: this.calculateDistance(item.location)
+                  }}
+                  topRight={{ type: "Map", location: item.location }}
+                  images={item.images}
+                  location={item.location}
+                  id={item._id}
+                  active={true}
+                />
+              )}
+            />
           </Content>
         )}
       </Container>

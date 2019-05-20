@@ -57,16 +57,20 @@ export default class ItemCard extends Component {
     }
   };
 
-  deleteItem = () => {
-    API.itemDelete(this.props.id)
-      .then(response => {
-        console.log("Delete Response", response);
-        if (response.deletedCount === 1) {
-          console.log("TODO: remove images from firebase.");
-        }
-      })
-      .then(() => (this.props.reload ? this.props.reload() : null))
-      .throw(err => console.log(err));
+  deleteItem = async () => {
+    const response = await API.itemDelete(this.props.id);
+    if (response.status === 200) {
+      if (response.data.deletedCount === 1) {
+        console.log("TODO: remove images from firebase.");
+        this.props.reload ? this.props.reload() : null;
+      }
+    } else {
+      console.log("RESPONSE DATA");
+      console.log(response.data);
+    }
+    if (this.props.reload) {
+      this.props.reload();
+    }
   };
 
   formatElement = input => {

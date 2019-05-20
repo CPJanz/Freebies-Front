@@ -85,34 +85,13 @@ export default class AboutScreen extends React.Component {
                 </Text>
               </Body>
             </CardItem>
+
             <CardItem>
               <Body>
                 <Text
                   style={{ fontWeight: "bold", marginTop: 5, marginBottom: 5 }}
                 >
-                  Disclaimer
-                </Text>
-                <Text>
-                  This application is part of a location sharing system for i)
-                  finding free items and ii) posting free items. By using this
-                  app to post items, and by accepting sharing your geolocation,
-                  you agree to send back your location results. Location results
-                  are measured by the position of the device. When location
-                  results are sent to the server (only in the case of
-                  giving/posting an item), they are associated with your email
-                  address. By using this app, you understand that when posting
-                  an item, the location from which you post will be visible to
-                  other users. Freebeez assumes no responsibility and does not
-                  guarantee the accuracy, relevance, timeliness, or completeness
-                  of any information posted by users. Under no circumstances
-                  shall Freebeez or its affiliates, partners, suppliers or
-                  licensors be liable for any indirect, incidental,
-                  consequential, special or exemplary damages arising out of or
-                  in connection with your access or use of or inability to
-                  access or use the application and any third party content and
-                  services, whether or not the damages were foreseeable and
-                  whether or not Freebeez was advised of the possibility of such
-                  damages. As with anything else, use good judgement.
+                  FAQ
                 </Text>
                 <View
                   style={{
@@ -154,6 +133,39 @@ export default class AboutScreen extends React.Component {
                     }
                   />
                 </Text>
+              </Body>
+            </CardItem>
+
+            <CardItem>
+              <Body>
+                <Text
+                  style={{ fontWeight: "bold", marginTop: 5, marginBottom: 5 }}
+                >
+                  Disclaimer
+                </Text>
+                <Text>
+                  This application is part of a location sharing system for i)
+                  finding free items and ii) posting free items. By using this
+                  app to post items, and by accepting sharing your geolocation,
+                  you agree to send back your location results. Location results
+                  are measured by the position of the device. When location
+                  results are sent to the server (only in the case of
+                  giving/posting an item), they are associated with your email
+                  address. By using this app, you understand that when posting
+                  an item, the location from which you post will be visible to
+                  other users. Freebeez assumes no responsibility and does not
+                  guarantee the accuracy, relevance, timeliness, or completeness
+                  of any information posted by users. Under no circumstances
+                  shall Freebeez or its affiliates, partners, suppliers or
+                  licensors be liable for any indirect, incidental,
+                  consequential, special or exemplary damages arising out of or
+                  in connection with your access or use of or inability to
+                  access or use the application and any third party content and
+                  services, whether or not the damages were foreseeable and
+                  whether or not Freebeez was advised of the possibility of such
+                  damages. As with anything else, use good judgement.
+                </Text>
+                
               </Body>
             </CardItem>
           </Card>

@@ -7,7 +7,6 @@ export default class Duration extends Component {
   };
 
   componentDidMount = () => {
-    console.log(this.state.timeLeft);
     this.intervalId = setInterval(() => this.tick(), 1000);
   };
 

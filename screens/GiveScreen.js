@@ -7,7 +7,6 @@ import API from "../utils/API";
 import ItemCard from "../components/ItemCard";
 import AppNameHeader from "../components/AppNameHeader";
 import EmptyListMessage from "../components/EmptyListMessage";
-// import { FlatList } from "react-native-gesture-handler";
 
 //this code renders the Give screen
 export default class GiveScreen extends Component {

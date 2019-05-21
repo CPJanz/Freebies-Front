@@ -41,10 +41,10 @@ export default {
   },
 
   // route for deleting an item
-  itemDelete: itemId => {
+  itemDelete: (itemId, userId) => {
     console.log("Deleting", itemId);
     const queryString = `https://freebies-api.herokuapp.com/api/item/${itemId}`;
-    return axios.delete(queryString);
+    return axios.delete(queryString, { userId: userId });
   },
 
   // route to get a user's posted items

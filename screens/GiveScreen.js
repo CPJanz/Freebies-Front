@@ -106,6 +106,7 @@ export default class GiveScreen extends Component {
             <ItemCard
               key={data._id}
               id={data._id}
+              userId={this.state.userId}
               images={data.images}
               available={data.available}
               textBody={data.description}
@@ -124,6 +125,7 @@ export default class GiveScreen extends Component {
               <ItemCard
                 key={data._id}
                 id={data._id}
+                userId={this.state.userId}
                 images={data.images}
                 available={data.available}
                 textBody={data.description}
@@ -136,6 +138,7 @@ export default class GiveScreen extends Component {
               <ItemCard
                 key={data._id}
                 id={data._id}
+                userId={this.state.userId}
                 images={data.images}
                 available={data.available}
                 textBody={data.description}

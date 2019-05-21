@@ -1,7 +1,12 @@
 //this code creates the GIVE page
 
 import React, { Component } from "react";
-import { AsyncStorage, ActivityIndicator, RefreshControl } from "react-native";
+import {
+  AsyncStorage,
+  ActivityIndicator,
+  RefreshControl,
+  FlatList
+} from "react-native";
 import { Container, Content, Text, Button, View } from "native-base";
 import API from "../utils/API";
 import ItemCard from "../components/ItemCard";
@@ -102,53 +107,44 @@ export default class GiveScreen extends Component {
             />
           ) : null}
           {/* map active array at top */}
-          {this.state.active.map(data => (
-            <ItemCard
-              key={data._id}
-              id={data._id}
-              userId={this.state.userId}
-              images={data.images}
-              available={data.available}
-              textBody={data.description}
-              reload={this.getPostedItems}
-              topLeft={{ type: "Take" }}
-              topRight={{
-                type: "Duration",
-                timeLeft: data.timeLeft
-              }}
-              active={true}
-            />
-          ))}
+          <FlatList
+            data={this.state.active}
+            keyExtractor={data => data._id}
+            renderItem={({ item }) => (
+              <ItemCard
+                key={item._id}
+                id={item._id}
+                images={item.images}
+                available={item.available}
+                textBody={item.description}
+                reload={this.getPostedItems}
+                topLeft={{ type: "Take" }}
+                topRight={{
+                  type: "Duration",
+                  timeLeft: item.timeLeft
+                }}
+                active={true}
+              />
+            )}
+          />
           {/* map inactive array below */}
-          {this.state.inactive.map(data =>
-            data.available ? (
+          <FlatList
+            data={this.state.inactive}
+            keyExtractor={data => data._id}
+            renderItem={({ item }) => (
               <ItemCard
-                key={data._id}
-                id={data._id}
-                userId={this.state.userId}
-                images={data.images}
-                available={data.available}
-                textBody={data.description}
+                key={item._id}
+                id={item._id}
+                images={item.images}
+                available={item.available}
+                textBody={item.description}
                 reload={this.getPostedItems}
                 topLeft={{ type: "Delete" }}
                 topRight={{ type: "Repost" }}
                 active={false}
               />
-            ) : (
-              <ItemCard
-                key={data._id}
-                id={data._id}
-                userId={this.state.userId}
-                images={data.images}
-                available={data.available}
-                textBody={data.description}
-                reload={this.getPostedItems}
-                topLeft={{ type: "Delete" }}
-                topRight={{ type: "Repost" }}
-                active={false}
-              />
-            )
-          )}
+            )}
+          />
         </Content>
       </Container>
     );

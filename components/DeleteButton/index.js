@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Text } from "native-base";
 
-function RepostButton(props) {
+function DeleteButton(props) {
   return (
     <Button transparent onPress={props.onPress}>
       <Text
@@ -10,7 +10,10 @@ function RepostButton(props) {
           fontSize: 22,
           fontWeight: "bold",
           marginLeft: -13,
-          marginTop: -17
+          marginTop: -17,
+          textShadowColor: "#424242",
+          textShadowOffset: { width: 2, height: 2 },
+          textShadowRadius: 5
         }}
       >
         Delete
@@ -19,4 +22,4 @@ function RepostButton(props) {
   );
 }
 
-export default RepostButton;
+export default DeleteButton;

@@ -1,19 +1,8 @@
 import React, { Component } from "react";
 import { AsyncStorage, KeyboardAvoidingView } from "react-native";
 import ImagePickerComponent from "../../components/Camera";
-import {
-  Container,
-  Content,
-  Text,
-  Button,
-  View,
-  Form,
-  Item,
-  Input,
-  Toast
-} from "native-base";
-import * as firebase from "firebase";
-import uuid from "uuid";
+import { Container, Content, Text, Button, View, Form, Item, Input, Toast } from "native-base";
+import Firebase from "../../utils/Firebase";
 import API from "../../utils/API";
 import styles from "./style";
 
@@ -50,37 +39,6 @@ export default class PostScreen extends Component {
     });
   };
 
-  uploadImage = async uri => {
-    // generates a random image ID for firebase
-    var imageID = uuid.v4() + ".jpg";
-    // creates a blob (binary image format)
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function() {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function(e) {
-        console.log(e);
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", uri, true);
-      xhr.send(null);
-    });
-
-    // creates a reference based off of the generated image ID
-    var ref = firebase
-      .storage()
-      .ref()
-      .child(imageID);
-    // sends the blob to firebase
-    var snapshot = await ref.put(blob, { contentType: "image/jpg" });
-    // finalizes the uploaded blob
-    blob.close();
-    // returns the URL of the uploaded image
-    return await snapshot.ref.getDownloadURL();
-  };
-
   // updates the description each time the user modifies the description text box
   handleDiscriptionChange = event => {
     this.setState({ description: event.nativeEvent.text });
@@ -101,7 +59,7 @@ export default class PostScreen extends Component {
   postItem = async () => {
     let uploadArr = [];
     for (var i = 0; i < this.images.length; i++) {
-      var uploadImageResult = await this.uploadImage(this.images[i]);
+      var uploadImageResult = await Firebase.uploadImage(this.images[i]);
       uploadArr.push(uploadImageResult);
     }
 

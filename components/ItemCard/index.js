@@ -14,6 +14,7 @@ import {
   StyleSheet
 } from "native-base";
 import API from "../../utils/API";
+import Firebase from "../../utils/Firebase";
 import TakeButton from "../TakeButton";
 import Duration from "../Duration";
 import RepostButton from "../RepostButton";
@@ -60,10 +61,8 @@ export default class ItemCard extends Component {
   deleteItem = async () => {
     const response = await API.itemDelete(this.props.id);
     if (response.status === 200) {
-      if (response.data.deletedCount === 1) {
-        console.log("TODO: remove images from firebase.");
-        this.props.reload ? this.props.reload() : null;
-      }
+      console.log(`${this.props.id} deleted from database`);
+      this.props.images.map(image => Firebase.deleteImage(image));
     } else {
       console.log("RESPONSE DATA");
       console.log(response.data);
@@ -140,7 +139,10 @@ export default class ItemCard extends Component {
                     style={{
                       color: "#FFFFFF",
                       fontWeight: "bold",
-                      fontSize: 22
+                      fontSize: 22,
+                      textShadowColor: "#424242",
+                      textShadowOffset: { width: 2, height: 2 },
+                      textShadowRadius: 5
                     }}
                   >
                     {" "}

@@ -14,9 +14,11 @@ import {
   StyleSheet
 } from "native-base";
 import API from "../../utils/API";
+import Firebase from "../../utils/Firebase";
 import TakeButton from "../TakeButton";
 import Duration from "../Duration";
 import RepostButton from "../RepostButton";
+import DeleteButton from "../DeleteButton";
 import styles from "./style";
 
 export default class ItemCard extends Component {
@@ -56,6 +58,20 @@ export default class ItemCard extends Component {
     }
   };
 
+  deleteItem = async () => {
+    const response = await API.itemDelete(this.props.id);
+    if (response.status === 200) {
+      console.log(`${this.props.id} deleted from database`);
+      this.props.images.map(image => Firebase.deleteImage(image));
+    } else {
+      console.log("RESPONSE DATA");
+      console.log(response.data);
+    }
+    if (this.props.reload) {
+      this.props.reload();
+    }
+  };
+
   formatElement = input => {
     switch (input.type) {
       case "DistanceHud":
@@ -81,6 +97,8 @@ export default class ItemCard extends Component {
         );
       case "Repost":
         return <RepostButton onPress={this.repostItem} />;
+      case "Delete":
+        return <DeleteButton onPress={this.deleteItem} />;
       case "None":
         return null;
     }
@@ -123,7 +141,7 @@ export default class ItemCard extends Component {
                       fontWeight: "bold",
                       fontSize: 22,
                       textShadowColor: "#424242",
-                      textShadowOffset: {width: 2, height: 2},
+                      textShadowOffset: { width: 2, height: 2 },
                       textShadowRadius: 5
                     }}
                   >

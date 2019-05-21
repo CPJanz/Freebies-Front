@@ -10,10 +10,10 @@ export default {
       location.longitude;
     return axios.get(queryString);
   },
-  
+
   signIn: email => {
-  const queryString = "https://freebies-api.herokuapp.com/api/user/" + email;
-  return axios.get(queryString);
+    const queryString = "https://freebies-api.herokuapp.com/api/user/" + email;
+    return axios.get(queryString);
   },
 
   createUser: email => {
@@ -23,7 +23,9 @@ export default {
 
   postNewItem: itemObject => {
     console.log("new item: ", itemObject);
-    const queryString = `https://freebies-api.herokuapp.com/api/item/${itemObject.giverId}`;
+    const queryString = `https://freebies-api.herokuapp.com/api/item/${
+      itemObject.giverId
+    }`;
     axios.post(queryString, itemObject);
   },
   // route for updating item as taken
@@ -36,6 +38,13 @@ export default {
   itemRepost: itemId => {
     const queryString = `https://freebies-api.herokuapp.com/api/item/repost/${itemId}`;
     return axios.put(queryString);
+  },
+
+  // route for deleting an item
+  itemDelete: (itemId, userId) => {
+    console.log("Deleting", itemId);
+    const queryString = `https://freebies-api.herokuapp.com/api/item/${itemId}`;
+    return axios.delete(queryString, { userId: userId });
   },
 
   // route to get a user's posted items

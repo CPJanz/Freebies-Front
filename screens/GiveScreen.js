@@ -1,7 +1,12 @@
 //this code creates the GIVE page
 
 import React, { Component } from "react";
-import { AsyncStorage, ActivityIndicator, RefreshControl, FlatList } from "react-native";
+import {
+  AsyncStorage,
+  ActivityIndicator,
+  RefreshControl,
+  FlatList
+} from "react-native";
 import { Container, Content, Text, Button, View } from "native-base";
 import API from "../utils/API";
 import ItemCard from "../components/ItemCard";
@@ -107,19 +112,19 @@ export default class GiveScreen extends Component {
             keyExtractor={data => data._id}
             renderItem={({ item }) => (
               <ItemCard
-              key={item._id}
-              id={item._id}
-              images={item.images}
-              available={item.available}
-              textBody={item.description}
-              reload={this.getPostedItems}
-              topLeft={{ type: "Take" }}
-              topRight={{
-                type: "Duration",
-                timeLeft: item.timeLeft
-              }}
-              active={true}
-            />
+                key={item._id}
+                id={item._id}
+                images={item.images}
+                available={item.available}
+                textBody={item.description}
+                reload={this.getPostedItems}
+                topLeft={{ type: "Take" }}
+                topRight={{
+                  type: "Duration",
+                  timeLeft: item.timeLeft
+                }}
+                active={true}
+              />
             )}
           />
           {/* map inactive array below */}
@@ -128,16 +133,16 @@ export default class GiveScreen extends Component {
             keyExtractor={data => data._id}
             renderItem={({ item }) => (
               <ItemCard
-              key={item._id}
-              id={item._id}
-              images={item.images}
-              available={item.available}
-              textBody={item.description}
-              reload={this.getPostedItems}
-              topLeft={{ type: "None" }}
-              topRight={{ type: "Repost" }}
-              active={false}
-            />
+                key={item._id}
+                id={item._id}
+                images={item.images}
+                available={item.available}
+                textBody={item.description}
+                reload={this.getPostedItems}
+                topLeft={{ type: "Delete" }}
+                topRight={{ type: "Repost" }}
+                active={false}
+              />
             )}
           />
         </Content>

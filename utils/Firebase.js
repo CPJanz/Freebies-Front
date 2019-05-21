@@ -2,7 +2,6 @@ import * as firebase from "firebase";
 import uuid from "uuid";
 
 export default {
-
   uploadImage: async uri => {
     // generates a random image ID for firebase
     let imageID = uuid.v4() + ".jpg";
@@ -34,9 +33,18 @@ export default {
     return await snapshot.ref.getDownloadURL();
   },
 
-  deleteImage: async filename => {
-    let imgRef = storageRef.child(filename);
-    imgRef.delete()
+  deleteImage: async filepath => {
+    let filename = filepath
+      .split("")
+      .slice(filepath.indexOf("/o/") + 3, filepath.indexOf("?"))
+      .join("");
+    let imgRef = firebase
+      .storage()
+      .ref()
+      .child(filename);
+    imgRef
+      .delete()
+      .then(() => console.log(`${filename} deleted from Firebase`))
+      .catch(error => console.error(`Error removing ${filename}`, error));
   }
-
 };

@@ -1,5 +1,6 @@
 import React from "react";
-import { ScrollView, Image, View } from "react-native";
+import { Image, Dimensions } from "react-native";
+const dimensions = Dimensions.get('window');
 
 function PlaceholderImage(props) {
   return (
@@ -7,7 +8,7 @@ function PlaceholderImage(props) {
       source={require("../../assets/images/bee.png")}
       style={{
         height: 300,
-        width: 340,
+        width: dimensions.width * 0.915,
         borderRadius: 15,
         opacity: props.opacity === 1 ? 0.5 : 0
       }}

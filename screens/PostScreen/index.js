@@ -114,7 +114,12 @@ export default class PostScreen extends Component {
                     placeholder="Optional item description"
                     value={this.state.description}
                     onChange={this.handleDiscriptionChange}
-                  />
+                  />                  
+                </Item>
+                <Item style={styles.item}>
+                  <Text style={styles.charCount}>
+                    {this.state.description.length} / 50
+                  </Text>
                 </Item>
                 <Item style={styles.btnBox}>
                   <Button

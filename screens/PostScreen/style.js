@@ -39,11 +39,16 @@ export default styles = StyleSheet.create({
 
   input: {
     margin: 15,
+    marginBottom: 0,
     padding: 20,
     borderLeftWidth: 1,
     borderTopWidth: 1,
     borderRightWidth: 1,
     borderBottomWidth: 1
+  },
+
+  charCount: {
+    marginLeft:15
   },
 
   btnBox: {

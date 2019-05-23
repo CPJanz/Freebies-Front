@@ -17,7 +17,6 @@ export default class ItemImage extends React.Component {
           <Image
             style={{
               height: 300,
-              width: 340,
               flex: 1,
               borderRadius: 15,
               opacity: this.props.opacity,

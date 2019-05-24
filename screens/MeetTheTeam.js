@@ -52,6 +52,12 @@ export default class MeetTheTeamScreen extends React.Component {
                 Stacy Nowak
             </Text>
 
+            <Image source={require("../assets/images/stacy.jpeg")} style={{height:120, width:80, marginTop:5, marginBottom:5, resizeMode: "center", flex:1, alignSelf:"center"}} />
+
+              <Text>
+              Stacy is a full stack web developer with a certificate from the University of Washington. She has a degree in zoology and also has a background managing bank branch operations where she achieved the highest audit compliance rating. Stacy brings that same meticulousness and solutions-finding success to the web applications she’s created. Find out more about Stacy’s coding projects at <Text style={{color:"blue", textDecorationLine:"underline"}} onPress={() => Linking.openURL("http://www.stacynowak.com/")}>stacynowak.com</Text>
+              </Text>
+
             <Text style={{fontWeight:"bold", marginTop:20}}>
                 Carl Janz
             </Text>

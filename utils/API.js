@@ -51,5 +51,11 @@ export default {
   findGiven: userId => {
     const queryString = `https://freebies-api.herokuapp.com/api/item/${userId}`;
     return axios.get(queryString);
+  },
+
+  // route to delete user account
+  deleteUser: userId => {
+    const queryString = `https://freebies-api.herokuapp.com/api/user/${userId}`;
+    return axios.delete(queryString);
   }
 };

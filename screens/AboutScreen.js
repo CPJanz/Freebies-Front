@@ -1,26 +1,8 @@
 import React from "react";
-
-import {
-  Container,
-  Header,
-  Content,
-  Card,
-  CardItem,
-  Text,
-  Icon,
-  Title,
-  Body,
-  Button,
-  Left,
-  Right,
-  View
-} from "native-base";
-
+import { Container, Header, Content, Card, CardItem, Text, Icon, Title, Body, Button, Left, Right, View } from "native-base";
 import { Linking, Image } from "react-native";
-
 import Email from "../components/EmailConcern";
-
-import EmailCancel from "../components/EmailCancellation";
+import CancelAcct from "../components/CancellationButton";
 
 export default class AboutScreen extends React.Component {
   // Render any loading content that you like here
@@ -120,7 +102,7 @@ export default class AboutScreen extends React.Component {
                     you go. To delete your account, click
                   </Text>
                   {/* <Text style={{color:"blue", textDecorationLine:"underline"}}>here</Text>  */}
-                  <EmailCancel />
+                  <CancelAcct navigation={this.props.navigation} />
                 </View>
                 <Text>
                   See more here:{" "}

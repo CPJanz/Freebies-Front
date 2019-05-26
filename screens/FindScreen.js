@@ -13,7 +13,6 @@ import {
   FlatList
 } from "react-native";
 import AppNameHeader from "../components/AppNameHeader";
-import ProgressBar from "react-native-progress/Bar";
 
 export default class FindScreen extends Component {
   state = {

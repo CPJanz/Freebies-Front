@@ -5,6 +5,9 @@ import { Image } from "react-native-expo-image-cache";
 import { View } from "native-base";
 
 export default class ItemImage extends React.Component {
+  preview = { uri: this.props.images[0].preview };
+  uri = { uri: this.props.images[0].uri };
+
   render() {
     if (this.props.images.length > 1) {
       return (
@@ -26,9 +29,8 @@ export default class ItemImage extends React.Component {
               bottom: 0,
               top: 0
             }}
-            {...{
-              uri: this.props.images[0]
-            }}
+            // {...this.props.images[0]}
+            {...{ ...this.preview, ...this.uri }}
           />
         </View>
       );

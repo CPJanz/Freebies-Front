@@ -1,7 +1,18 @@
 import React, { Component } from "react";
 import { AsyncStorage, KeyboardAvoidingView } from "react-native";
 import ImagePickerComponent from "../../components/Camera";
-import { Container, Content, Text, Button, View, Form, Item, Input, Toast } from "native-base";
+import { ImageManipulator } from "expo";
+import {
+  Container,
+  Content,
+  Text,
+  Button,
+  View,
+  Form,
+  Item,
+  Input,
+  Toast
+} from "native-base";
 import Firebase from "../../utils/Firebase";
 import API from "../../utils/API";
 import styles from "./style";
@@ -59,8 +70,15 @@ export default class PostScreen extends Component {
   postItem = async () => {
     let uploadArr = [];
     for (var i = 0; i < this.images.length; i++) {
+      const previewImage = await ImageManipulator.manipulateAsync(
+        this.images[i],
+        [{ resize: { height: 15 } }],
+        { format: "jpeg" }
+      );
+      console.log(previewImage.uri);
+      const uploadPreviewResult = await Firebase.uploadImage(previewImage.uri);
       var uploadImageResult = await Firebase.uploadImage(this.images[i]);
-      uploadArr.push(uploadImageResult);
+      uploadArr.push({ preview: uploadPreviewResult, uri: uploadImageResult });
     }
 
     this.setState({ uploaded: uploadArr });
@@ -114,7 +132,7 @@ export default class PostScreen extends Component {
                     placeholder="Optional item description"
                     value={this.state.description}
                     onChange={this.handleDiscriptionChange}
-                  />                  
+                  />
                 </Item>
                 <Item style={styles.item}>
                   <Text style={styles.charCount}>

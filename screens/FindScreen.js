@@ -6,8 +6,14 @@ import API from "../utils/API";
 const haversine = require("haversine-js");
 import ItemCard from "../components/ItemCard";
 import EmptyListMessage from "../components/EmptyListMessage";
-import { AsyncStorage, ActivityIndicator, RefreshControl, FlatList } from "react-native";
+import {
+  AsyncStorage,
+  ActivityIndicator,
+  RefreshControl,
+  FlatList
+} from "react-native";
 import AppNameHeader from "../components/AppNameHeader";
+import ProgressBar from "react-native-progress/Bar";
 
 export default class FindScreen extends Component {
   state = {
@@ -40,6 +46,8 @@ export default class FindScreen extends Component {
       API.getNearbyItems(position.coords)
         .then(items => {
           if (items) {
+            console.log("ITEMS!!!!");
+            console.log(items.data);
             this.setState({
               nearbyItems: items.data,
               location: position.coords,
@@ -111,7 +119,8 @@ export default class FindScreen extends Component {
               />
             }
           >
-          <FlatList 
+            {console.log(this.state.nearbyItems)}
+            <FlatList
               data={this.state.nearbyItems}
               keyExtractor={data => data._id}
               renderItem={({ item }) => (

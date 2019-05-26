@@ -2,7 +2,9 @@ import axios from "axios";
 
 export default {
   getNearbyItems: location => {
-    console.log("locatio", location);
+    console.log(
+      `Getting items near: ${location.latitude}, ${location.longitude}`
+    );
     const queryString =
       "https://freebies-api.herokuapp.com/api/item?latitude=" +
       location.latitude +

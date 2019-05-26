@@ -38,11 +38,17 @@ export default class MeetTheTeamScreen extends React.Component {
                 Katie Haster
             </Text>
 
+            <Image source={require("../assets/images/katie.jpg")} style={{height:160, width:120, marginTop:5, marginBottom:5, resizeMode: "center", flex:1, alignSelf:"center"}} />
+
+            <Text>
+            Katie Haster is an aspiring UX Designer, with a strong background in arts and administration, client management, and now full stack development. Visit Katie's site at <Text style={{color:"blue", textDecorationLine:"underline"}} onPress={() => Linking.openURL("https://katiehaster.github.io/myPortfolio/")}>kaitehaster.com</Text>
+            </Text>
+
             <Text style={{fontWeight:"bold", marginTop:20}}>
                 Claire Gibeau
             </Text>
 
-            <Image source={require("../assets/images/claire.jpg")} style={{height:120, width:80, marginTop:5, marginBottom:5, resizeMode: "center", flex:1, alignSelf:"center"}} />
+            <Image source={require("../assets/images/claire.jpg")} style={{height:130, width:90, marginTop:5, marginBottom:5, resizeMode: "center", flex:1, alignSelf:"center"}} />
 
               <Text >
               Claire is a passionate PM who thrives in taking great ideas and making them tangible. She has over 8 years of experience in the industry, with a business degree from the University of Washington, as well as certifications in Project Management and Full Stack Web Development from UW, and CS Fundamentals from Stanford University. See more of Claire's work at <Text style={{color:"blue", textDecorationLine:"underline"}} onPress={() => Linking.openURL("https://clairegibeau.com/")}>clairegibeau.com</Text>
@@ -52,7 +58,7 @@ export default class MeetTheTeamScreen extends React.Component {
                 Stacy Nowak
             </Text>
 
-            <Image source={require("../assets/images/stacy.jpeg")} style={{height:120, width:80, marginTop:5, marginBottom:5, resizeMode: "center", flex:1, alignSelf:"center"}} />
+            <Image source={require("../assets/images/stacy.jpeg")} style={{height:130, width:90, marginTop:5, marginBottom:5, resizeMode: "center", flex:1, alignSelf:"center"}} />
 
               <Text>
               Stacy is a full stack web developer with a certificate from the University of Washington. She has a degree in zoology and also has a background managing bank branch operations where she achieved the highest audit compliance rating. Stacy brings that same meticulousness and solutions-finding success to the web applications she’s created. Find out more about Stacy’s coding projects at <Text style={{color:"blue", textDecorationLine:"underline"}} onPress={() => Linking.openURL("http://www.stacynowak.com/")}>stacynowak.com</Text>

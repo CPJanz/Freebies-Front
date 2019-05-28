@@ -8,10 +8,16 @@ const imageWidth = Dimensions.get("window").width * 0.915;
 function ImageScroll(props) {
   return (
     <View>
+      <PlaceholderImage opacity={props.opacity} />
       <ScrollView
         style={{
           borderRadius: 15,
-          opacity: props.opacity
+          opacity: props.opacity,
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          top: 0
         }}
         horizontal={true}
         decelerationRate={0}

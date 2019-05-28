@@ -25,7 +25,7 @@ function ImageScroll(props) {
             <Image
               style={{ height: 300, width: imageWidth, flex: 1 }}
               key={key}
-              {...{ ...this.preview, ...this.uri }}
+              {...{ uri: image }}
             />
           );
         })}

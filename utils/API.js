@@ -24,7 +24,7 @@ export default {
   },
 
   postNewItem: itemObject => {
-    console.log("new item: ", itemObject);
+    console.log("new item: ", JSON.stringify(itemObject));
     const queryString = `https://freebies-api.herokuapp.com/api/item/${
       itemObject.giverId
     }`;
@@ -44,7 +44,7 @@ export default {
 
   // route for deleting an item
   itemDelete: (itemId, userId) => {
-    console.log("Deleting", itemId);
+    console.log("Deleting", JSON.stringify(itemId));
     const queryString = `https://freebies-api.herokuapp.com/api/item/${itemId}`;
     return axios.delete(queryString, { userId: userId });
   },

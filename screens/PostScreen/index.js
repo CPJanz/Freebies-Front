@@ -70,15 +70,14 @@ export default class PostScreen extends Component {
   postItem = async () => {
     let uploadArr = [];
     for (var i = 0; i < this.images.length; i++) {
-      const previewImage = await ImageManipulator.manipulateAsync(
+      const resizedImage = await ImageManipulator.manipulateAsync(
         this.images[i],
-        [{ resize: { height: 15 } }],
+        [{ resize: { height: 300 } }],
         { format: "jpeg" }
       );
-      console.log(previewImage.uri);
-      const uploadPreviewResult = await Firebase.uploadImage(previewImage.uri);
-      var uploadImageResult = await Firebase.uploadImage(this.images[i]);
-      uploadArr.push({ preview: uploadPreviewResult, uri: uploadImageResult });
+
+      const uploadImageResult = await Firebase.uploadImage(resizedImage.uri);
+      uploadArr.push(uploadImageResult);
     }
 
     this.setState({ uploaded: uploadArr });

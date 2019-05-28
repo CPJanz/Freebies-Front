@@ -12,7 +12,7 @@ export default {
         resolve(xhr.response);
       };
       xhr.onerror = function(e) {
-        console.log(e);
+        console.log(JSON.stringify(e));
         reject(new TypeError("Network request failed"));
       };
       xhr.responseType = "blob";

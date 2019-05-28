@@ -68,6 +68,12 @@ export default class MeetTheTeamScreen extends React.Component {
                 Carl Janz
             </Text>
 
+            <Image source={require("../assets/images/carl.jpg")} style={{height:160, width:120, marginTop:5, marginBottom:5, resizeMode: "center", flex:1, alignSelf:"center"}} />
+
+            <Text>
+              Carl's blurb here
+              </Text>
+
             </Body>
           </CardItem>
         </Card>

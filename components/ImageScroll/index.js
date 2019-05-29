@@ -23,6 +23,8 @@ function ImageScroll(props) {
         decelerationRate={0}
         snapToInterval={imageWidth} //your element width
         snapToAlignment={"center"}
+        onScroll={props.scroll}
+        scrollEventThrottle={16}
       >
         {props.images.map((image, key) => {
           preview = { uri: image.preview };

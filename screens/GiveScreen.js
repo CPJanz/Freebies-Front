@@ -1,12 +1,7 @@
 //this code creates the GIVE page
 
 import React, { Component } from "react";
-import {
-  AsyncStorage,
-  ActivityIndicator,
-  RefreshControl,
-  FlatList
-} from "react-native";
+import { AsyncStorage, RefreshControl, FlatList } from "react-native";
 import { Container, Content, Text, Button, View } from "native-base";
 import API from "../utils/API";
 import ItemCard from "../components/ItemCard";

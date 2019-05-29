@@ -10,7 +10,7 @@ export default class ItemImage extends React.Component {
   render() {
     if (this.props.images.length > 1) {
       return (
-        <ImageScroll images={this.props.images} opacity={this.props.opacity} />
+        <ImageScroll images={this.props.images} opacity={this.props.opacity} scroll={this.props.scroll}/>
       );
     } else {
       return (

@@ -2,17 +2,12 @@
 
 import React, { Component } from "react";
 import { Container, Content, Text, View } from "native-base";
+import { AsyncStorage, ActivityIndicator, RefreshControl, FlatList } from "react-native";
 import API from "../utils/API";
-const haversine = require("haversine-js");
 import ItemCard from "../components/ItemCard";
 import EmptyListMessage from "../components/EmptyListMessage";
-import {
-  AsyncStorage,
-  ActivityIndicator,
-  RefreshControl,
-  FlatList
-} from "react-native";
 import AppNameHeader from "../components/AppNameHeader";
+const haversine = require("haversine-js");
 
 export default class FindScreen extends Component {
   state = {
@@ -90,8 +85,8 @@ export default class FindScreen extends Component {
   async asyncGetUser() {
     const result = await AsyncStorage.getItem("userToken");
     this.setState({ userId: result });
-  }
-
+  };
+  
   render() {
     return (
       <Container style={{ backgroundColor: "#C2DFE3" }}>
@@ -143,4 +138,4 @@ export default class FindScreen extends Component {
       </Container>
     );
   }
-}
+};

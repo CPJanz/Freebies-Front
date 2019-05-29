@@ -1,27 +1,23 @@
 //this is the find item card component
 
 import React, { Component } from "react";
+import { Dimensions, Animated } from "react-native";
 import Map from "../Map";
 import ItemImage from "../ItemImage";
 import DistanceHud from "../DistanceHud";
-import {
-  Card,
-  CardItem,
-  Text,
-  Body,
-  Icon,
-  View,
-  StyleSheet
-} from "native-base";
+import { Card, CardItem, Text, Body, View  } from "native-base";
 import API from "../../utils/API";
 import Firebase from "../../utils/Firebase";
 import TakeButton from "../TakeButton";
 import Duration from "../Duration";
 import RepostButton from "../RepostButton";
 import DeleteButton from "../DeleteButton";
+import ImgIndicator from "../ImgIndicator";
 import styles from "./style";
+const { width } = Dimensions.get("window");
 
 export default class ItemCard extends Component {
+  scrollX = new Animated.Value(0)
   state = {
     available: this.props.available,
     active: this.props.active
@@ -117,6 +113,7 @@ export default class ItemCard extends Component {
   };
 
   render() {
+    let position = Animated.divide(this.scrollX, width);
     return (
       <View style={{ flex: 1 }}>
         {/* this is where changes were made so that there is no border showing around the image */}
@@ -126,6 +123,7 @@ export default class ItemCard extends Component {
               <ItemImage
                 images={this.props.images}
                 opacity={this.activeStatus()}
+                scroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }])}
               />
               <CardItem style={styles.topLeft}>
                 {this.formatElement(this.props.topLeft)}
@@ -153,6 +151,10 @@ export default class ItemCard extends Component {
             </Body>
           </CardItem>
         </Card>
+        <ImgIndicator
+          images={this.props.images}
+          scrollX={this.scrollX}
+        />
       </View>
     );
   }

@@ -106,20 +106,20 @@ export default class GiveScreen extends Component {
             data={this.state.active}
             keyExtractor={data => data._id}
             renderItem={({ item }) => (
-                <ItemCard
-                  key={item._id}
-                  id={item._id}
-                  images={item.images}
-                  available={item.available}
-                  textBody={item.description}
-                  reload={this.getPostedItems}
-                  topLeft={{ type: "Take" }}
-                  topRight={{
-                    type: "Duration",
-                    timeLeft: item.timeLeft
-                  }}
-                  active={true}
-                />
+              <ItemCard
+                key={item._id}
+                id={item._id}
+                images={item.images}
+                available={item.available}
+                textBody={item.description}
+                reload={this.getPostedItems}
+                topLeft={{ type: "Take" }}
+                topRight={{
+                  type: "Duration",
+                  timeLeft: item.timeLeft
+                }}
+                active={true}
+              />
             )}
           />
           {/* map inactive array below */}
@@ -127,17 +127,17 @@ export default class GiveScreen extends Component {
             data={this.state.inactive}
             keyExtractor={data => data._id}
             renderItem={({ item }) => (
-                <ItemCard
-                  key={item._id}
-                  id={item._id}
-                  images={item.images}
-                  available={item.available}
-                  textBody={item.description}
-                  reload={this.getPostedItems}
-                  topLeft={{ type: "Delete" }}
-                  topRight={{ type: "Repost" }}
-                  active={false}
-                />
+              <ItemCard
+                key={item._id}
+                id={item._id}
+                images={item.images}
+                available={item.available}
+                textBody={item.description}
+                reload={this.getPostedItems}
+                topLeft={{ type: "Delete" }}
+                topRight={{ type: "Repost" }}
+                active={false}
+              />
             )}
           />
         </Content>

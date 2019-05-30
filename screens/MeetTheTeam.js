@@ -42,8 +42,8 @@ export default class MeetTheTeamScreen extends React.Component {
               <Image
                 source={require("../assets/images/AppName.png")}
                 style={{
-                  height: 80,
-                  resizeMode: "center",
+                  height: 150,
+                  resizeMode: "contain",
                   flex: 1,
                   alignSelf: "center"
                 }}
@@ -70,7 +70,7 @@ export default class MeetTheTeamScreen extends React.Component {
                     height: 250,
                     width: 230,
                     marginBottom: 15,
-                    resizeMode: "center",
+                    resizeMode: "contain",
                     flex: 1,
                     alignSelf: "center"
                   }}
@@ -87,7 +87,7 @@ export default class MeetTheTeamScreen extends React.Component {
                     width: 120,
                     marginTop: 5,
                     marginBottom: 5,
-                    resizeMode: "center",
+                    resizeMode: "contain",
                     flex: 1,
                     alignSelf: "center"
                   }}
@@ -120,7 +120,7 @@ export default class MeetTheTeamScreen extends React.Component {
                     width: 90,
                     marginTop: 5,
                     marginBottom: 5,
-                    resizeMode: "center",
+                    resizeMode: "contain",
                     flex: 1,
                     alignSelf: "center"
                   }}
@@ -152,7 +152,7 @@ export default class MeetTheTeamScreen extends React.Component {
                     width: 90,
                     marginTop: 5,
                     marginBottom: 5,
-                    resizeMode: "center",
+                    resizeMode: "contain",
                     flex: 1,
                     alignSelf: "center"
                   }}
@@ -187,7 +187,7 @@ export default class MeetTheTeamScreen extends React.Component {
                     width: 120,
                     marginTop: 5,
                     marginBottom: 5,
-                    resizeMode: "center",
+                    resizeMode: "contain",
                     flex: 1,
                     alignSelf: "center"
                   }}

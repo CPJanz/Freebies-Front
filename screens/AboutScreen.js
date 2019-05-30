@@ -1,5 +1,19 @@
 import React from "react";
-import { Container, Header, Content, Card, CardItem, Text, Icon, Title, Body, Button, Left, Right, View } from "native-base";
+import {
+  Container,
+  Header,
+  Content,
+  Card,
+  CardItem,
+  Text,
+  Icon,
+  Title,
+  Body,
+  Button,
+  Left,
+  Right,
+  View
+} from "native-base";
 import { Linking, Image } from "react-native";
 import Email from "../components/EmailConcern";
 import CancelAcct from "../components/CancellationButton";
@@ -30,8 +44,8 @@ export default class AboutScreen extends React.Component {
               <Image
                 source={require("../assets/images/AppName.png")}
                 style={{
-                  height: 80,
-                  resizeMode: "center",
+                  height: 150,
+                  resizeMode: "contain",
                   flex: 1,
                   alignSelf: "center"
                 }}
@@ -147,7 +161,6 @@ export default class AboutScreen extends React.Component {
                   whether or not Freebeez was advised of the possibility of such
                   damages. As with anything else, use good judgement.
                 </Text>
-                
               </Body>
             </CardItem>
           </Card>
